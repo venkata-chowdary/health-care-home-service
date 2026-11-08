@@ -17,9 +17,20 @@ type EnquiryFormProps = {
     namePlaceholder: string;
     phoneLabel: string;
     phonePlaceholder: string;
-    departmentLabel: string;
-    departmentDefault: string;
-    dateLabel: string;
+    whoLabel: string;
+    whoDefault: string;
+    whoOptions: string[];
+    serviceLabel: string;
+    serviceDefault: string;
+    areaLabel: string;
+    areaDefault: string;
+    areaOther: string;
+    startLabel: string;
+    startDefault: string;
+    startOptions: string[];
+    careTypeLabel: string;
+    careTypeDefault: string;
+    careTypeOptions: string[];
     messageLabel: string;
     messagePlaceholder: string;
     optionalLabel: string;
@@ -31,7 +42,9 @@ type EnquiryFormProps = {
     successBody: string;
     failureMessage: string;
   };
-  departmentNames: string[];
+  serviceNames: string[];
+  areaNames: string[];
+  defaultService?: string;
 };
 
 const controlClasses =
@@ -64,7 +77,34 @@ function Field({ id, label, optionalLabel, error, fullWidth = false, children }:
   );
 }
 
-export function EnquiryForm({ copy, departmentNames }: EnquiryFormProps) {
+type SelectFieldProps = {
+  id: string;
+  name: string;
+  label: string;
+  defaultLabel: string;
+  options: string[];
+  defaultValue?: string;
+};
+
+function SelectField({ id, name, label, defaultLabel, options, defaultValue = "" }: SelectFieldProps) {
+  return (
+    <Field id={id} label={label}>
+      <div className="relative">
+        <select id={id} name={name} defaultValue={defaultValue} className={cn(controlClasses, "h-[50px] appearance-none pr-10")}>
+          <option value="">{defaultLabel}</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        <Icon name="chevron-right" size={16} className="pointer-events-none absolute top-1/2 right-4 translate-y-[-50%] rotate-90 text-muted-foreground" />
+      </div>
+    </Field>
+  );
+}
+
+export function EnquiryForm({ copy, serviceNames, areaNames, defaultService }: EnquiryFormProps) {
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [status, setStatus] = useState<"idle" | "success" | "failed">("idle");
   const [isSending, startSending] = useTransition();
@@ -150,23 +190,11 @@ export function EnquiryForm({ copy, departmentNames }: EnquiryFormProps) {
         />
       </Field>
 
-      <Field id="enquiry-department" label={copy.departmentLabel}>
-        <div className="relative">
-          <select id="enquiry-department" name="department" className={cn(controlClasses, "h-[50px] appearance-none pr-10")}>
-            <option value="">{copy.departmentDefault}</option>
-            {departmentNames.map((departmentName) => (
-              <option key={departmentName} value={departmentName}>
-                {departmentName}
-              </option>
-            ))}
-          </select>
-          <Icon name="chevron-right" size={16} className="pointer-events-none absolute top-1/2 right-4 translate-y-[-50%] rotate-90 text-muted-foreground" />
-        </div>
-      </Field>
-
-      <Field id="enquiry-date" label={copy.dateLabel} optionalLabel={copy.optionalLabel}>
-        <input id="enquiry-date" name="preferredDate" type="date" className={cn(controlClasses, "h-[50px]")} />
-      </Field>
+      <SelectField id="enquiry-who" name="whoNeedsCare" label={copy.whoLabel} defaultLabel={copy.whoDefault} options={copy.whoOptions} />
+      <SelectField id="enquiry-service" name="service" label={copy.serviceLabel} defaultLabel={copy.serviceDefault} options={serviceNames} defaultValue={defaultService} />
+      <SelectField id="enquiry-area" name="area" label={copy.areaLabel} defaultLabel={copy.areaDefault} options={[...areaNames, copy.areaOther]} />
+      <SelectField id="enquiry-start" name="startTime" label={copy.startLabel} defaultLabel={copy.startDefault} options={copy.startOptions} />
+      <SelectField id="enquiry-care-type" name="careType" label={copy.careTypeLabel} defaultLabel={copy.careTypeDefault} options={copy.careTypeOptions} />
 
       <Field id="enquiry-message" label={copy.messageLabel} optionalLabel={copy.optionalLabel} fullWidth>
         <textarea id="enquiry-message" name="message" placeholder={copy.messagePlaceholder} className={cn(controlClasses, "h-[104px] resize-y py-3.5")} />

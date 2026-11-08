@@ -8,6 +8,7 @@ import { Icon, type IconName } from "./icon";
 const variants = {
   primary: "border-transparent bg-primary text-primary-foreground hovered:bg-primary-hover",
   secondary: "border-border bg-secondary text-secondary-foreground hovered:border-blue-200 hovered:bg-accent",
+  outline: "border-primary bg-transparent text-primary hovered:bg-accent",
   white: "border-transparent bg-background text-foreground hovered:bg-accent",
   "ghost-light": "border-white/45 bg-transparent text-white hovered:border-white hovered:bg-white/8",
   glass: "border-white/20 bg-white/8 text-white hovered:border-white/45 hovered:bg-white/12",

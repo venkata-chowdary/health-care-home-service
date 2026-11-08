@@ -68,10 +68,10 @@ const colourGroups = [
 const typeScale = [
   { token: "text-display", spec: "66 → 38px · 1.03 · 500", className: "text-display font-medium tracking-heading", sample: "Specialist care, clear answers." },
   { token: "text-h1", spec: "52 → 34px · 1.06 · 500", className: "text-h1 font-medium tracking-heading", sample: "Specialist care in Kukatpally." },
-  { token: "text-h2", spec: "44 → 28px · 1.08 · 500", className: "text-h2 font-medium tracking-heading", sample: "Expertise you can trust." },
-  { token: "text-h3", spec: "28 → 22px · 1.15 · 500", className: "text-h3 font-medium tracking-heading", sample: "Hospital care designed around families." },
+  { token: "text-h2", spec: "44 → 28px · 1.08 · 500", className: "text-h2 font-medium tracking-heading", sample: "Care for every stage, at home." },
+  { token: "text-h3", spec: "28 → 22px · 1.15 · 500", className: "text-h3 font-medium tracking-heading", sample: "Care that feels like family." },
   { token: "text-h4", spec: "19px · 1.3 · 600", className: "text-h4 font-semibold tracking-title", sample: "General Medicine" },
-  { token: "text-body-lg", spec: "18 → 16px · 1.6", className: "text-body-lg text-muted-foreground", sample: "A multi-speciality hospital where every treatment plan is explained before it begins." },
+  { token: "text-body-lg", spec: "18 → 16px · 1.6", className: "text-body-lg text-muted-foreground", sample: "Nurses, caregivers and physiotherapists who come to you, day or night." },
   { token: "text-body", spec: "16px · 1.6", className: "text-body", sample: "Call the front desk and talk to someone who can help." },
   { token: "text-body-sm", spec: "14px · 1.55", className: "text-body-sm text-muted-foreground", sample: "Fractures, joint pain and recovery after surgery." },
   { token: "text-caption", spec: "13px · 1.45", className: "text-caption text-muted-foreground", sample: "Aditya Nagar, 500085" },
@@ -263,7 +263,7 @@ export default function DesignSystemPage() {
               Book an appointment
             </Button>
             <Button variant="ghost-light" href="tel:+918639074341" iconBefore="phone">
-              Call the hospital
+              Call now
             </Button>
             <Button variant="secondary" className="border-white/40 bg-transparent text-white hovered:border-white hovered:bg-white/8" iconBefore="phone">
               Secondary on navy
@@ -293,7 +293,7 @@ export default function DesignSystemPage() {
           <div className="flex flex-wrap items-center gap-3">
             <Tag>Default</Tag>
             <Tag variant="sample">Sample list</Tag>
-            <Tag variant="sample">Proposed statements · need client sign-off</Tag>
+            <Tag variant="sample">Proposed statements</Tag>
           </div>
         </div>
 
@@ -321,15 +321,15 @@ export default function DesignSystemPage() {
         <h2 className="text-h3 font-medium tracking-heading">Photo frame</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <div className="grid gap-3">
-            <PhotoFrame alt="Doctor consultation placeholder" icon="stethoscope" label="Doctor consultation" className="aspect-4/3" />
+            <PhotoFrame alt="Nurse visit placeholder" icon="stethoscope" label="Nurse visit" className="aspect-4/3" />
             <span className="text-caption text-muted-foreground">Placeholder, light, labelled</span>
           </div>
           <div className="grid gap-3">
-            <PhotoFrame alt="Senior doctor placeholder" label="Senior doctor" labelSide="right" className="aspect-4/3" />
+            <PhotoFrame alt="Caregiver placeholder" label="Caregiver" labelSide="right" className="aspect-4/3" />
             <span className="text-caption text-muted-foreground">Label on the right</span>
           </div>
           <div className="grid gap-3">
-            <PhotoFrame alt="Departments placeholder" tone="dark" icon="stethoscope" label="Dark tone" className="aspect-4/3" />
+            <PhotoFrame alt="Services placeholder" tone="dark" icon="stethoscope" label="Dark tone" className="aspect-4/3" />
             <span className="text-caption text-muted-foreground">Placeholder, dark</span>
           </div>
           <div className="grid gap-3">
@@ -343,10 +343,10 @@ export default function DesignSystemPage() {
         <h2 className="text-h3 font-medium tracking-heading">Section heading</h2>
         <div className="grid gap-10 lg:grid-cols-2">
           <div className="rounded-xl border border-border p-8">
-            <SectionHeading eyebrow="Left aligned" title="Hospital care designed around families." lead="Eyebrow, title and lead, left aligned." />
+            <SectionHeading eyebrow="Left aligned" title="Care that feels like family." lead="Eyebrow, title and lead, left aligned." />
           </div>
           <div className="rounded-xl border border-border p-8">
-            <SectionHeading align="center" eyebrow="Centred" title="Expertise you can trust." lead="Six departments, one front desk." />
+            <SectionHeading align="center" eyebrow="Centred" title="Care for every stage, at home." lead="Six kinds of care, delivered at home." />
           </div>
           <div className="rounded-xl bg-navy-950 p-8 lg:col-span-2">
             <SectionHeading tone="on-dark" eyebrow="On dark" title="Ready to talk to someone who can help?" lead="Call the front desk, send an enquiry, or get directions." />

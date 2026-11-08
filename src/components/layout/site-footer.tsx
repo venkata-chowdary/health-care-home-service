@@ -9,33 +9,36 @@ const columnList = "grid gap-[9px] text-body-sm";
 const columnLink = "text-slate-on-dark transition-colors duration-200 hover:text-white";
 const contactItem = "flex items-center gap-3 rounded-lg bg-navy-900 px-[18px] py-4 text-body-sm";
 
-export function SiteFooter() {
-  const frontDesk = hospital.hours[0];
+export function SiteFooter({ homePath = "" }) {
+  const { phone, email, availability, footer, services, branches, name, legalName } = hospital;
 
   return (
     <footer className="pb-24 md:pb-8">
       <Container>
         <div className="grid gap-10 rounded-xl bg-navy-950 p-12 text-slate-on-dark max-[860px]:rounded-lg max-[860px]:px-5 max-[860px]:py-7">
-          <div className="grid grid-cols-3 gap-3 max-[860px]:grid-cols-1">
-            <a href={hospital.phone.href.value} className={`${contactItem} transition-colors duration-200 hover:bg-navy-800`}>
+          <div className="grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[560px]:grid-cols-1">
+            <a href={phone.href.value} className={`${contactItem} transition-colors duration-200 hover:bg-navy-800`}>
               <Icon name="phone" className="flex-none text-blue-300" />
               <span>
-                <b className="block font-medium text-white">{hospital.phone.display.value}</b>
-                {frontDesk.label}
+                <b className="block font-medium text-white">{phone.display.value}</b>
+                {footer.firstPhoneDetail}
               </span>
             </a>
-            <a href={hospital.address.directionsUrl.value} target="_blank" rel="noopener" className={`${contactItem} transition-colors duration-200 hover:bg-navy-800`}>
-              <Icon name="map-pin" className="flex-none text-blue-300" />
-              <span>
-                <b className="block font-medium text-white">{hospital.address.locality.value}</b>
-                {hospital.address.city.value} {hospital.address.postalCode.value}
+            <a href={email.href.value} className={`${contactItem} transition-colors duration-200 hover:bg-navy-800`}>
+              <Icon name="messages-square" className="flex-none text-blue-300" />
+              <span className="min-w-0">
+                <b className="block font-medium text-white">
+                  {email.display.value.split("@")[0]}@<wbr />
+                  {email.display.value.split("@")[1]}
+                </b>
+                {footer.emailDetail}
               </span>
             </a>
             <div className={contactItem}>
               <Icon name="clock" className="flex-none text-blue-300" />
               <span>
-                <b className="block font-medium text-white">Open {frontDesk.value}</b>
-                {frontDesk.label}
+                <b className="block font-medium text-white">{availability.value}</b>
+                {footer.availabilityDetail}
               </span>
             </div>
           </div>
@@ -43,43 +46,49 @@ export function SiteFooter() {
           <div className="grid grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-9 max-[860px]:grid-cols-2 max-[480px]:grid-cols-1 max-[480px]:gap-7">
             <div className="grid content-start gap-3">
               <a href="#top">
-                <Image src="/images/brand/logo-white.png" alt={hospital.name.value} width={1080} height={238} className="h-9 w-auto" />
+                <Image src="/images/brand/logo-white.png" alt={name.value} width={1080} height={238} className="h-9 w-auto" />
               </a>
-              <p className="max-w-[32ch] text-body-sm">{hospital.footer.tagline}</p>
+              <p className="max-w-[32ch] text-body-sm">{footer.tagline}</p>
             </div>
 
-            <nav aria-label="Explore">
-              <h2 className={columnHeading}>Explore</h2>
+            <nav aria-label={footer.servicesHeading}>
+              <h2 className={columnHeading}>{footer.servicesHeading}</h2>
               <ul className={columnList}>
-                {hospital.footer.explore.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className={columnLink}>
-                      {link.label}
+                {services.map((service) => (
+                  <li key={service.name}>
+                    {service.externalLink ? (
+                      <a href={service.externalLink.href} target="_blank" rel="noopener" className={columnLink}>
+                        {service.name}
+                      </a>
+                    ) : (
+                      <a href={`/services/${service.slug}`} className={columnLink}>
+                        {service.name}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <nav aria-label={footer.branchesHeading}>
+              <h2 className={columnHeading}>{footer.branchesHeading}</h2>
+              <ul className={columnList}>
+                {branches.map((branch) => (
+                  <li key={branch.name}>
+                    <a href={`${homePath}${footer.branchesHref}`} className={columnLink}>
+                      {branch.name}
                     </a>
                   </li>
                 ))}
               </ul>
             </nav>
 
-            <nav aria-label="Departments">
-              <h2 className={columnHeading}>Departments</h2>
+            <nav aria-label={footer.companyHeading}>
+              <h2 className={columnHeading}>{footer.companyHeading}</h2>
               <ul className={columnList}>
-                {hospital.departments.slice(0, hospital.footer.departmentLinkCount).map((department) => (
-                  <li key={department.name}>
-                    <a href="#departments" className={columnLink}>
-                      {department.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <nav aria-label="Patients">
-              <h2 className={columnHeading}>Patients</h2>
-              <ul className={columnList}>
-                {hospital.footer.patients.map((link) => (
+                {footer.company.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className={columnLink}>
+                    <a href={`${homePath}${link.href}`} className={columnLink}>
                       {link.label}
                     </a>
                   </li>
@@ -90,7 +99,7 @@ export function SiteFooter() {
 
           <div className="flex flex-wrap justify-between gap-4 border-t border-navy-line pt-5 text-caption">
             <span>
-              © {new Date().getFullYear()} {hospital.legalName.value}
+              © {new Date().getFullYear()} {legalName.value}
             </span>
           </div>
         </div>

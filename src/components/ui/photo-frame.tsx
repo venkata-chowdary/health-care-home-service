@@ -8,6 +8,7 @@ import { Icon, type IconName } from "./icon";
 type PhotoFrameProps = Omit<ComponentProps<"div">, "children"> & {
   alt: string;
   src?: string;
+  focus?: string;
   sizes?: string;
   preload?: boolean;
   label?: string;
@@ -20,13 +21,13 @@ type PhotoFrameProps = Omit<ComponentProps<"div">, "children"> & {
   tone?: "light" | "dark";
 };
 
-export function PhotoFrame({ alt, src, sizes = "100vw", preload, label, labelIcon = "camera", labelSide = "left", labelClassName, icon = "user-round", radius = "lg", floating = false, tone = "light", className, ...props }: PhotoFrameProps) {
+export function PhotoFrame({ alt, src, focus, sizes = "100vw", preload, label, labelIcon = "camera", labelSide = "left", labelClassName, icon = "user-round", radius = "lg", floating = false, tone = "light", className, ...props }: PhotoFrameProps) {
   const radiusClass = { none: "rounded-none", lg: "rounded-lg", xl: "rounded-xl" }[radius];
 
   if (src) {
     return (
       <div className={cn(floating ? "absolute" : "relative", "max-w-full overflow-hidden", radiusClass, className)} {...props}>
-        <Image src={src} alt={alt} fill sizes={sizes} preload={preload} className="object-cover" />
+        <Image src={src} alt={alt} fill sizes={sizes} preload={preload} style={focus ? { objectPosition: focus } : undefined} className="object-cover" />
       </div>
     );
   }

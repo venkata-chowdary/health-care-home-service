@@ -1,14 +1,15 @@
 import { Container } from "@/components/layout/container";
 import { HeroDeck } from "@/components/sections/hero-deck";
-import { Button } from "@/components/ui/button";
+import { CallButton } from "@/components/ui/call-button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { ParallaxLayer } from "@/components/ui/parallax-layer";
 import { Reveal } from "@/components/ui/reveal";
+import { RequestButton } from "@/components/ui/request-button";
 import { hospital } from "@/data/hospital-content";
 import { delay } from "@/design-system/motion";
 
 export function Hero() {
-  const { hero, facts, heroPhotos, phone, navigation } = hospital;
+  const { hero, facts, heroPhotos } = hospital;
 
   return (
     <section id="hero" aria-labelledby="hero-heading" className="bg-hero-navy pt-14 pb-24 text-white max-md:pt-9 max-md:pb-16">
@@ -20,18 +21,14 @@ export function Hero() {
           </h1>
           <p className="max-w-[54ch] text-body-lg text-slate-on-dark">{hero.lead.value}</p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button href={navigation.bookHref} iconAfter="arrow-right">
-              {hero.primaryCtaLabel}
-            </Button>
-            <Button href={phone.href.value} variant="ghost-light" iconBefore="phone">
-              {hero.callLabel} {phone.display.value}
-            </Button>
+            <RequestButton />
+            <CallButton onDark />
           </div>
         </Reveal>
 
         <Reveal trigger="load" delay={delay.heroDeck} className="mt-14 max-md:mt-9">
           <ParallaxLayer>
-            <HeroDeck photos={heroPhotos.map(({ label, icon, src }) => ({ label, icon, src }))} badges={hero.badges} label={hero.photosLabel} />
+            <HeroDeck photos={heroPhotos.map(({ label, icon, photo }) => ({ label, icon, src: photo.src, alt: photo.alt, focus: photo.focus }))} badges={hero.badges} label={hero.photosLabel} />
           </ParallaxLayer>
         </Reveal>
 

@@ -106,15 +106,10 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
           </nav>
 
           <div className="col-start-3 flex items-center gap-2">
-            <a
-              href={phone.href}
-              aria-label={`Call ${phone.display}`}
-              className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-button px-3 text-[14.5px] font-medium text-foreground hover:bg-surface"
-            >
-              <Icon name="phone" size={16} className="text-primary" />
-              <span className="max-[1080px]:hidden">{phone.display}</span>
-            </a>
-            <Button href={bookHref} size="sm" className="max-[560px]:hidden">
+            <Button href={phone.href} variant="outline" size="sm" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-10 max-[560px]:px-0">
+              <span className="max-[560px]:hidden">{phone.display}</span>
+            </Button>
+            <Button href={bookHref} size="sm" iconBefore="calendar-check" className="max-[560px]:hidden">
               {bookLabel}
             </Button>
             <Button
@@ -153,10 +148,10 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
                 <Icon name="chevron-right" size={18} className="text-slate-400" />
               </a>
             ))}
-            <Button href={bookHref} className="mt-3 w-full">
+            <Button href={bookHref} iconBefore="calendar-check" className="mt-3 w-full">
               {drawerBookLabel}
             </Button>
-            <Button href={phone.href} variant="secondary" iconBefore="phone" className="mt-3 w-full">
+            <Button href={phone.href} variant="outline" iconBefore="phone" className="mt-3 w-full">
               {phone.display}
             </Button>
           </m.div>

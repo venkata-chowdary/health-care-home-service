@@ -16,8 +16,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(hospital.siteUrl.value),
-  title: `${hospital.name.value} | Hospital in Kukatpally, Hyderabad`,
-  description: "Multi-speciality hospital care in Aditya Nagar, Kukatpally, Hyderabad. Call the front desk or send an appointment enquiry.",
+  title: `${hospital.name.value} | Home healthcare in Hyderabad`,
+  description: "Home nursing, critical care, elder care and physiotherapy at home across Hyderabad. Call or WhatsApp 86390 74341, available 24/7.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

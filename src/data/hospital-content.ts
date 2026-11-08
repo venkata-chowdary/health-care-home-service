@@ -6,35 +6,340 @@ export type Field<T> = {
   source: string;
 };
 
+const clientFlyers = "Client flyers";
+const clientContact = "Client contact, confirmed 8 Nov 2026";
 const googleProfile = "Google Business Profile, captured 8 Nov 2026";
 const clientLogo = "Client-supplied logo";
-const proposedCopy = "Proposed copy, needs client sign-off";
+const proposedCopy = "Proposed copy";
+
+export type PhotoSlot = {
+  src?: string;
+  alt: string;
+  label?: string;
+  icon?: string;
+  focus?: string;
+  status: VerificationStatus;
+  source: string;
+};
+
+const pexels = (photographer: string, id: number) => `${photographer} via Pexels, https://www.pexels.com/photo/${id}/`;
+
+const homePhotos = {
+  nursingBp: { src: "/images/stock/home-nursing-bp.jpg", alt: "A carer in a yellow top checking an older man's blood pressure in a living room", focus: "50% 30%", status: "sample", source: pexels("Antoni Shkraba", 7345476) },
+  physio: { src: "/images/stock/home-physio.jpg", alt: "A young man helping a smiling older man stretch his arm at home", focus: "50% 40%", status: "sample", source: pexels("Kampus Production", 7551635) },
+  criticalCare: { src: "/images/stock/home-critical-care.jpg", alt: "A nurse in a mask helping an older patient with an oxygen mask at the bedside", focus: "50% 35%", status: "sample", source: pexels("Jeff Yen", 5318119) },
+  elderCare: { src: "/images/stock/home-elder-care.jpg", alt: "A woman helping an older woman who uses crutches in a kitchen", focus: "50% 35%", status: "sample", source: pexels("Jsme MILA", 29372734) },
+  motherBaby: { src: "/images/stock/home-mother-baby.jpg", alt: "A mother holding her newborn baby", focus: "40% 40%", status: "sample", source: pexels("Sarah Chai", 7282395) },
+  caregiverBedside: { src: "/images/stock/about-caregiver-bedside.jpg", alt: "A smiling woman in a yellow cardigan standing beside an older man resting in bed", focus: "40% 50%", status: "sample", source: pexels("Kampus Production", 7551681) },
+  holdingHands: { src: "/images/stock/about-holding-hands.jpg", alt: "A younger hand holding an older person's hand on a bed", status: "sample", source: pexels("Kampus Production", 7551677) },
+  serviceNursing: { src: "/images/stock/service-home-nursing.jpg", alt: "A carer feeling the forehead of an older man resting in bed", focus: "80% 50%", status: "sample", source: pexels("Yaroslav Shuraev", 8088600) },
+  whyHomeCare: { src: "/images/stock/why-home-care.jpg", alt: "A woman gently holding an older woman's face in a kitchen", focus: "50% 28%", status: "sample", source: pexels("Jsme MILA", 29372693) },
+  criticalBedside: { src: "/images/stock/critical-care-bedside.jpg", alt: "A nurse in scrubs holding a tablet beside a patient on a drip", focus: "50% 55%", status: "sample", source: pexels("Tima Miroshnichenko", 6011662) },
+  criticalBed: { src: "/images/stock/critical-care-bed.jpg", alt: "Two carers settling an older man into bed in a bedroom", focus: "55% 50%", status: "sample", source: pexels("Kampus Production", 7551683) },
+  ctaVisit: { src: "/images/stock/cta-caregiver-visit.jpg", alt: "A man with a lanyard talking with an older woman on a sofa", focus: "50% 35%", status: "sample", source: pexels("Antoni Shkraba", 7345450) },
+  branchExterior: { src: "/images/stock/visit-exterior.jpg", alt: "A multi-storey building at dusk with lit windows and a green cross sign", status: "sample", source: "Mathias Reding via Pexels, https://www.pexels.com/photo/building-with-a-lot-of-windows-9741487/" },
+} satisfies Record<string, PhotoSlot>;
+
+export type CareOptionKey = "single" | "twelveHour" | "liveIn";
+
+export type ServicePage = {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  facts: { label: string; detail: string }[];
+  included: { icon: string; name: string; detail: string }[];
+  whoFor: string[];
+  whoForPhoto: PhotoSlot;
+  careOptions: Record<CareOptionKey, { applies: "yes" | "no" | "confirm"; note: string }>;
+  role: { title: string; detail: string; teamRoles: string[] };
+  extra?: { eyebrow: string; title: string; lead: string; items: { icon?: string; label: string }[]; note: string; tag: string };
+  faqs: { question: string; answer: string; status: VerificationStatus }[];
+  related: string[];
+  reviewKeywords: string[];
+  status: VerificationStatus;
+  source: string;
+};
+
+const awaiting = "Awaiting confirmation from Hemalatha Health Care.";
+const pageSource = "Proposed copy. Sub-service names come from the client flyers";
+
+const servicePages: Record<string, ServicePage> = {
+  "home-nursing": {
+    eyebrow: "Home nursing",
+    title: "Nursing care at home.",
+    lead: "Nurses for injections, dressings, IVs and routine checks, at home.",
+    facts: [
+      { label: "Available 24/7", detail: "Call or message any time" },
+      { label: "A nurse visits", detail: "To your home in Hyderabad" },
+      { label: "Care options", detail: "Single visits, 12-hour and 24-hour" },
+    ],
+    included: [
+      { icon: "syringe", name: "Injections", detail: "Given at home at the times prescribed." },
+      { icon: "bandage", name: "Wound dressing", detail: "Clean, regular dressing changes." },
+      { icon: "droplets", name: "IV infusion and cannula", detail: "IV fluids and cannula care at the bedside." },
+      { icon: "clipboard-list", name: "Catheterisation", detail: "Catheter insertion and care." },
+      { icon: "activity", name: "Ryles tube insertion and care", detail: "Tube placement and feeding-tube care." },
+      { icon: "wind", name: "Nebulisation", detail: "Breathing treatments at home." },
+      { icon: "thermometer", name: "BP and sugar checks", detail: "Regular readings, noted for the family." },
+      { icon: "pill", name: "Medication administration", detail: "Medicines given on schedule." },
+    ],
+    whoFor: ["Patients back home after a hospital discharge", "People with long-term conditions who need regular procedures", "Patients who can't travel to a clinic", "People with diabetes who need regular monitoring"],
+    whoForPhoto: homePhotos.serviceNursing,
+    careOptions: {
+      single: { applies: "yes", note: "A nurse visits for one procedure or check." },
+      twelveHour: { applies: "yes", note: "A nurse stays for a 12-hour shift." },
+      liveIn: { applies: "yes", note: "24-hour nursing, in shifts or live-in." },
+    },
+    role: { title: "Registered nurse", detail: "A nurse carries out the procedures, records readings and keeps the family informed. Qualifications to be confirmed.", teamRoles: ["Nurse"] },
+    faqs: [
+      { question: "Do you bring the supplies?", answer: awaiting, status: "sample" },
+      { question: "Can a nurse visit daily at a fixed time?", answer: awaiting, status: "sample" },
+      { question: "Do I need a doctor's prescription?", answer: awaiting, status: "sample" },
+      { question: "How quickly can a nurse come?", answer: `${awaiting} Call 86390 74341 and a coordinator will tell you what is possible.`, status: "sample" },
+      { question: "Can you change a catheter or Ryles tube?", answer: "Catheterisation and Ryles tube insertion and care are part of our home nursing.", status: "verified" },
+    ],
+    related: ["post-operative-care", "elder-care", "critical-care-at-home"],
+    reviewKeywords: ["nurse", "nursing"],
+    status: "sample",
+    source: pageSource,
+  },
+  "critical-care-at-home": {
+    eyebrow: "Critical care at home",
+    title: "Critical care at home.",
+    lead: "ICU-trained nurses and equipment setup so a critically ill patient can be cared for at home.",
+    facts: [
+      { label: "Available 24/7", detail: "Monitoring around the clock" },
+      { label: "ICU-trained nurses", detail: "At the bedside" },
+      { label: "Care options", detail: "12-hour and 24-hour" },
+    ],
+    included: [
+      { icon: "wind", name: "Ventilator care", detail: "Nurses trained to care for patients on a ventilator." },
+      { icon: "activity", name: "Tracheostomy care", detail: "Cleaning and care of the tracheostomy." },
+      { icon: "wind", name: "Oxygen therapy support", detail: "Help setting up and managing oxygen." },
+      { icon: "heart-pulse", name: "Cardiac and stroke patient care", detail: "Care for patients recovering from a heart event or stroke." },
+      { icon: "gauge", name: "Continuous monitoring", detail: "Regular checks of vital signs, day and night." },
+      { icon: "bed-double", name: "Home ICU setup assistance", detail: "Help arranging the bed and equipment at home." },
+      { icon: "siren", name: "Emergency coordination", detail: "A plan for who to call if the patient's condition changes." },
+    ],
+    whoFor: ["Patients discharged from the ICU", "Long-term ventilator or tracheostomy patients", "Post-stroke and cardiac patients", "Palliative care at home"],
+    whoForPhoto: homePhotos.criticalBedside,
+    careOptions: {
+      single: { applies: "no", note: "Single visits are not offered for critical care." },
+      twelveHour: { applies: "yes", note: "An ICU-trained nurse for a 12-hour shift." },
+      liveIn: { applies: "yes", note: "24-hour cover in shifts." },
+    },
+    role: { title: "ICU-trained nurse", detail: "An ICU-trained nurse monitors the patient, manages equipment such as oxygen and ventilators, and keeps the family and doctor informed.", teamRoles: ["Nurse"] },
+    extra: {
+      eyebrow: "Setting up care at home",
+      title: "What a home ICU setup may need.",
+      lead: "We help arrange the room and equipment. Which items we supply and which the family arranges is to be confirmed.",
+      items: [{ icon: "bed-double", label: "Bed" }, { icon: "wind", label: "Oxygen" }, { icon: "activity", label: "Monitor" }, { icon: "droplets", label: "Suction" }, { icon: "heart-pulse", label: "Ventilator" }],
+      note: "This service does not replace emergency services. In an emergency, call your local emergency number.",
+      tag: "To confirm with the client",
+    },
+    faqs: [
+      { question: "What equipment do you arrange?", answer: "Home ICU setup assistance is part of this service. Which equipment we supply is awaiting confirmation.", status: "provisional" },
+      { question: "Can you continue ICU care after a patient leaves the ICU?", answer: awaiting, status: "sample" },
+      { question: "What happens in an emergency?", answer: "Call your local emergency number first. This service does not replace emergency services. Your coordinator can explain the plan for your patient.", status: "sample" },
+      { question: "Do nurses work in shifts?", answer: "12-hour and 24-hour care are options. Shift details are awaiting confirmation.", status: "sample" },
+      { question: "Do you coordinate with the patient's doctor?", answer: awaiting, status: "sample" },
+    ],
+    related: ["home-nursing", "post-operative-care", "physiotherapy-at-home"],
+    reviewKeywords: ["icu", "ventilator", "critical"],
+    status: "sample",
+    source: pageSource,
+  },
+  "elder-care": {
+    eyebrow: "Elder care and attendants",
+    title: "Elder care at home.",
+    lead: "Caregivers and attendants who help older parents live safely and comfortably at home.",
+    facts: [
+      { label: "Available 24/7", detail: "Day and night cover" },
+      { label: "A caregiver visits", detail: "Nurse visits added if needed" },
+      { label: "Care options", detail: "12-hour day care and 24-hour live-in" },
+    ],
+    included: [
+      { icon: "hand-heart", name: "Daily assistance and personal hygiene", detail: "Help with washing, dressing and the daily routine." },
+      { icon: "users", name: "Companionship", detail: "Someone to talk with and keep company." },
+      { icon: "pill", name: "Medication reminders", detail: "Medicines taken on time, as prescribed." },
+      { icon: "thermometer", name: "Vital checks", detail: "Regular BP and sugar readings." },
+      { icon: "accessibility", name: "Mobility help", detail: "Support moving around the home safely." },
+      { icon: "bed-double", name: "Bedridden care", detail: "Turning, hygiene and comfort for bedridden patients." },
+      { icon: "brain", name: "Dementia and Alzheimer's support", detail: "Patient, familiar routines for memory loss." },
+      { icon: "utensils", name: "Nutrition and meals", detail: "Help with eating and mealtimes." },
+    ],
+    whoFor: ["Parents living alone", "Families working long hours", "Seniors recovering from illness", "People living with dementia or Alzheimer's"],
+    whoForPhoto: homePhotos.whyHomeCare,
+    careOptions: {
+      single: { applies: "confirm", note: "Single visits are to be confirmed." },
+      twelveHour: { applies: "yes", note: "12-hour day care." },
+      liveIn: { applies: "yes", note: "A caregiver who stays 24 hours." },
+    },
+    role: { title: "Caregiver or attendant", detail: "A caregiver or attendant helps with daily life. A nurse can visit as well if medical care is needed.", teamRoles: ["Caregiver", "Nurse"] },
+    faqs: [
+      { question: "Can the same caregiver come every day?", answer: awaiting, status: "sample" },
+      { question: "What if my parent doesn't get along with the caregiver?", answer: awaiting, status: "sample" },
+      { question: "Do caregivers cook?", answer: awaiting, status: "sample" },
+      { question: "Do you handle dementia care?", answer: "Yes. Dementia and Alzheimer's support is part of our elder care.", status: "verified" },
+      { question: "Can I check in while I'm away?", answer: `${awaiting} Your coordinator is your point of contact.`, status: "sample" },
+    ],
+    related: ["home-nursing", "physiotherapy-at-home", "post-operative-care"],
+    reviewKeywords: ["mother", "father", "parent", "caregiver", "elder"],
+    status: "sample",
+    source: pageSource,
+  },
+  "post-operative-care": {
+    eyebrow: "Post-operative and patient care",
+    title: "Post-operative care at home.",
+    lead: "Help with recovery after surgery or a hospital stay, at home.",
+    facts: [
+      { label: "Available 24/7", detail: "Call or message any time" },
+      { label: "Nurses and attendants", detail: "Visit your home" },
+      { label: "Care options", detail: "Single visits, 12-hour and 24-hour" },
+    ],
+    included: [
+      { icon: "bed-double", name: "Post-surgery recovery support", detail: "Help through the first weeks at home." },
+      { icon: "bandage", name: "Wound care", detail: "Dressing changes and watching for problems." },
+      { icon: "pill", name: "Medication schedules", detail: "Medicines given at the right times." },
+      { icon: "accessibility", name: "Mobility and toilet help", detail: "Safe support getting up and moving." },
+      { icon: "users", name: "Bedridden patient care", detail: "Comfort, hygiene and repositioning." },
+      { icon: "heart-pulse", name: "Chronic illness care", detail: "Ongoing care for long-term conditions." },
+      { icon: "hand-heart", name: "Patient attendants", detail: "An attendant for day-to-day help." },
+      { icon: "activity", name: "Coordination with physiotherapy", detail: "Care that fits with recovery exercises." },
+    ],
+    whoFor: ["After orthopaedic, cardiac or abdominal surgery", "After a long hospital stay", "Patients with chronic illness", "Bedridden patients"],
+    whoForPhoto: homePhotos.caregiverBedside,
+    careOptions: {
+      single: { applies: "yes", note: "Single visits for dressings or checks." },
+      twelveHour: { applies: "yes", note: "12-hour shifts." },
+      liveIn: { applies: "yes", note: "24-hour care." },
+    },
+    role: { title: "Nurse and patient attendant", detail: "A nurse handles wound care and medicines. A patient attendant helps with moving, hygiene and daily needs.", teamRoles: ["Nurse", "Caregiver"] },
+    faqs: [
+      { question: "How soon after discharge can you start?", answer: `${awaiting} Call 86390 74341 to ask about your situation.`, status: "sample" },
+      { question: "Can you manage drains and stitches?", answer: awaiting, status: "sample" },
+      { question: "How long does post-operative care usually last?", answer: "It depends on the surgery and the patient. Your coordinator can discuss this with you.", status: "sample" },
+      { question: "Can physiotherapy be added?", answer: "Physiotherapy at home is one of our services, and post-operative care can be coordinated with it.", status: "provisional" },
+    ],
+    related: ["physiotherapy-at-home", "home-nursing", "elder-care"],
+    reviewKeywords: ["surgery", "operation", "recovery"],
+    status: "sample",
+    source: pageSource,
+  },
+  "physiotherapy-at-home": {
+    eyebrow: "Physiotherapy at home",
+    title: "Physiotherapy at home.",
+    lead: "A physiotherapist visits your home for pain relief, recovery and better mobility.",
+    facts: [
+      { label: "Available 24/7", detail: "Call or message to book" },
+      { label: "A physiotherapist visits", detail: "To your home" },
+      { label: "Care options", detail: "Single sessions and session packages" },
+    ],
+    included: [
+      { icon: "bone", name: "Back and neck pain", detail: "Treatment and exercises for spine and neck pain." },
+      { icon: "bone", name: "Knee, joint and shoulder pain", detail: "Relief and movement for painful joints." },
+      { icon: "activity", name: "Post-fracture rehabilitation", detail: "Rebuilding strength after a fracture." },
+      { icon: "brain", name: "Stroke and neurological rehabilitation", detail: "Exercises to regain movement and balance." },
+      { icon: "accessibility", name: "Elderly mobility", detail: "Safer walking and moving for older adults." },
+      { icon: "dumbbell", name: "Exercise therapy", detail: "A personal exercise plan you can follow." },
+      { icon: "hand-heart", name: "Manual therapy", detail: "Hands-on treatment by the physiotherapist." },
+      { icon: "zap", name: "Laser therapy", detail: "Used for pain relief where suitable." },
+    ],
+    whoFor: ["Elderly patients", "People after surgery or a fracture", "Stroke recovery", "People with chronic pain, or who can't travel"],
+    whoForPhoto: homePhotos.holdingHands,
+    careOptions: {
+      single: { applies: "yes", note: "Single sessions and session packages. Wording to be confirmed." },
+      twelveHour: { applies: "no", note: "Physiotherapy is visit-based, not shift-based." },
+      liveIn: { applies: "no", note: "Not offered for physiotherapy." },
+    },
+    role: { title: "Physiotherapist", detail: "A physiotherapist assesses the problem, plans the exercises and treatment, and tracks progress. Qualifications to be confirmed.", teamRoles: ["Physiotherapist"] },
+    extra: {
+      eyebrow: "Conditions we help with",
+      title: "Treatment areas.",
+      lead: "Treatment areas listed on the client's flyers.",
+      items: [
+        { icon: "bone", label: "Back pain" },
+        { icon: "bone", label: "Neck pain" },
+        { icon: "bone", label: "Knee pain" },
+        { icon: "bone", label: "Joint pain" },
+        { icon: "bone", label: "Shoulder pain" },
+        { icon: "activity", label: "Post-fracture recovery" },
+        { icon: "brain", label: "Stroke and neurological recovery" },
+        { icon: "accessibility", label: "Elderly mobility" },
+      ],
+      note: "Client to confirm the full list of treatment areas.",
+      tag: "List to confirm",
+    },
+    faqs: [
+      { question: "How long is a session?", answer: awaiting, status: "sample" },
+      { question: "Do you bring equipment?", answer: awaiting, status: "sample" },
+      { question: "How many sessions will I need?", answer: "It depends on the condition. The physiotherapist will advise after the first assessment.", status: "sample" },
+      { question: "Can sessions be at a fixed time?", answer: awaiting, status: "sample" },
+      { question: "Do you treat stroke patients?", answer: "Yes. Stroke and neurological rehabilitation is part of physiotherapy at home.", status: "verified" },
+    ],
+    related: ["post-operative-care", "elder-care", "home-nursing"],
+    reviewKeywords: ["physio", "exercise"],
+    status: "sample",
+    source: pageSource,
+  },
+};
 
 export const hospital = {
   name: { value: "Hemalatha Health Care", status: "verified", source: clientLogo } as Field<string>,
   legalName: { value: "Hemalatha Health Care Pvt. Ltd.", status: "verified", source: clientLogo } as Field<string>,
-  category: { value: "Multi-speciality hospital with inpatient care", status: "provisional", source: "Client brief; Google lists the profile as a home health care service" } as Field<string>,
-  siteUrl: { value: "https://hemalathahealthcareservices.com", status: "provisional", source: `${googleProfile}; site did not load when checked` } as Field<string>,
+  category: { value: "Home healthcare services", status: "verified", source: clientFlyers } as Field<string>,
+  siteUrl: { value: "https://hemalathahealthcare.com", status: "sample", source: "Flyer says hemalathahealthcare.com, Google lists hemalathahealthcareservices.com; client to confirm" } as Field<string>,
 
   phone: {
-    display: { value: "086390 74341", status: "provisional", source: googleProfile } as Field<string>,
-    href: { value: "tel:+918639074341", status: "provisional", source: googleProfile } as Field<string>,
+    display: { value: "86390 74341", status: "verified", source: clientFlyers } as Field<string>,
+    href: { value: "tel:+918639074341", status: "verified", source: clientFlyers } as Field<string>,
   },
 
-  address: {
-    locality: { value: "Aditya Nagar, Kukatpally", status: "provisional", source: googleProfile } as Field<string>,
-    city: { value: "Hyderabad", status: "provisional", source: googleProfile } as Field<string>,
-    region: { value: "Telangana", status: "provisional", source: googleProfile } as Field<string>,
-    postalCode: { value: "500085", status: "provisional", source: googleProfile } as Field<string>,
-    coordinates: { value: { latitude: 17.5053003, longitude: 78.3954258 }, status: "provisional", source: googleProfile } as Field<{ latitude: number; longitude: number }>,
-    directionsUrl: { value: "https://maps.app.goo.gl/wopgBqKkZyh2eRNg6", status: "provisional", source: googleProfile } as Field<string>,
+  email: {
+    display: { value: "hemalathahealthcare@gmail.com", status: "verified", source: clientFlyers } as Field<string>,
+    href: { value: "mailto:hemalathahealthcare@gmail.com", status: "verified", source: clientFlyers } as Field<string>,
   },
 
-  hours: [
-    { label: "Front desk", value: "24 hours", status: "provisional", source: googleProfile },
-    { label: "Outpatient", value: "To be confirmed", status: "sample", source: "Awaiting client" },
-    { label: "Visiting", value: "To be confirmed", status: "sample", source: "Awaiting client" },
-  ] as (Field<string> & { label: string })[],
+  whatsapp: {
+    display: { value: "86390 74341", status: "verified", source: clientContact } as Field<string>,
+    href: { value: "https://wa.me/918639074341", status: "verified", source: clientContact } as Field<string>,
+    label: "WhatsApp",
+  },
+
+  availability: { value: "24/7", status: "verified", source: clientFlyers } as Field<string>,
+
+  branches: [
+    {
+      label: "Branch 1",
+      name: "Kukatpally",
+      role: "Main office",
+      address: "Plot No. 22, KPHB Colony, Kukatpally, Hyderabad 500072",
+      locality: "KPHB Colony, Kukatpally",
+      city: "Hyderabad",
+      postalCode: "500072",
+      landmark: "",
+      coordinates: { latitude: 17.5053003, longitude: 78.3954258 },
+      directionsUrl: "https://maps.app.goo.gl/wopgBqKkZyh2eRNg6",
+      status: "provisional",
+      source: `${clientFlyers}; Google lists this branch in Aditya Nagar 500085, and the map pin and directions link come from that listing. Client to confirm`,
+    },
+    { label: "Branch 2", name: "Pragathi Nagar", role: "", address: "Pragathi Nagar, Hyderabad", locality: "Pragathi Nagar", city: "Hyderabad", postalCode: "", landmark: "", coordinates: null, directionsUrl: "", status: "provisional", source: `${clientFlyers}; full address to confirm` },
+    { label: "Branch 3", name: "Madhapur", role: "", address: "Madhapur, Hitech City, Hyderabad", locality: "Madhapur, Hitech City", city: "Hyderabad", postalCode: "", landmark: "Near Medicover Hospital", coordinates: null, directionsUrl: "", status: "provisional", source: `${clientFlyers}; full address to confirm` },
+    { label: "Branch 4", name: "Manikonda", role: "", address: "Manikonda, Hyderabad", locality: "Manikonda", city: "Hyderabad", postalCode: "", landmark: "Near Lanco Hills", coordinates: null, directionsUrl: "", status: "provisional", source: `${clientFlyers}, on 2 of 12 flyers; full address to confirm` },
+  ] as {
+    label: string;
+    name: string;
+    role: string;
+    address: string;
+    locality: string;
+    city: string;
+    postalCode: string;
+    landmark: string;
+    coordinates: { latitude: number; longitude: number } | null;
+    directionsUrl: string;
+    status: VerificationStatus;
+    source: string;
+  }[],
 
   googleRating: {
     rating: { value: 4.7, status: "provisional", source: googleProfile } as Field<number>,
@@ -42,160 +347,290 @@ export const hospital = {
   },
 
   hero: {
-    eyebrow: { value: "Now accepting new patients in Kukatpally", status: "sample", source: proposedCopy } as Field<string>,
-    headline: { value: "Specialist care in Kukatpally. Clear answers at every step.", status: "sample", source: proposedCopy } as Field<string>,
-    lead: { value: "A multi-speciality hospital where every treatment plan is explained before it begins, and the front desk is a phone call away.", status: "sample", source: proposedCopy } as Field<string>,
-    primaryCtaLabel: "Book an appointment",
+    eyebrow: { value: "Home healthcare across Hyderabad · 24/7", status: "sample", source: proposedCopy } as Field<string>,
+    headline: { value: "Nursing, elder care and physiotherapy at your home.", status: "sample", source: proposedCopy } as Field<string>,
+    lead: { value: "Nurses, caregivers and physiotherapists who come to you, day or night, and a coordinator you can call.", status: "sample", source: proposedCopy } as Field<string>,
+    primaryCtaLabel: "Request care",
     callLabel: "Call",
-    photosLabel: "Hospital photos",
-    badges: ["Plans explained first", "Families kept informed"],
+    photosLabel: "Home care photos",
+    badges: ["Available 24/7", "Care at your home"],
   },
 
   facts: [
-    { label: "Multi-speciality", detail: "Departments under one roof", status: "provisional", source: "Client brief" },
-    { label: "Kukatpally", detail: "Aditya Nagar, 500085", status: "provisional", source: googleProfile },
-    { label: "Open 24 hours", detail: "Front desk", status: "provisional", source: googleProfile },
-    { label: "Walk-ins welcome", detail: "To confirm", status: "sample", source: proposedCopy },
+    { label: "Available 24/7", detail: "Day and night", status: "verified", source: clientFlyers },
+    { label: "Nurses and caregivers", detail: "Plus physiotherapists", status: "verified", source: clientFlyers },
+    { label: "4 branches", detail: "Across Hyderabad", status: "provisional", source: `${clientFlyers}; branches to confirm` },
+    { label: "We come to you", detail: "Care at your home", status: "verified", source: clientFlyers },
   ],
 
   heroPhotos: [
-    { label: "Diagnostics room", icon: "activity", src: null, status: "sample", source: "Awaiting client photography" },
-    { label: "Doctor consultation", icon: "stethoscope", src: null, status: "sample", source: "Awaiting client photography" },
-    { label: "Inpatient ward", icon: "bed-double", src: null, status: "sample", source: "Awaiting client photography" },
-    { label: "Hospital entrance", icon: "building-2", src: null, status: "sample", source: "Awaiting client photography" },
-    { label: "Pharmacy", icon: "pill", src: null, status: "sample", source: "Awaiting client photography" },
-  ] as { label: string; icon: string; src: string | null; status: VerificationStatus; source: string }[],
+    { label: "Home nursing", icon: "stethoscope", photo: homePhotos.nursingBp },
+    { label: "Physiotherapy at home", icon: "activity", photo: homePhotos.physio },
+    { label: "Critical care", icon: "heart-pulse", photo: homePhotos.criticalCare },
+    { label: "Elder care", icon: "users", photo: homePhotos.elderCare },
+    { label: "Mother and baby", icon: "baby", photo: homePhotos.motherBaby },
+  ] as { label: string; icon: string; photo: PhotoSlot }[],
 
-  departments: [
-    { name: "General Medicine", icon: "stethoscope", summary: "Fevers, infections, diabetes and blood pressure. The first stop when you're not sure where to go.", status: "sample" },
-    { name: "Orthopaedics", icon: "bone", summary: "Fractures, joint pain and recovery after surgery.", status: "sample" },
-    { name: "Obstetrics & Gynaecology", icon: "baby", summary: "Pregnancy care, delivery and women's health.", status: "sample" },
-    { name: "Paediatrics", icon: "heart-pulse", summary: "Care for children from birth through their teens.", status: "sample" },
-    { name: "General Surgery", icon: "syringe", summary: "Planned and day-care procedures.", status: "sample" },
-    { name: "Diagnostics", icon: "microscope", summary: "Lab tests and imaging on site.", status: "sample" },
-  ] as { name: string; icon: string; summary: string; status: VerificationStatus }[],
+  services: [
+    {
+      name: "Home nursing",
+      slug: "home-nursing",
+      page: servicePages["home-nursing"],
+      heroPhoto: homePhotos.nursingBp,
+      icon: "syringe",
+      summary: "Nurses for injections, dressings, IV care and routine checks, at home.",
+      subServices: ["Injections", "Wound dressing", "IV infusion and cannula", "Catheterisation", "Ryles tube insertion and care", "Nebulisation", "BP and sugar checks"],
+      status: "verified",
+      source: clientFlyers,
+    },
+    {
+      name: "Critical care at home",
+      slug: "critical-care-at-home",
+      page: servicePages["critical-care-at-home"],
+      heroPhoto: homePhotos.criticalCare,
+      icon: "heart-pulse",
+      summary: "ICU-trained nurses and equipment help for seriously ill patients at home.",
+      subServices: ["ICU-trained nurses", "Ventilator care", "Tracheostomy care", "Oxygen therapy support", "Cardiac and stroke patient care", "24×7 monitoring", "Home ICU setup assistance"],
+      status: "verified",
+      source: clientFlyers,
+    },
+    {
+      name: "Elder care and attendants",
+      slug: "elder-care",
+      page: servicePages["elder-care"],
+      heroPhoto: homePhotos.elderCare,
+      icon: "users",
+      summary: "Caregivers and attendants who help older family members live comfortably at home.",
+      subServices: ["Caregivers and attendants", "Personal hygiene and daily assistance", "Medication management", "Dementia and Alzheimer's support", "Vital checks", "Companionship", "Nutrition"],
+      status: "verified",
+      source: clientFlyers,
+    },
+    {
+      name: "Post-operative and patient care",
+      slug: "post-operative-care",
+      page: servicePages["post-operative-care"],
+      heroPhoto: homePhotos.criticalBed,
+      icon: "bed-double",
+      summary: "Help with recovery after surgery or a hospital stay, at home.",
+      subServices: ["Post-surgery recovery", "Chronic illness care", "Bedridden patients", "Patient attendants"],
+      status: "verified",
+      source: clientFlyers,
+    },
+    {
+      name: "Physiotherapy at home",
+      slug: "physiotherapy-at-home",
+      page: servicePages["physiotherapy-at-home"],
+      heroPhoto: homePhotos.physio,
+      icon: "activity",
+      summary: "A physiotherapist visits for pain relief, recovery and better mobility.",
+      subServices: ["Back, neck and knee pain", "Post-fracture rehabilitation", "Stroke and neurological rehabilitation", "Elderly mobility", "Joint and shoulder pain", "Exercise therapy", "Manual therapy", "Laser therapy"],
+      status: "verified",
+      source: clientFlyers,
+    },
+    {
+      name: "Baby and mother care",
+      icon: "baby",
+      summary: "Newborn and mother care at home, through Hemalatha Baby Care.",
+      subServices: ["Newborn care (0–6 months)", "Feeding support", "Post-delivery mother support", "Day and night caretakers", "Bathing and hygiene", "Nanny services"],
+      externalLink: { href: "https://www.hemalathababycare.com", label: "Learn more" },
+      status: "verified",
+      source: clientFlyers,
+    },
+  ] as {
+    name: string;
+    icon: string;
+    summary: string;
+    slug?: string;
+    page?: ServicePage;
+    heroPhoto?: PhotoSlot;
+    subServices: string[];
+    externalLink?: { href: string; label: string };
+    note?: string;
+    status: VerificationStatus;
+    source: string;
+  }[],
+
+  howItWorks: [
+    { title: "Call or request care", detail: "Phone, WhatsApp or the form below. Tell us who needs care and why." },
+    { title: "We understand the patient's needs", detail: "A coordinator asks about the patient's condition and the help needed." },
+    { title: "We arrange the right person", detail: "A suitable nurse, caregiver or physiotherapist is arranged." },
+    { title: "Care starts at home", detail: "Care begins at home, with a coordinator you can call." },
+  ],
+  howItWorksStatus: "sample" as VerificationStatus,
 
   valuePoints: [
-    { title: "Plans explained before treatment", detail: "You hear the options and costs before anything begins.", icon: "messages-square" },
-    { title: "Families kept informed", detail: "One point of contact while someone you love is admitted.", icon: "users" },
-    { title: "Close to Kukatpally and KPHB", detail: "Easy to reach from JNTU, Pragathi Nagar and Miyapur.", icon: "map-pin" },
-    { title: "A real person answers", detail: "Call the front desk and talk to someone who can help.", icon: "phone-call" },
+    { title: "Available 24/7", detail: "Call or message any time, day or night.", icon: "clock" },
+    { title: "Trained nurses and caregivers", detail: "Care from people trained for the work.", icon: "user-round" },
+    { title: "One point of contact", detail: "A coordinator you can call about your family member's care.", icon: "phone-call" },
+    { title: "Four branches across Hyderabad", detail: "Kukatpally, Pragathi Nagar, Madhapur and Manikonda.", icon: "map-pin" },
   ],
   valuePointsStatus: "sample" as VerificationStatus,
 
-  doctors: [
-    { name: "Doctor name", department: "Department", qualifications: "As registered", photo: null },
-    { name: "Doctor name", department: "Department", qualifications: "As registered", photo: null },
-    { name: "Doctor name", department: "Department", qualifications: "As registered", photo: null },
-  ] as { name: string; department: string; qualifications: string; photo: string | null }[],
-  doctorsStatus: "sample" as VerificationStatus,
+  careTeam: [
+    { name: "Team member name", role: "Nurse", photo: { src: "/images/stock/doctor-1.jpg", alt: "Stock portrait of a healthcare professional", status: "sample", source: "Usman Yousaf via Pexels, https://www.pexels.com/photo/a-man-in-white-coat-shirt-wearing-black-framed-eyeglasses-6762866/" } },
+    { name: "Team member name", role: "Physiotherapist", photo: { src: "/images/stock/doctor-2.jpg", alt: "Stock portrait of a healthcare professional", status: "sample", source: "Daniil Kondrashin via Pexels, https://www.pexels.com/photo/confident-female-doctor-with-stethoscope-indoors-32160036/" } },
+    { name: "Team member name", role: "Caregiver", photo: { src: "/images/stock/doctor-3.jpg", alt: "Stock portrait of a healthcare professional", status: "sample", source: "Oys Photography via Pexels, https://www.pexels.com/photo/doctor-19438560/" } },
+  ] as { name: string; role: string; photo: PhotoSlot }[],
+  careTeamStatus: "sample" as VerificationStatus,
 
-  facilities: ["Inpatient wards", "Diagnostic lab", "In-house pharmacy", "Family waiting area"],
-  facilitiesStatus: "sample" as VerificationStatus,
+  careRoles: [
+    { title: "Nurses", detail: "Including ICU-trained nurses", icon: "syringe" },
+    { title: "Caregivers and attendants", detail: "For daily care at home", icon: "users" },
+    { title: "Physiotherapists", detail: "Visits for recovery and mobility", icon: "activity" },
+    { title: "Baby care staff", detail: "Through Hemalatha Baby Care", icon: "baby" },
+  ],
+  careRolesStatus: "verified" as VerificationStatus,
+
+  criticalCare: {
+    items: ["ICU-trained nurses", "Ventilator care", "Tracheostomy care", "Oxygen therapy support", "Home ICU setup assistance", "Cardiac and stroke patient care"],
+    status: "verified" as VerificationStatus,
+    source: clientFlyers,
+  },
 
   faqs: [
-    { topic: "Appointments", question: "Do I need an appointment to see a doctor?", answer: "Proposed: walk-ins are welcome, and calling ahead shortens your wait.", status: "sample" },
-    { topic: "Appointments", question: "How do I book an appointment?", answer: "Call the front desk on 086390 74341, or send an enquiry and the front desk will call you back to arrange a time.", status: "provisional" },
-    { topic: "Appointments", question: "Can I choose which doctor I see?", answer: "Awaiting confirmation from the hospital.", status: "sample" },
-    { topic: "Admission", question: "What should I bring for admission?", answer: "A photo ID, previous prescriptions and reports, and a list of current medicines.", status: "sample" },
-    { topic: "Admission", question: "Can a family member stay overnight?", answer: "Awaiting confirmation from the hospital.", status: "sample" },
-    { topic: "Visiting", question: "What are the visiting hours?", answer: "Awaiting confirmation from the hospital.", status: "sample" },
-    { topic: "Visiting", question: "How do I get there?", answer: "The hospital is in Aditya Nagar, Kukatpally. Use the directions button for live Google Maps routing.", status: "provisional" },
-    { topic: "Visiting", question: "Is parking available?", answer: "Awaiting confirmation from the hospital.", status: "sample" },
-    { topic: "Billing & insurance", question: "Do you accept health insurance?", answer: "Awaiting confirmation. No insurer is named until the hospital provides its list.", status: "sample" },
-    { topic: "Billing & insurance", question: "How can I pay?", answer: "Awaiting confirmation from the hospital.", status: "sample" },
-  ] as { topic: string; question: string; answer: string; status: VerificationStatus }[],
+    { question: "How quickly can a nurse or caregiver start?", answer: "Awaiting confirmation from Hemalatha Health Care. Call 86390 74341 and a coordinator will tell you what is possible for your situation.", status: "sample" },
+    { question: "Are your nurses and caregivers trained? What checks do you do?", answer: "Awaiting confirmation from Hemalatha Health Care. No checks are described until the team supplies them.", status: "sample" },
+    { question: "Can I ask for a different caregiver?", answer: "Awaiting confirmation from Hemalatha Health Care.", status: "sample" },
+    { question: "Do you offer 12-hour and 24-hour live-in care?", answer: "Awaiting confirmation from Hemalatha Health Care. You can choose a care type when you request care.", status: "sample" },
+    { question: "Is there a minimum booking period?", answer: "Awaiting confirmation from Hemalatha Health Care.", status: "sample" },
+    { question: "How much does home nursing cost?", answer: "Awaiting confirmation from Hemalatha Health Care. Prices are not listed until the team supplies them. Call for a quote.", status: "sample" },
+    { question: "Can you set up ICU equipment at home?", answer: "Home ICU setup assistance is part of our critical care at home. A coordinator will explain what your patient needs.", status: "provisional" },
+    { question: "Which areas of Hyderabad do you cover?", answer: "We come to your home. Our four branches are in Kukatpally, Pragathi Nagar, Madhapur and Manikonda. Call to check that we cover your area.", status: "provisional" },
+    { question: "Do you provide physiotherapy for stroke and post-fracture recovery?", answer: "Yes. Physiotherapy at home includes stroke and neurological rehabilitation and post-fracture rehabilitation.", status: "verified" },
+    { question: "How do I pay?", answer: "Awaiting confirmation from Hemalatha Health Care.", status: "sample" },
+  ] as { question: string; answer: string; status: VerificationStatus }[],
 
   about: {
     eyebrow: "About Hemalatha",
-    title: "Hospital care designed around families.",
-    lead: "A multi-speciality hospital in Aditya Nagar, Kukatpally. Description to be supplied by the client.",
-    mainPhoto: { label: "Senior doctor", icon: "user-round" },
-    insetIcon: "users",
-    badge: "One point of contact",
+    title: "Care that feels like family.",
+    lead: "Hemalatha Health Care brings nursing, caregiving and physiotherapy to your home in Hyderabad. Description to be supplied by the client.",
+    mainPhoto: homePhotos.caregiverBedside as PhotoSlot,
+    insetPhoto: homePhotos.holdingHands as PhotoSlot,
+    badge: "We Care Like Family",
     checks: [
-      { icon: "messages-square", title: "Plans explained", detail: "Options and costs first" },
-      { icon: "users", title: "Families informed", detail: "One point of contact" },
-      { icon: "microscope", title: "Diagnostics on site", detail: "To confirm" },
-      { icon: "phone-call", title: "Real person answers", detail: "Call the front desk" },
+      { icon: "house", title: "Care at home", detail: "We come to you" },
+      { icon: "clock", title: "Available 24/7", detail: "Day and night" },
+      { icon: "phone-call", title: "One coordinator per family", detail: "One person to call" },
+      { icon: "stethoscope", title: "Nurses and physiotherapists", detail: "Who visit your home" },
     ],
-    ctaLabel: "Plan your visit",
-    ctaHref: "#visit",
+    ctaLabel: "See our services",
+    ctaHref: "#services",
     status: "sample" as VerificationStatus,
   },
 
-  departmentsSection: {
-    eyebrow: "Departments",
-    title: "Expertise you can trust.",
-    lead: "Six departments, one front desk.",
-    sampleTag: "Sample list",
+  servicesSection: {
+    featuredPhoto: homePhotos.serviceNursing as PhotoSlot,
+    eyebrow: "Services",
+    title: "Care for every stage, at home.",
+    lead: "Six kinds of care, delivered where your family is most comfortable.",
     linkLabel: "Learn more",
     linkHref: "#enquiry",
   },
 
-  whyUs: {
-    eyebrow: "Why patients choose us",
-    title: "Hospital care, designed around families.",
-    photo: { label: "Patient room", icon: "bed-double" },
-    sampleTag: "Proposed statements · need client sign-off",
+  serviceHero: {
+    breadcrumbLabel: "Breadcrumb",
+    homeLabel: "Home",
+    servicesLabel: "Services",
+    requestLabel: "Request this service",
+    callLabel: "Call",
   },
 
-  doctorsSection: {
-    eyebrow: "Specialists",
-    title: "Meet our specialists.",
-    lead: "Every profile lists qualifications exactly as registered.",
-    linkLabel: "Book with a specialist",
+  serviceBlocks: {
+    includedEyebrow: "What's included",
+    includedTitle: "What this service covers.",
+    whoForEyebrow: "Who it's for",
+    whoForTitle: "Who this service helps.",
+    careOptionsEyebrow: "Care options",
+    careOptionsTitle: "Choose how long we stay.",
+    careOptionsLead: "Whether each option applies to this service.",
+    careOptionNames: { single: "Single visit", twelveHour: "12-hour shift", liveIn: "24-hour live-in" },
+    availableLabel: "Available",
+    notOfferedLabel: "Not offered",
+    toConfirmLabel: "To confirm",
+    pricesNote: "Prices are not listed yet. Call or request care and a coordinator will explain the cost.",
+    roleEyebrow: "Who will care for you",
+    reviewsTitlePrefix: "What families say about",
+    relatedEyebrow: "Related services",
+    relatedTitle: "Other care at home.",
+    requestTitlePrefix: "Request",
+    faqEyebrow: "FAQ",
+    faqTitlePrefix: "Questions about",
+  },
+
+  howItWorksSection: {
+    eyebrow: "How it works",
+    title: "Four steps to care at home.",
+    lead: "From the first call to the first visit.",
+    stepLabel: "Step",
+    ctaLabel: "Request care",
+    ctaHref: "#enquiry",
+  },
+
+  whyUs: {
+    eyebrow: "Why families choose us",
+    title: "Care that feels like family.",
+    photo: homePhotos.whyHomeCare as PhotoSlot,
+  },
+
+  careTeamSection: {
+    eyebrow: "Care team",
+    title: "Meet the people who visit.",
+    lead: "Demo profiles for now. Real profiles will show each person's role and qualifications.",
+    linkLabel: "Request a nurse or caregiver",
     linkHref: "#enquiry",
     photoLabel: "Demo profile",
+    requestLabel: "Request care",
+    rolesLabel: "Who visits",
   },
 
-  facilitiesSection: {
-    eyebrow: "Facilities",
-    title: "Wards, lab and pharmacy under one roof.",
-    figure: { value: "24", unit: "h", label: "Front desk" },
-    ctaLabel: "Book an appointment",
+  criticalCareSection: {
+    eyebrow: "Critical care at home",
+    title: "ICU-trained nurses and setup help, at home.",
+    figure: { value: "24", unit: "/7", label: "Monitoring" },
+    ctaLabel: "Request critical care",
     ctaHref: "#enquiry",
-    sampleTag: "Facilities to confirm",
-    photos: [
-      { label: "Ward", icon: "bed-double" },
-      { label: "Lab", icon: "microscope" },
-    ],
-    seal: "Under one roof",
+    photos: [homePhotos.criticalBedside, homePhotos.criticalBed] as PhotoSlot[],
+    seal: "Care at home",
   },
 
   navigation: {
     items: [
-      { label: "About", href: "#about" },
-      { label: "Departments", href: "#departments" },
-      { label: "Doctors", href: "#doctors" },
-      { label: "Facilities", href: "#facilities" },
-      { label: "Visit", href: "#visit" },
+      { label: "Services", href: "#services" },
+      { label: "How it works", href: "#how-it-works" },
+      { label: "Care team", href: "#care-team" },
+      { label: "Branches", href: "#branches" },
+      { label: "Reviews", href: "#reviews" },
       { label: "FAQ", href: "#faq" },
     ],
-    bookLabel: "Book appointment",
-    drawerBookLabel: "Book an appointment",
+    bookLabel: "Request care",
+    drawerBookLabel: "Request care",
     bookHref: "#enquiry",
-    mobileBar: { callLabel: "Call", bookLabel: "Book visit" },
+    whatsappAriaLabel: "Message us on WhatsApp",
+    mobileBar: { callLabel: "Call", bookLabel: "Request care" },
   },
 
   footer: {
-    tagline: "Hospital care in Kukatpally, Hyderabad.",
-    explore: [
+    tagline: "Home healthcare across Hyderabad. We care like family.",
+    servicesHeading: "Services",
+    servicesHref: "#services",
+    branchesHeading: "Branches",
+    branchesHref: "#branches",
+    companyHeading: "Company",
+    company: [
       { label: "About", href: "#about" },
-      { label: "Doctors", href: "#doctors" },
-      { label: "Facilities", href: "#facilities" },
+      { label: "How it works", href: "#how-it-works" },
+      { label: "Care team", href: "#care-team" },
       { label: "FAQ", href: "#faq" },
+      { label: "Request care", href: "#enquiry" },
     ],
-    patients: [
-      { label: "Book an appointment", href: "#enquiry" },
-      { label: "Visiting hours", href: "#visit" },
-    ],
-    departmentLinkCount: 4,
+    availabilityDetail: "Care available any time",
+    emailDetail: "Email us",
+    firstPhoneDetail: "Call us",
   },
 
   reviewsSection: {
-    eyebrow: "Patient reviews",
-    title: "In our patients' words.",
+    eyebrow: "Family reviews",
+    title: "What families say.",
     ratingLinkLabel: "Google rating",
     reviewCountSuffix: "reviews",
     sourceLabel: "Google review",
@@ -207,54 +642,70 @@ export const hospital = {
 
   enquiry: {
     destination: { value: null, status: "sample", source: "Awaiting client: email, WhatsApp Business or CRM" } as Field<string | null>,
-    eyebrow: "Appointment enquiry",
-    title: "Tell us what you need. We'll call you back.",
-    lead: "The front desk calls back to arrange a time. Nothing is booked until you've spoken to them.",
+    eyebrow: "Request care",
+    title: "Tell us who needs care. We'll call you.",
+    lead: "A coordinator calls to understand the patient's needs. Nothing is arranged or confirmed until you've spoken to them.",
     callPrompt: "Prefer to talk now?",
-    callLabel: "Call the hospital",
-    formLabel: "Appointment enquiry form",
-    nameLabel: "Patient name",
+    callLabel: "Call now",
+    formLabel: "Request care form",
+    nameLabel: "Your name",
     namePlaceholder: "Full name",
     phoneLabel: "Mobile number",
     phonePlaceholder: "98765 43210",
-    departmentLabel: "Department",
-    departmentDefault: "Not sure, help me choose",
-    dateLabel: "Preferred date",
+    whoLabel: "Who needs care",
+    whoDefault: "Select",
+    whoOptions: ["Parent", "Spouse", "Child", "Myself", "Someone else"],
+    serviceLabel: "Service",
+    serviceDefault: "Not sure, help me choose",
+    areaLabel: "Area or branch",
+    areaDefault: "Not sure",
+    areaOther: "Another area",
+    startLabel: "When to start",
+    startDefault: "Select",
+    startOptions: ["As soon as possible", "Within a few days", "Next week", "Not decided yet"],
+    careTypeLabel: "Care type",
+    careTypeDefault: "Select",
+    careTypeOptions: ["Single visit", "12-hour", "24-hour live-in", "Not sure"],
     messageLabel: "Message",
-    messagePlaceholder: "A short note helps us direct your call",
+    messagePlaceholder: "A short note about the patient helps us prepare",
     optionalLabel: "(optional)",
-    consentLabel: "I agree to be contacted by the hospital about this enquiry.",
-    submitLabel: "Send enquiry",
+    consentLabel: "I agree to be contacted by Hemalatha Health Care about this request.",
+    submitLabel: "Request care",
     sendingLabel: "Sending…",
-    hint: "We'll call to confirm a time.",
-    successTitle: "Enquiry received.",
-    successBody: "The front desk will call you to arrange a time. Your appointment isn't booked until then.",
-    failureMessage: "We couldn't send your enquiry. Please call the front desk instead.",
+    hint: "A coordinator will call you.",
+    successTitle: "Request received.",
+    successBody: "A coordinator will call you to understand the patient's needs. Nothing is arranged until then.",
+    failureMessage: "We couldn't send your request. Please call 86390 74341 or message us on WhatsApp.",
   },
 
-  visitSection: {
-    eyebrow: "Visit us",
-    title: "Your visit starts here.",
-    aside: "Easy to find, easy to reach, easy to call.",
-    photo: { label: "Hospital entrance", icon: "building-2" },
+  branchesSection: {
+    eyebrow: "Branches and areas",
+    title: "Four branches, care at your door.",
+    aside: "Care is delivered at home, anywhere our branches serve.",
+    officePhoto: homePhotos.branchExterior as PhotoSlot,
+    mapTitle: "Map showing Branch 1 in Kukatpally, Hyderabad",
     directionsLabel: "Get directions",
-    openPrefix: "Open",
+    availablePrefix: "Care available",
+    phoneLabel: "Phone",
+    emailLabel: "Email",
+    mainOfficeTag: "Main office",
   },
 
   faqSection: {
     eyebrow: "FAQ",
-    title: "Everything you need to know.",
-    lead: "Answers to the questions families ask the front desk most.",
+    title: "Questions families ask us.",
+    lead: "Answers to what families ask before arranging care at home.",
     footPrompt: "Still have a question?",
     footCallPrefix: "Call",
   },
 
   ctaSection: {
-    title: "Ready to talk to someone who can help?",
-    lead: "Call the front desk, send an enquiry, or get directions to Aditya Nagar.",
-    bookLabel: "Book an appointment",
+    title: "Need care at home? Talk to us today.",
+    lead: "Call or message us any time. A coordinator will help you take the next step.",
+    bookLabel: "Request care",
     bookHref: "#enquiry",
-    callLabel: "Call the hospital",
-    photo: { label: "Staff with patient", icon: "user-round" },
+    callPrefix: "Call",
+    whatsappLabel: "WhatsApp",
+    photo: homePhotos.ctaVisit as PhotoSlot,
   },
 };

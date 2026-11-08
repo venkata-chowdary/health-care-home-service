@@ -2,15 +2,16 @@ import { MobileCallBar } from "@/components/layout/mobile-call-bar";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { About } from "@/components/sections/about";
+import { Branches } from "@/components/sections/branches";
+import { CareTeam } from "@/components/sections/care-team";
 import { Cta } from "@/components/sections/cta";
-import { Departments } from "@/components/sections/departments";
-import { Doctors } from "@/components/sections/doctors";
+import { CriticalCare } from "@/components/sections/critical-care";
 import { Enquiry } from "@/components/sections/enquiry";
-import { Facilities } from "@/components/sections/facilities";
 import { Faq } from "@/components/sections/faq";
 import { Hero } from "@/components/sections/hero";
+import { HowItWorks } from "@/components/sections/how-it-works";
 import { Reviews } from "@/components/sections/reviews";
-import { Visit } from "@/components/sections/visit";
+import { Services } from "@/components/sections/services";
 import { WhyUs } from "@/components/sections/why-us";
 import { hospital } from "@/data/hospital-content";
 
@@ -29,13 +30,14 @@ export default function Home() {
       <main id="top">
         <Hero />
         <About />
-        <Departments />
+        <Services />
+        <HowItWorks />
         <WhyUs />
-        <Doctors />
-        <Facilities />
+        <CareTeam />
+        <CriticalCare />
         <Reviews />
         <Enquiry />
-        <Visit />
+        <Branches />
         <Faq />
         <Cta />
       </main>

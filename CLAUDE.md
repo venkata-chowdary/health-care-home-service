@@ -2,7 +2,7 @@
 
 # Hemalatha Health Care website
 
-Landing page for Hemalatha Health Care Pvt. Ltd., a hospital in Aditya Nagar, Kukatpally, Hyderabad. Goals: appointment enquiries, phone calls, hospital visits, trust.
+Landing page for Hemalatha Health Care Pvt. Ltd., a home healthcare provider (nursing, critical care, elder care, post-operative care, physiotherapy) serving Hyderabad from four branches, the main one in KPHB Colony, Kukatpally. Not an inpatient hospital. Goals: care requests, phone calls and WhatsApp messages, trust. See `docs/HOME_CARE_REVAMP.md` for the content model.
 
 ## Read before building anything
 
@@ -19,6 +19,7 @@ Earlier rounds (`design-system-proposal.html`, `section-options.html`) are histo
 - Light theme only. DM Sans only. Lucide icons only, stroke 1.75.
 - Buttons are pills. Cards are bordered, no shadow at rest. Panels use `rounded-panel`.
 - Motion values come from `src/design-system/motion.ts`. Animate only opacity and transform, reveal once, respect reduced motion, and keep content visible without JavaScript.
+- Smooth scrolling uses Lenis (`lenis` package), not CSS `scroll-behavior: smooth`. Lenis is disabled under reduced motion; anchor links scroll through Lenis with the sticky header offset.
 - The Google rating appears only in the reviews section.
 - Mobile is designed, not compressed: drawer menu, sticky call-and-book bar, tested at 360px.
 
@@ -34,7 +35,7 @@ Earlier rounds (`design-system-proposal.html`, `section-options.html`) are histo
 
 - Next.js App Router, TypeScript, Tailwind 4, Motion for React (`motion/react`), Lucide React.
 - Server Components by default; `"use client"` only for the header drawer, hero photo deck, FAQ if needed, enquiry form and reveal wrappers.
-- Folders: `src/components/ui`, `layout`, `healthcare`, `sections`. One section component per landing section in `sections/`.
+- Folders: `src/components/ui`, `layout`, `healthcare`, `sections`. One section component per landing section in `sections/`. Service page blocks live in `sections/service/`; the five pages at `/services/[slug]` are built from the `services` array in the content file (`generateStaticParams`), and unknown slugs return `notFound()`.
 - Images through `next/image`. Photos go in `public/images/`; until the client supplies them, render the labelled placeholder frames from the preview.
 
 ## Code style

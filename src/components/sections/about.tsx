@@ -15,15 +15,16 @@ export function About() {
     <Section id="about" aria-labelledby="about-heading" surface containerClassName="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-[72px] max-[900px]:grid-cols-1 max-[900px]:gap-10">
       <div className="relative pb-10 pl-10 max-[560px]:pb-7 max-[560px]:pl-5">
         <PhotoFrame
-          alt={about.mainPhoto.label}
-          icon={isIconName(about.mainPhoto.icon) ? about.mainPhoto.icon : undefined}
+          alt={about.mainPhoto.alt}
+          src={about.mainPhoto.src}
+          focus={about.mainPhoto.focus}
+          icon={about.mainPhoto.icon && isIconName(about.mainPhoto.icon) ? about.mainPhoto.icon : undefined}
           label={about.mainPhoto.label}
-          labelSide="right"
           radius="xl"
           sizes="(min-width: 900px) 540px, 90vw"
           className="aspect-[4/4.4]"
         />
-        <PhotoFrame floating alt="" aria-hidden="true" icon={isIconName(about.insetIcon) ? about.insetIcon : undefined} className="bottom-0 left-0 aspect-[4/3] w-[44%] border-[5px] border-background shadow-float" />
+        <PhotoFrame floating alt={about.insetPhoto.alt} src={about.insetPhoto.src} sizes="240px" className="bottom-0 left-0 aspect-[4/3] w-[44%] border-[5px] border-background shadow-float" />
         <FloatingBadge className="absolute top-8 right-[-12px] max-[560px]:right-2">{about.badge}</FloatingBadge>
       </div>
 

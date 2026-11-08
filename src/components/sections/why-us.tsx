@@ -4,17 +4,18 @@ import { SectionHeading } from "@/components/layout/section-heading";
 import { isIconName } from "@/components/ui/icon";
 import { PhotoFrame } from "@/components/ui/photo-frame";
 import { RevealGroup, RevealItem } from "@/components/ui/reveal";
-import { Tag } from "@/components/ui/tag";
 import { hospital } from "@/data/hospital-content";
 
 export function WhyUs() {
-  const { whyUs, valuePoints, valuePointsStatus } = hospital;
+  const { whyUs, valuePoints } = hospital;
 
   return (
-    <Section id="why-us" aria-labelledby="why-us-heading" flushTop containerClassName="grid grid-cols-2 items-center gap-[72px] max-[900px]:grid-cols-1 max-[900px]:gap-9">
+    <Section id="why-us" aria-labelledby="why-us-heading" containerClassName="grid grid-cols-2 items-center gap-[72px] max-[900px]:grid-cols-1 max-[900px]:gap-9">
       <PhotoFrame
-        alt={whyUs.photo.label}
-        icon={isIconName(whyUs.photo.icon) ? whyUs.photo.icon : undefined}
+        alt={whyUs.photo.alt}
+        src={whyUs.photo.src}
+        focus={whyUs.photo.focus}
+        icon={whyUs.photo.icon && isIconName(whyUs.photo.icon) ? whyUs.photo.icon : undefined}
         label={whyUs.photo.label}
         radius="xl"
         sizes="(min-width: 900px) 540px, 90vw"
@@ -29,7 +30,6 @@ export function WhyUs() {
             </RevealItem>
           ))}
         </RevealGroup>
-        {valuePointsStatus === "sample" && <Tag variant="sample">{whyUs.sampleTag}</Tag>}
       </div>
     </Section>
   );

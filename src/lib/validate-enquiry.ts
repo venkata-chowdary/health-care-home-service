@@ -12,7 +12,7 @@ export function validateEnquiry({ name, phone }: { name: string; phone: string }
   const errors: EnquiryErrors = {};
 
   if (!name.trim()) {
-    errors.name = "Enter the patient's name.";
+    errors.name = "Enter your name.";
   }
 
   if (!/^[6-9]\d{9}$/.test(normaliseIndianMobile(phone))) {

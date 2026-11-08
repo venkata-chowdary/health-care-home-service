@@ -66,10 +66,12 @@ Read CLAUDE.md, docs/DESIGN_SYSTEM.md (Motion) and src/design-system/motion.ts.
 
 Add purposeful motion with Motion for React: hero copy fades up on load, the photo deck enters 200ms later; section headings and card grids reveal once at 20% visibility with a 70ms stagger (max 6); card hover lift; FAQ open/close; drawer open/close. No parallax except at most 24px on the hero deck on desktop. Server-rendered HTML must be fully visible without JavaScript, and prefers-reduced-motion turns movement into fades. Keep client JavaScript small; wrap only what animates.
 
-Verify there is no layout shift and no hidden content at first paint.
+Add smooth scrolling with Lenis: npm install lenis, import "lenis/dist/lenis.css", and create one small client provider mounted in src/app/layout.tsx. Remove scroll-behavior: smooth from globals.css so the two don't fight. Drive Lenis from Motion's frame loop (or requestAnimationFrame) so scroll-triggered reveals stay in sync. Make every in-page anchor link (header nav, drawer, Book appointment, footer) scroll with lenis.scrollTo using an offset equal to the sticky header height, and close the drawer first. Stop Lenis while the mobile drawer is open. Add data-lenis-prevent to the horizontally scrolling doctor cards and anything else with its own scroll. Do not create Lenis at all when prefers-reduced-motion is set; native scrolling takes over.
+
+Verify there is no layout shift and no hidden content at first paint, that anchor links land with the section heading visible below the header, and that scrolling feels normal on a touch phone.
 ```
 
-## 7. SEO and metadata
+## 7. SEO and metadata (deferred until the client's real content is in)
 
 ```
 Read CLAUDE.md and docs/CONTENT_VERIFICATION.md, and the metadata guides in node_modules/next/dist/docs.
@@ -80,7 +82,7 @@ Add: page title and description for local search (Kukatpally, Hyderabad, Telanga
 ## 8. QA and final report
 
 ```
-Read CLAUDE.md. Done means: tokens centralised, components reusable, /design-system works, every section responsive, motion appropriate, navigation, phone and directions links work, form validates and reports honestly, no broken layouts, no console errors, SEO in place, accessibility checked, provisional content documented.
+Read CLAUDE.md. Done means: tokens centralised, components reusable, /design-system works, every section responsive, motion appropriate, navigation, phone and directions links work, form validates and reports honestly, no broken layouts, no console errors, accessibility checked, provisional content documented. SEO is deferred until the real content arrives; list it as a known limitation.
 
 Do a full QA pass in the browser at 1440, 1280, 1024, 768, 375 and 360: layout, spacing, alignment against docs/previews/landing-preview.html, image cropping, navigation, drawer, phone links, directions links, form states, FAQ, focus order, visible focus, contrast, reduced motion, console errors. Run tsc, eslint and next build. Fix what you find and capture screenshots of each breakpoint into docs/qa/.
 

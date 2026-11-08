@@ -1,11 +1,11 @@
 import { Section } from "@/components/layout/section";
-import { Button } from "@/components/ui/button";
-import { isIconName } from "@/components/ui/icon";
+import { CallButton } from "@/components/ui/call-button";
 import { PhotoFrame } from "@/components/ui/photo-frame";
+import { RequestButton } from "@/components/ui/request-button";
 import { hospital } from "@/data/hospital-content";
 
 export function Cta() {
-  const { ctaSection, phone } = hospital;
+  const { ctaSection } = hospital;
 
   return (
     <Section id="cta" aria-labelledby="cta-heading">
@@ -16,18 +16,14 @@ export function Cta() {
           </h2>
           <p className="max-w-[44ch] text-body-lg text-white">{ctaSection.lead}</p>
           <div className="flex flex-wrap gap-3">
-            <Button href={ctaSection.bookHref} variant="white">
-              {ctaSection.bookLabel}
-            </Button>
-            <Button href={phone.href.value} variant="ghost-light" iconBefore="phone">
-              {ctaSection.callLabel}
-            </Button>
+            <RequestButton onBlue />
+            <CallButton onDark />
           </div>
         </div>
         <PhotoFrame
-          alt={ctaSection.photo.label}
-          icon={isIconName(ctaSection.photo.icon) ? ctaSection.photo.icon : undefined}
-          label={ctaSection.photo.label}
+          alt={ctaSection.photo.alt}
+          src={ctaSection.photo.src}
+          focus={ctaSection.photo.focus}
           radius="none"
           sizes="(min-width: 860px) 40vw, 100vw"
           className="min-h-[300px] max-[860px]:order-first max-[860px]:min-h-[180px]"

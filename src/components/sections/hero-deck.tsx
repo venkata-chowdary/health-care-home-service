@@ -10,7 +10,7 @@ import { duration, easing } from "@/design-system/motion";
 import { cn } from "@/lib/cn";
 
 type HeroDeckProps = {
-  photos: { label: string; icon: string; src: string; alt: string }[];
+  photos: { label: string; icon: string; src?: string; alt: string; focus?: string }[];
   badges: string[];
   label: string;
 };
@@ -80,6 +80,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
               <PhotoFrame
                 alt={photo.alt}
                 src={photo.src}
+                focus={photo.focus}
                 preload={index === Math.floor(count / 2)}
                 icon={isIconName(photo.icon) ? photo.icon : "camera"}
                 label={photo.label}
