@@ -1,6 +1,7 @@
 import { DepartmentCard } from "@/components/healthcare/department-card";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
+import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Tag } from "@/components/ui/tag";
 import { hospital } from "@/data/hospital-content";
 
@@ -21,11 +22,13 @@ export function Departments() {
           </>
         }
       />
-      <div className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
+      <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
         {departments.map((department, index) => (
-          <DepartmentCard key={department.name} name={department.name} icon={department.icon} summary={department.summary} linkLabel={departmentsSection.linkLabel} linkHref={departmentsSection.linkHref} featured={index === 0} />
+          <RevealItem key={department.name} index={index} lift>
+            <DepartmentCard name={department.name} icon={department.icon} summary={department.summary} linkLabel={departmentsSection.linkLabel} linkHref={departmentsSection.linkHref} featured={index === 0} />
+          </RevealItem>
         ))}
-      </div>
+      </RevealGroup>
     </Section>
   );
 }

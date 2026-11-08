@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { FloatingBadge } from "@/components/ui/floating-badge";
 import { isIconName } from "@/components/ui/icon";
 import { PhotoFrame } from "@/components/ui/photo-frame";
+import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
 
 export function About() {
@@ -28,11 +29,13 @@ export function About() {
 
       <div className="grid gap-5">
         <SectionHeading headingId="about-heading" eyebrow={about.eyebrow} eyebrowVariant="white" title={about.title} lead={about.lead} className="gap-5!" />
-        <div className="grid grid-cols-2 gap-x-6 gap-y-[18px] max-[560px]:grid-cols-1">
-          {about.checks.map((check) => (
-            <ValuePoint key={check.title} variant="compact" icon={check.icon} title={check.title} detail={check.detail} />
+        <RevealGroup className="grid grid-cols-2 gap-x-6 gap-y-[18px] max-[560px]:grid-cols-1">
+          {about.checks.map((check, index) => (
+            <RevealItem key={check.title} index={index}>
+              <ValuePoint variant="compact" icon={check.icon} title={check.title} detail={check.detail} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
         <Button href={about.ctaHref} variant="navy" iconAfter="arrow-right" className="justify-self-start">
           {about.ctaLabel}
         </Button>

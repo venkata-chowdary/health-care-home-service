@@ -1,6 +1,7 @@
 import { ReviewCard } from "@/components/healthcare/review-card";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
+import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { StarRating } from "@/components/ui/star-rating";
 import { hospital } from "@/data/hospital-content";
 import { reviews, reviewsSource } from "@/data/reviews";
@@ -29,27 +30,28 @@ export function Reviews() {
         </a>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-1">
-        {reviewSlots.map((review, index) =>
-          review ? (
-            <ReviewCard
-              key={review.author}
-              author={review.author}
-              initials={review.author
-                .split(" ")
-                .map((word) => word[0])
-                .slice(0, 2)
-                .join("")
-                .toUpperCase()}
-              text={review.text}
-              rating={review.rating}
-              sourceLabel={reviewsSection.sourceLabel}
-            />
-          ) : (
-            <ReviewCard key={`empty-${index}`} empty author={reviewsSection.emptyAuthor} initials={reviewsSection.emptyAuthorInitials} text={reviewsSection.emptySlotTexts[index]} rating={0} sourceLabel={reviewsSection.sourceLabel} />
-          ),
-        )}
-      </div>
+      <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-1">
+        {reviewSlots.map((review, index) => (
+          <RevealItem key={review ? review.author : `empty-${index}`} index={index}>
+            {review ? (
+              <ReviewCard
+                author={review.author}
+                initials={review.author
+                  .split(" ")
+                  .map((word) => word[0])
+                  .slice(0, 2)
+                  .join("")
+                  .toUpperCase()}
+                text={review.text}
+                rating={review.rating}
+                sourceLabel={reviewsSection.sourceLabel}
+              />
+            ) : (
+              <ReviewCard empty author={reviewsSection.emptyAuthor} initials={reviewsSection.emptyAuthorInitials} text={reviewsSection.emptySlotTexts[index]} rating={0} sourceLabel={reviewsSection.sourceLabel} />
+            )}
+          </RevealItem>
+        ))}
+      </RevealGroup>
     </Section>
   );
 }

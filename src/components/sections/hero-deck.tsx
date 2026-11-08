@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
           const name = `${photo.label}, photo ${index + 1} of ${count}`;
 
           return (
-            <motion.button
+            <m.button
               key={photo.label}
               type="button"
               initial={false}
@@ -78,7 +78,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
                 sizes="(min-width: 1280px) 780px, 78vw"
                 className="size-full"
               />
-            </motion.button>
+            </m.button>
           );
         })}
 

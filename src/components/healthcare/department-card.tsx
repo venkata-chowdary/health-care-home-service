@@ -16,7 +16,7 @@ export function DepartmentCard({ name, icon, summary, linkLabel, linkHref, featu
   return (
     <article
       className={cn(
-        "group/card relative overflow-hidden rounded-lg border p-[26px] transition-[border-color,box-shadow,transform] duration-220 ease-standard hover:-translate-y-[3px] hover:border-blue-200 hover:shadow-hover",
+        "group/card relative overflow-hidden rounded-lg border p-[26px] transition-[border-color,box-shadow] duration-220 ease-standard hover:border-blue-200 hover:shadow-hover",
         featured ? "border-navy-950 bg-navy-950 text-white" : "border-border bg-background",
       )}
     >

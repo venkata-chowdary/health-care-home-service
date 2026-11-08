@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { isIconName } from "@/components/ui/icon";
 import { PhotoFrame } from "@/components/ui/photo-frame";
+import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Tag } from "@/components/ui/tag";
 import { hospital } from "@/data/hospital-content";
 
@@ -21,11 +22,13 @@ export function WhyUs() {
       />
       <div className="grid justify-items-start gap-[18px]">
         <SectionHeading headingId="why-us-heading" eyebrow={whyUs.eyebrow} title={whyUs.title} className="gap-[18px]!" />
-        <div className="grid w-full">
-          {valuePoints.map((point) => (
-            <ValuePoint key={point.title} icon={point.icon} title={point.title} detail={point.detail} />
+        <RevealGroup className="grid w-full">
+          {valuePoints.map((point, index) => (
+            <RevealItem key={point.title} index={index} className="[&:last-child>*]:border-b-0">
+              <ValuePoint icon={point.icon} title={point.title} detail={point.detail} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
         {valuePointsStatus === "sample" && <Tag variant="sample">{whyUs.sampleTag}</Tag>}
       </div>
     </Section>

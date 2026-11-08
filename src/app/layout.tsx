@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 
+import { MotionProvider } from "@/components/layout/motion-provider";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { hospital } from "@/data/hospital-content";
 
 import "./globals.css";
@@ -27,7 +29,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-IN" className={dmSans.variable}>
-      <body>{children}</body>
+      <body>
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
+        <SmoothScroll />
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

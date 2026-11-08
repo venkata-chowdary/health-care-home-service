@@ -6,9 +6,9 @@ export const duration = {
 };
 
 export const easing = {
-  standard: [0.22, 1, 0.36, 1],
-  inOutSoft: [0.65, 0, 0.35, 1],
-} as const;
+  standard: [0.22, 1, 0.36, 1] as [number, number, number, number],
+  inOutSoft: [0.65, 0, 0.35, 1] as [number, number, number, number],
+};
 
 export const stagger = {
   interval: 0.07,
@@ -17,7 +17,12 @@ export const stagger = {
 
 export const distance = {
   reveal: 20,
+  lift: 3,
   parallaxMax: 24,
+};
+
+export const delay = {
+  heroDeck: 0.2,
 };
 
 export const revealOnce = {

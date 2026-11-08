@@ -11,7 +11,7 @@ type DoctorCardProps = {
 
 export function DoctorCard({ name, department, photo, photoLabel, href }: DoctorCardProps) {
   return (
-    <article className="overflow-hidden rounded-lg border border-border bg-background transition-[box-shadow,transform] duration-220 ease-standard hover:-translate-y-[3px] hover:shadow-hover max-[640px]:snap-start">
+    <article className="overflow-hidden rounded-lg border border-border bg-background transition-[box-shadow] duration-220 ease-standard hover:shadow-hover">
       <PhotoFrame alt={`${name}, ${department}`} src={photo ?? undefined} sizes="(min-width: 1024px) 280px, 72vw" label={photoLabel} labelIcon={null} radius="none" className="aspect-[1/1.05]" />
       <div className="grid justify-items-center gap-0.5 bg-accent p-4 text-center">
         <h3 className="text-[15px] font-semibold">{name}</h3>

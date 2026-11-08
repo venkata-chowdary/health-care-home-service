@@ -1,12 +1,15 @@
 "use client";
 
+import { AnimatePresence, m } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { duration, easing } from "@/design-system/motion";
 import { cn } from "@/lib/cn";
+import { smoothScroll } from "@/lib/smooth-scroll-instance";
 
 type SiteHeaderProps = {
   brandName: string;
@@ -34,6 +37,7 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
     if (!menuOpen) return;
 
     document.body.style.overflow = "hidden";
+    smoothScroll.lenis?.stop();
     const desktopQuery = window.matchMedia("(min-width: 1081px)");
     const closeOnDesktop = () => {
       if (desktopQuery.matches) setMenuOpen(false);
@@ -67,6 +71,7 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "";
+      smoothScroll.lenis?.start();
       desktopQuery.removeEventListener("change", closeOnDesktop);
       document.removeEventListener("keydown", handleKeyDown);
     };
@@ -119,7 +124,7 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
               iconBefore={menuOpen ? "x" : "menu"}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
-              aria-controls="mobile-drawer"
+              aria-controls={menuOpen ? "mobile-drawer" : undefined}
               onClick={() => setMenuOpen(!menuOpen)}
               className="min-[1081px]:hidden"
             />
@@ -127,32 +132,36 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
         </Container>
       </header>
 
-      <div
-        ref={drawerRef}
-        id="mobile-drawer"
-        onClick={(event) => {
-          if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
-        }}
-        className={cn(
-          "fixed inset-x-0 bottom-0 z-[29] grid content-start gap-1 overflow-y-auto bg-background pt-3 pb-8 pr-[max(1.25rem,env(safe-area-inset-right,0px))] pl-[max(1.25rem,env(safe-area-inset-left,0px))]",
-          "top-[calc(76px+env(safe-area-inset-top,0px))] max-[560px]:top-[calc(68px+env(safe-area-inset-top,0px))] min-[1081px]:hidden",
-          "transition-[opacity,transform,visibility] duration-240 ease-standard",
-          menuOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
+      <AnimatePresence>
+        {menuOpen && (
+          <m.div
+            ref={drawerRef}
+            id="mobile-drawer"
+            data-lenis-prevent=""
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: duration.base, ease: easing.standard }}
+            onClick={(event) => {
+              if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
+            }}
+            className="fixed inset-x-0 bottom-0 top-[calc(76px+env(safe-area-inset-top,0px))] z-[29] grid content-start gap-1 overflow-y-auto bg-background pt-3 pb-8 pr-[max(1.25rem,env(safe-area-inset-right,0px))] pl-[max(1.25rem,env(safe-area-inset-left,0px))] max-[560px]:top-[calc(68px+env(safe-area-inset-top,0px))] min-[1081px]:hidden"
+          >
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href} className="flex items-center justify-between border-b border-border px-1 py-[18px] text-[20px] font-medium tracking-[-0.02em] text-foreground">
+                {item.label}
+                <Icon name="chevron-right" size={18} className="text-slate-400" />
+              </a>
+            ))}
+            <Button href={bookHref} className="mt-3 w-full">
+              {drawerBookLabel}
+            </Button>
+            <Button href={phone.href} variant="secondary" iconBefore="phone" className="mt-3 w-full">
+              {phone.display}
+            </Button>
+          </m.div>
         )}
-      >
-        {navItems.map((item) => (
-          <a key={item.href} href={item.href} className="flex items-center justify-between border-b border-border px-1 py-[18px] text-[20px] font-medium tracking-[-0.02em] text-foreground">
-            {item.label}
-            <Icon name="chevron-right" size={18} className="text-slate-400" />
-          </a>
-        ))}
-        <Button href={bookHref} className="mt-3 w-full">
-          {drawerBookLabel}
-        </Button>
-        <Button href={phone.href} variant="secondary" iconBefore="phone" className="mt-3 w-full">
-          {phone.display}
-        </Button>
-      </div>
+      </AnimatePresence>
     </>
   );
 }

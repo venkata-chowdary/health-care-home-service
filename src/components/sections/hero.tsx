@@ -2,7 +2,10 @@ import { Container } from "@/components/layout/container";
 import { HeroDeck } from "@/components/sections/hero-deck";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { ParallaxLayer } from "@/components/ui/parallax-layer";
+import { Reveal } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
+import { delay } from "@/design-system/motion";
 
 export function Hero() {
   const { hero, facts, heroPhotos, phone, navigation } = hospital;
@@ -10,7 +13,7 @@ export function Hero() {
   return (
     <section id="hero" aria-labelledby="hero-heading" className="bg-hero-navy pt-14 pb-24 text-white max-md:pt-9 max-md:pb-16">
       <Container>
-        <div className="grid justify-items-center gap-[26px] text-center">
+        <Reveal trigger="load" className="grid justify-items-center gap-[26px] text-center">
           <Eyebrow variant="on-dark">{hero.eyebrow.value}</Eyebrow>
           <h1 id="hero-heading" className="max-w-[19ch] text-display font-medium tracking-heading text-balance">
             {hero.headline.value}
@@ -24,11 +27,13 @@ export function Hero() {
               {hero.callLabel} {phone.display.value}
             </Button>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="mt-14 max-md:mt-9">
-          <HeroDeck photos={heroPhotos.map(({ label, icon, src }) => ({ label, icon, src }))} badges={hero.badges} label={hero.photosLabel} />
-        </div>
+        <Reveal trigger="load" delay={delay.heroDeck} className="mt-14 max-md:mt-9">
+          <ParallaxLayer>
+            <HeroDeck photos={heroPhotos.map(({ label, icon, src }) => ({ label, icon, src }))} badges={hero.badges} label={hero.photosLabel} />
+          </ParallaxLayer>
+        </Reveal>
 
         <dl className="mt-10 grid grid-cols-4 max-md:mt-7 max-md:grid-cols-2 max-md:gap-y-4">
           {facts.map((fact) => (
