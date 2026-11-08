@@ -14,7 +14,7 @@ export function Cta() {
           <h2 id="cta-heading" className="text-h2 font-medium tracking-heading text-balance text-white">
             {ctaSection.title}
           </h2>
-          <p className="max-w-[44ch] text-body-lg text-blue-100">{ctaSection.lead}</p>
+          <p className="max-w-[44ch] text-body-lg text-white">{ctaSection.lead}</p>
           <div className="flex flex-wrap gap-3">
             <Button href={ctaSection.bookHref} variant="white">
               {ctaSection.bookLabel}

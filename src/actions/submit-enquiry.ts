@@ -12,6 +12,7 @@ export async function submitEnquiry(formData: FormData) {
     return { ok: false, errors };
   }
 
-  // TODO: send the enquiry to hospital.enquiry.destination (email, WhatsApp Business or CRM) once the client supplies one.
-  return { ok: true, errors: {} };
+  // No delivery channel exists yet (hospital.enquiry.destination is awaiting the client), so nothing is sent.
+  // Return ok: true only after the enquiry has actually reached email, WhatsApp Business or the CRM.
+  return { ok: false, errors: {} };
 }

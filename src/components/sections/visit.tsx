@@ -24,7 +24,7 @@ export function Visit() {
           labelSide="right"
           radius="xl"
           sizes="(min-width: 1280px) 1200px, 100vw"
-          className="aspect-[16/7] max-md:aspect-[4/3]"
+          className="aspect-[4/3] md:aspect-auto md:h-[400px] xl:h-[490px]"
         />
         <div className="absolute top-6 left-6 grid w-[min(340px,calc(100%-48px))] gap-3.5 rounded-card bg-background p-6 shadow-float max-md:relative max-md:top-auto max-md:left-auto max-md:mx-3 max-md:-mt-16 max-md:w-auto">
           <span className="text-caption text-muted-foreground">{name.value}</span>

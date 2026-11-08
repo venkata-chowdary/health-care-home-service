@@ -99,6 +99,10 @@ export function EnquiryForm({ copy, departmentNames }: EnquiryFormProps) {
         const result = await submitEnquiry(formData);
         if (!result.ok) {
           setErrors(result.errors);
+          if (!result.errors.name && !result.errors.phone) {
+            setStatus("failed");
+            return;
+          }
           const serverInvalidField = result.errors.name ? "name" : "phone";
           (form.elements.namedItem(serverInvalidField) as HTMLInputElement).focus();
           return;

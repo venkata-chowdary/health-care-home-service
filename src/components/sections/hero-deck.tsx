@@ -62,7 +62,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
               }}
               aria-label={isCurrent ? name : `Show ${name}`}
               aria-current={isCurrent}
-              tabIndex={isCurrent ? -1 : 0}
+              tabIndex={-1}
               onClick={() => showPhoto(index)}
               className={cn(
                 "absolute top-1/2 left-1/2 aspect-[16/10] w-[min(780px,68%)] overflow-hidden rounded-[20px] border-0 p-0 shadow-deck will-change-transform max-md:w-[78%] max-md:rounded-lg",
