@@ -1,9 +1,8 @@
 "use client";
 
 import { m, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import { FloatingBadge } from "@/components/ui/floating-badge";
 import { isIconName } from "@/components/ui/icon";
 import { PhotoFrame } from "@/components/ui/photo-frame";
@@ -11,13 +10,14 @@ import { duration, easing } from "@/design-system/motion";
 import { cn } from "@/lib/cn";
 
 type HeroDeckProps = {
-  photos: { label: string; icon: string; src: string | null }[];
+  photos: { label: string; icon: string; src: string; alt: string }[];
   badges: string[];
   label: string;
 };
 
 export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
   const [position, setPosition] = useState({ current: Math.floor(photos.length / 2), previous: Math.floor(photos.length / 2) });
+  const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
   const count = photos.length;
 
@@ -32,8 +32,16 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
 
   const { current } = position;
 
+  useEffect(() => {
+    if (reducedMotion || paused) return;
+    const timer = setInterval(() => {
+      setPosition((existing) => ({ current: (existing.current + 1) % count, previous: existing.current }));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [reducedMotion, paused, count, current]);
+
   return (
-    <div role="group" aria-roledescription="carousel" aria-label={label} onKeyDown={(event) => {
+    <div role="group" aria-roledescription="carousel" aria-label={label} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onKeyDown={(event) => {
       if (event.key === "ArrowLeft") showPhoto(current - 1);
       if (event.key === "ArrowRight") showPhoto(current + 1);
     }}>
@@ -70,8 +78,9 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
               )}
             >
               <PhotoFrame
-                alt={photo.label}
-                src={photo.src ?? undefined}
+                alt={photo.alt}
+                src={photo.src}
+                preload={index === Math.floor(count / 2)}
                 icon={isIconName(photo.icon) ? photo.icon : "camera"}
                 label={photo.label}
                 labelClassName={cn("transition-opacity duration-300", !isCurrent && "opacity-0")}
@@ -86,19 +95,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
         <FloatingBadge className="absolute right-[12%] bottom-[14%] z-20 max-md:hidden">{badges[1]}</FloatingBadge>
       </div>
 
-      <div className="mt-6 flex items-center justify-center gap-3.5">
-        <Button variant="glass" iconOnly iconBefore="arrow-left" aria-label="Previous photo" onClick={() => showPhoto(current - 1)} />
-        <div className="flex">
-          {photos.map((photo, index) => (
-            <button key={photo.label} type="button" aria-label={`Show photo ${index + 1}: ${photo.label}`} aria-current={index === current} onClick={() => showPhoto(index)} className="flex h-6 cursor-pointer items-center px-2">
-              <span className={cn("h-2 rounded-button transition-[width,background-color] duration-300 ease-standard", index === current ? "w-6 bg-white" : "w-2 bg-navy-line")} />
-            </button>
-          ))}
-        </div>
-        <Button variant="glass" iconOnly iconBefore="arrow-right" aria-label="Next photo" onClick={() => showPhoto(current + 1)} />
-      </div>
-
-      <p className="sr-only" aria-live="polite">
+      <p className="sr-only" aria-live="off">
         {`Photo ${current + 1} of ${count}: ${photos[current].label}`}
       </p>
     </div>
