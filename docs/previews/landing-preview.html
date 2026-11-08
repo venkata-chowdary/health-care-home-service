@@ -1,0 +1,659 @@
+<meta charset="utf-8">
+<title>Hemalatha Landing Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+<style>
+/* Layout: the assembled landing page from the client's picks, 1120px centred column, sections separated by space not rules. A small preview toolbar on top switches between three hero image structures. Light only. */
+:root {
+  color-scheme: light;
+  --navy-950: #0B1B45; --navy-900: #13265A; --navy-800: #1E3270; --navy-line: #24376B;
+  --blue-50: #EFF3FF; --blue-100: #DFE8FF; --blue-200: #C2D4FF; --blue-300: #8FB1FF;
+  --blue-600: #1F6BFF; --blue-700: #1A5EE8; --blue-800: #1757D6;
+  --slate-50: #F7F9FC; --slate-100: #EEF1F6; --slate-200: #E3E7EF; --slate-400: #8C94A6; --slate-600: #5B6478; --slate-on-dark: #C9D3EE;
+  --green: #15803D; --green-bg: #EAF6EE; --amber: #B45309; --amber-bg: #FDF3E6;
+  --background: #FFFFFF; --surface: var(--slate-50); --tint: var(--blue-50);
+  --foreground: var(--navy-950); --muted-fg: var(--slate-600); --border: var(--slate-200); --input: var(--slate-400);
+  --primary: var(--blue-600); --primary-hover: var(--blue-700); --link: var(--blue-800);
+  --font: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --track-tight: -0.04em;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-full: 999px;
+  --shadow-float: 0 18px 40px -12px rgba(11, 27, 69, .22), 0 2px 6px rgba(11, 27, 69, .06);
+  --shadow-hover: 0 12px 28px -14px rgba(11, 27, 69, .20);
+  --shadow-pill: 0 6px 18px -6px rgba(11, 27, 69, .20);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { overflow-x: clip; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--background); color: var(--foreground); font: 400 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--background); }
+h1, h2, h3, h4, h5, p { margin: 0; }
+h1, h2, h3, .t-display, .t-h2, .t-h3 { font-weight: 500; letter-spacing: var(--track-tight); text-wrap: balance; }
+h4 { font-weight: 600; letter-spacing: -0.01em; }
+a { color: var(--link); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.lucide { stroke-width: 1.75; }
+
+.container { max-width: 1200px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 768px) { .container { padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)); } }
+.section { padding-block: 112px; }
+.section.surface { background: var(--surface); }
+@media (max-width: 1023px) { .section { padding-block: 88px; } }
+@media (max-width: 767px) { .section { padding-block: 64px; } }
+.stack { display: grid; gap: 48px; }
+@media (max-width: 767px) { .stack { gap: 32px; } }
+.head { display: grid; gap: 14px; max-width: 640px; justify-items: start; }
+.head.center { justify-items: center; text-align: center; margin-inline: auto; }
+.headsplit { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: var(--r-full); background: var(--tint); color: var(--link); font-size: 13px; font-weight: 500; line-height: 1.2; }
+.eyebrow::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.eyebrow.white { background: #FFFFFF; }
+.t-display { font-size: clamp(38px, 5.6vw, 66px); line-height: 1.03; }
+.t-h2 { font-size: clamp(28px, 3.5vw, 44px); line-height: 1.08; }
+.t-h3 { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.15; }
+.lead { font-size: clamp(16px, 1.4vw, 18px); line-height: 1.6; color: var(--muted-fg); }
+.small { font-size: 14px; color: var(--muted-fg); }
+.tag { display: inline-flex; align-items: center; height: 26px; padding: 0 11px; border-radius: var(--r-full); border: 1px solid var(--border); font-size: 12.5px; color: var(--muted-fg); background: #FFFFFF; white-space: nowrap; }
+.tag.sample { border-color: #F2D3A6; background: var(--amber-bg); color: var(--amber); font-weight: 500; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 24px; border-radius: var(--r-full); font: 500 15px/1 var(--font); border: 1px solid transparent; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background-color 180ms var(--ease), border-color 180ms var(--ease), color 180ms var(--ease); }
+.btn svg { width: 17px; height: 17px; stroke-width: 2; transition: transform 200ms var(--ease); }
+.btn:hover svg.lucide-arrow-right { transform: translateX(3px); }
+.btn:active { transform: scale(.98); }
+.btn-sm { height: 40px; padding: 0 18px; font-size: 14px; }
+.btn-primary { background: var(--primary); color: #FFFFFF; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary { background: #FFFFFF; color: var(--foreground); border-color: var(--border); }
+.btn-secondary:hover { border-color: var(--blue-200); background: var(--tint); }
+.btn-white { background: #FFFFFF; color: var(--navy-950); }
+.btn-white:hover { background: var(--blue-50); }
+.btn-ghost-light { background: transparent; color: #FFFFFF; border-color: rgba(255, 255, 255, .45); }
+.btn-ghost-light:hover { border-color: #FFFFFF; background: rgba(255, 255, 255, .08); }
+.btn-navy { background: var(--navy-950); color: #FFFFFF; }
+.btn-navy:hover { background: var(--navy-800); }
+.btn-icon { width: 44px; height: 44px; padding: 0; }
+.btn-lead { padding-left: 6px; }
+.btn-lead .bubble { width: 36px; height: 36px; border-radius: 50%; background: #FFFFFF; color: var(--primary); display: grid; place-items: center; }
+.link-arrow { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--link); text-decoration: none; }
+.link-arrow svg { width: 15px; height: 15px; transition: transform 200ms var(--ease); }
+.card:hover .link-arrow svg, .link-arrow:hover svg { transform: translateX(3px); }
+
+.photo { position: relative; border-radius: var(--r-lg); overflow: hidden; background: radial-gradient(120% 90% at 30% 20%, #F4F7FC 0%, #E2E9F4 55%, #D3DCEB 100%); max-width: 100%; }
+.photo .ph-icon { position: absolute; inset: 0; display: grid; place-items: center; color: #B9C6DC; }
+.photo .ph-icon svg { width: 40px; height: 40px; stroke-width: 1.25; }
+.photo .ph-label { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: var(--r-full); background: rgba(255, 255, 255, .85); font-size: 12px; color: var(--muted-fg); white-space: nowrap; }
+.photo .ph-label svg { width: 13px; height: 13px; }
+.photo.dark { background: radial-gradient(120% 90% at 30% 20%, #2A3D74 0%, #1A2B5F 60%, #13245A 100%); }
+.photo.dark .ph-icon { color: #3C5191; }
+.photo.dark .ph-label { background: rgba(11, 27, 69, .7); color: var(--slate-on-dark); }
+.card { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px; display: grid; gap: 10px; align-content: start; transition: border-color 220ms var(--ease), box-shadow 220ms var(--ease), transform 220ms var(--ease); }
+.card.interactive:hover { border-color: var(--blue-200); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+.card p { color: var(--muted-fg); font-size: 15px; }
+.icon-tile { width: 40px; height: 40px; border-radius: var(--r-sm); background: var(--tint); color: var(--primary); display: grid; place-items: center; margin-bottom: 6px; }
+.icon-tile svg { width: 20px; height: 20px; }
+.badge-float { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px 0 8px; border-radius: var(--r-full); background: #FFFFFF; box-shadow: var(--shadow-pill); font-size: 13px; font-weight: 500; color: var(--foreground); white-space: nowrap; }
+.badge-float .tick { width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: #FFFFFF; display: grid; place-items: center; }
+.badge-float .tick svg { width: 12px; height: 12px; stroke-width: 3; }
+.stars { display: flex; gap: 2px; color: #F5A524; }
+.stars svg { width: 15px; height: 15px; fill: currentColor; stroke-width: 0; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--tint); color: var(--link); display: grid; place-items: center; font-size: 13px; font-weight: 600; flex: none; }
+.open-dot { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--green); }
+.open-dot::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 4px var(--green-bg); }
+
+/* header */
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(255, 255, 255, .94); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color 200ms; }
+.site-header.scrolled { border-color: var(--border); }
+.site-header .container { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; height: 76px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.02em; white-space: nowrap; color: inherit; text-decoration: none; }
+.brand-mark { width: 32px; height: 32px; border-radius: 8px; border: 1.5px dashed var(--blue-300); display: grid; place-items: center; color: var(--blue-300); font-size: 8px; font-weight: 600; }
+.nav { display: flex; justify-content: center; gap: 4px; }
+.nav a { font-size: 14.5px; color: var(--muted-fg); text-decoration: none; padding: 8px 12px; border-radius: var(--r-full); transition: color 160ms, background-color 160ms; }
+.nav a:hover { color: var(--foreground); background: var(--surface); }
+.head-actions { display: flex; align-items: center; gap: 8px; }
+.head-phone { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; color: var(--foreground); text-decoration: none; padding: 0 12px; height: 40px; border-radius: var(--r-full); white-space: nowrap; }
+.head-phone svg { width: 16px; height: 16px; color: var(--primary); }
+.head-phone:hover { background: var(--surface); }
+.menu-btn { display: none; }
+.drawer { position: fixed; inset: calc(76px + env(safe-area-inset-top, 0px)) 0 0; z-index: 29; background: #FFFFFF; padding: 12px max(20px, env(safe-area-inset-right, 0px)) 32px max(20px, env(safe-area-inset-left, 0px)); display: grid; align-content: start; gap: 4px; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 240ms var(--ease), transform 240ms var(--ease), visibility 240ms; overflow-y: auto; }
+.drawer.open { opacity: 1; visibility: visible; transform: none; }
+.drawer a.navlink { display: flex; justify-content: space-between; align-items: center; padding: 18px 4px; border-bottom: 1px solid var(--border); font-size: 20px; font-weight: 500; letter-spacing: -0.02em; color: var(--foreground); text-decoration: none; }
+.drawer a.navlink svg { width: 18px; height: 18px; color: var(--slate-400); }
+.drawer .btn { margin-top: 12px; }
+@media (max-width: 1080px) { .nav, .head-phone span { display: none; } .menu-btn { display: inline-flex; } }
+@media (max-width: 560px) { .site-header .container { height: 68px; gap: 8px; } .head-actions .btn-primary { display: none; } .drawer { inset: calc(68px + env(safe-area-inset-top, 0px)) 0 0; } }
+
+/* hero */
+.hero { padding-top: 56px; padding-bottom: 96px; }
+.hero-copy { display: grid; gap: 26px; justify-items: center; text-align: center; }
+.hero-copy p { max-width: 54ch; }
+.hero-visual { margin-top: 56px; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 40px; }
+.facts > div { padding: 4px 24px; border-left: 1px solid var(--border); display: grid; gap: 2px; }
+.facts > div:first-child { border-left: 0; padding-left: 0; }
+.facts b { font-weight: 600; font-size: 15px; }
+.facts span { font-size: 13.5px; color: var(--muted-fg); }
+@media (max-width: 767px) { .hero { padding-top: 36px; padding-bottom: 64px; } .hero-visual { margin-top: 36px; } .facts { grid-template-columns: 1fr 1fr; row-gap: 16px; margin-top: 28px; } .facts > div:nth-child(odd) { border-left: 0; padding-left: 0; } .facts > div { padding: 2px 14px; } }
+
+/* hero: stacked photo deck */
+.deck { position: relative; height: clamp(280px, 40vw, 540px); }
+.deck .slide { position: absolute; top: 50%; left: 50%; width: min(780px, 68%); aspect-ratio: 16 / 10; border-radius: 20px; padding: 0; border: 0; cursor: pointer; box-shadow: 0 30px 60px -24px rgba(11, 27, 69, .35); transition: transform 600ms var(--ease), filter 600ms var(--ease), opacity 600ms var(--ease); will-change: transform; }
+.deck .slide[aria-current="true"] { cursor: default; }
+.deck .slide .ph-label { transition: opacity 300ms; }
+.deck .slide:not([aria-current="true"]) .ph-label { opacity: 0; }
+.deck .badge-float { position: absolute; z-index: 20; transition: opacity 300ms; }
+.deck-controls { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 24px; }
+.deck-dots { display: flex; gap: 6px; }
+.deck-dots button { width: 8px; height: 8px; border-radius: var(--r-full); border: 0; padding: 0; background: var(--slate-200); cursor: pointer; transition: width 300ms var(--ease), background-color 300ms; }
+.deck-dots button[aria-current="true"] { width: 24px; background: var(--primary); }
+@media (max-width: 767px) { .deck { height: clamp(190px, 52vw, 340px); } .deck .slide { width: 78%; border-radius: var(--r-lg); } .deck .badge-float { display: none; } }
+
+/* hero: navy variant */
+.hero.navy { background: radial-gradient(60% 70% at 15% 10%, rgba(58, 91, 168, .55) 0%, transparent 60%), radial-gradient(50% 60% at 90% 30%, rgba(31, 107, 255, .35) 0%, transparent 65%), linear-gradient(180deg, #13265A 0%, var(--navy-950) 100%); color: #FFFFFF; }
+.hero.navy .lead { color: var(--slate-on-dark); }
+.hero.navy .eyebrow { background: rgba(255, 255, 255, .08); color: var(--blue-200); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); }
+.hero.navy .btn-secondary { background: transparent; color: #FFFFFF; border-color: rgba(255, 255, 255, .4); }
+.hero.navy .btn-secondary:hover { background: rgba(255, 255, 255, .08); border-color: #FFFFFF; }
+.hero.navy .facts > div { border-color: var(--navy-line); }
+.hero.navy .facts span { color: var(--slate-on-dark); }
+.hero.navy .deck-dots button { background: var(--navy-line); }
+.hero.navy .deck-dots button[aria-current="true"] { background: #FFFFFF; }
+.hero.navy .deck-controls .btn { background: rgba(255, 255, 255, .08); color: #FFFFFF; border-color: rgba(255, 255, 255, .2); }
+.hero.navy .photo { background: radial-gradient(120% 90% at 30% 20%, #F4F7FC 0%, #DCE5F3 60%, #C8D4E8 100%); }
+
+/* faq: single card list */
+.faq-list { border-top: 1px solid var(--border); }
+.faq-list details { border-bottom: 1px solid var(--border); }
+.faq-list summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; font-size: 17px; font-weight: 500; letter-spacing: -0.01em; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary svg { width: 22px; height: 22px; flex: none; color: var(--primary); transition: transform 260ms var(--ease); }
+.faq-list details[open] summary svg { transform: rotate(45deg); }
+.faq-list .answer { padding: 0 40px 22px 0; color: var(--muted-fg); font-size: 15.5px; max-width: 62ch; }
+.faq-topics { display: grid; gap: 28px; max-width: 880px; margin-inline: auto; width: 100%; }
+.topic-panel { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--r-xl); padding: 8px 28px; }
+.topic-panel .faq-list { border-top: 0; }
+.topic-panel .faq-list details:last-child { border-bottom: 0; }
+.topic-foot { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 14.5px; color: var(--muted-fg); }
+@media (max-width: 640px) { .topic-panel { padding: 4px 18px; border-radius: var(--r-lg); } }
+
+/* about B */
+.aboutB { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 72px; align-items: center; }
+.aboutB .media { position: relative; padding: 0 0 40px 40px; }
+.aboutB .media .main { aspect-ratio: 4 / 4.4; border-radius: var(--r-xl); }
+.aboutB .media .inset { position: absolute; left: 0; bottom: 0; width: 44%; aspect-ratio: 4 / 3; border: 5px solid #FFFFFF; box-shadow: var(--shadow-float); }
+.aboutB .media .badge-float { position: absolute; right: -12px; top: 32px; }
+.checks { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+.checks > div { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; }
+.pi { width: 32px; height: 32px; border-radius: 50%; background: var(--tint); color: var(--primary); display: grid; place-items: center; }
+.pi svg { width: 16px; height: 16px; stroke-width: 2; }
+.checks b { font-weight: 600; font-size: 15px; display: block; }
+.checks span { font-size: 13.5px; color: var(--muted-fg); }
+@media (max-width: 900px) { .aboutB { grid-template-columns: 1fr; gap: 40px; } }
+@media (max-width: 560px) { .checks { grid-template-columns: 1fr; } .aboutB .media { padding: 0 0 28px 20px; } .aboutB .media .badge-float { right: 8px; } }
+
+/* departments B */
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .grid3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .grid3 { grid-template-columns: 1fr; } }
+.card.hl { position: relative; overflow: hidden; background: var(--navy-950); border-color: var(--navy-950); color: #FFFFFF; }
+.card.hl p { color: var(--slate-on-dark); }
+.card.hl .link-arrow { color: #FFFFFF; }
+.card.hl .icon-tile { background: rgba(255, 255, 255, .1); color: #FFFFFF; }
+.card.hl .photo { position: absolute; right: -20px; top: 0; bottom: 0; width: 45%; border-radius: 0; opacity: .5; }
+.card.hl > *:not(.photo) { position: relative; }
+
+/* why A */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: center; }
+.split .photo { aspect-ratio: 4 / 4.6; border-radius: var(--r-xl); }
+.points { display: grid; }
+.point { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 16px; padding-block: 18px; border-bottom: 1px solid var(--border); }
+.point:last-child { border-bottom: 0; }
+.point b { font-weight: 600; display: block; }
+.point span { color: var(--muted-fg); font-size: 14.5px; }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 36px; } .split .photo { aspect-ratio: 4 / 3; } }
+
+/* doctors B */
+.docB-wrap { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 48px; align-items: center; }
+.docB-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.docB { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); background: #FFFFFF; transition: box-shadow 220ms var(--ease), transform 220ms var(--ease); }
+.docB:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+.docB .photo { aspect-ratio: 1 / 1.05; border-radius: 0; }
+.docB .band { background: var(--tint); padding: 16px; display: grid; justify-items: center; gap: 2px; text-align: center; }
+.docB .band b { font-weight: 600; font-size: 15px; }
+.docB .band span { font-size: 13px; color: var(--muted-fg); }
+.docB .band .plus { margin-top: 8px; width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; color: var(--primary); display: grid; place-items: center; box-shadow: var(--shadow-pill); border: 0; cursor: pointer; }
+.docB .band .plus svg { width: 15px; height: 15px; stroke-width: 2.25; }
+@media (max-width: 960px) { .docB-wrap { grid-template-columns: 1fr; gap: 32px; } }
+@media (max-width: 640px) { .docB-cards { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; } .docB { scroll-snap-align: start; } }
+
+/* facilities B */
+.panel-tint { background: var(--tint); border-radius: var(--r-xl); padding: 64px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.numbox { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 24px; align-items: center; padding-block: 24px; border-block: 1px solid var(--blue-100); }
+.numbox .n { background: #FFFFFF; border-radius: var(--r-lg); padding: 18px 22px; display: grid; }
+.numbox .n b { font-size: 48px; font-weight: 500; letter-spacing: -0.05em; line-height: 1; }
+.numbox .n b em { font-style: normal; color: var(--primary); }
+.numbox .n span { font-size: 12.5px; color: var(--muted-fg); margin-top: 6px; }
+.fac-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fac-list span { display: flex; align-items: center; gap: 8px; font-size: 14.5px; }
+.fac-list svg { width: 16px; height: 16px; color: var(--primary); stroke-width: 2.25; flex: none; }
+.collage { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.collage .photo { aspect-ratio: 4 / 5; }
+.collage .photo:nth-child(2) { margin-top: 48px; }
+.collage .seal { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 104px; height: 104px; border-radius: 50%; background: var(--primary); color: #FFFFFF; display: grid; place-items: center; text-align: center; font-size: 12px; font-weight: 500; line-height: 1.25; border: 6px solid var(--tint); }
+.collage .seal b { display: block; font-size: 24px; letter-spacing: -0.03em; }
+@media (max-width: 960px) { .panel-tint { grid-template-columns: 1fr; padding: 32px 22px; gap: 36px; } }
+@media (max-width: 480px) { .numbox { grid-template-columns: 1fr; } .fac-list { grid-template-columns: 1fr; } }
+
+/* reviews A */
+.revA { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .revA { grid-template-columns: 1fr; } }
+.review blockquote { margin: 0; font-size: 16px; line-height: 1.6; color: var(--foreground); }
+.review footer { display: flex; align-items: center; gap: 10px; padding-top: 14px; border-top: 1px solid var(--border); margin-top: 4px; }
+.review footer div { display: grid; font-size: 13px; color: var(--muted-fg); line-height: 1.35; }
+.review footer b { color: var(--foreground); font-weight: 600; font-size: 14px; }
+.review.empty blockquote { color: var(--slate-400); }
+.rating-pill { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px 0 8px; border-radius: var(--r-full); border: 1px solid var(--border); font-size: 14px; color: var(--muted-fg); background: #FFFFFF; text-decoration: none; }
+.rating-pill b { color: var(--foreground); font-size: 16px; font-weight: 600; }
+.g-mark { width: 30px; height: 30px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-weight: 600; color: var(--foreground); font-size: 14px; }
+
+/* visit + faq (from Revision 2) */
+.visit-media { position: relative; }
+.visit-media .photo { aspect-ratio: 16 / 7; border-radius: var(--r-xl); }
+.visit-card { position: absolute; top: 24px; left: 24px; width: min(340px, calc(100% - 48px)); background: #FFFFFF; border-radius: var(--r-lg); box-shadow: var(--shadow-float); padding: 24px; display: grid; gap: 14px; }
+.visit-card h4 { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.3; }
+.hours { display: grid; gap: 8px; font-size: 13.5px; padding-top: 14px; border-top: 1px solid var(--border); }
+.hours > div { display: grid; grid-template-columns: 110px 1fr; gap: 8px; }
+.hours span:first-child { color: var(--muted-fg); }
+@media (max-width: 767px) { .visit-media .photo { aspect-ratio: 4 / 3; } .visit-card { position: relative; top: auto; left: auto; width: auto; margin: -64px 12px 0; } }
+
+/* enquiry A */
+.enqA { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
+@media (max-width: 900px) { .enqA { grid-template-columns: 1fr; gap: 32px; } }
+.call-card { display: grid; gap: 12px; padding: 24px; border-radius: var(--r-lg); background: var(--tint); justify-items: start; }
+.call-card .num { font-size: 28px; font-weight: 500; letter-spacing: -0.03em; color: var(--foreground); text-decoration: none; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 32px; border: 1px solid var(--border); border-radius: var(--r-xl); background: #FFFFFF; }
+.form .full { grid-column: 1 / -1; }
+@media (max-width: 640px) { .form { grid-template-columns: 1fr; padding: 20px; border-radius: var(--r-lg); } }
+.field { display: grid; gap: 7px; align-content: start; }
+.field label { font-size: 14px; font-weight: 500; }
+.field label .opt { font-weight: 400; color: var(--muted-fg); }
+.control { width: 100%; height: 50px; padding: 0 16px; border: 1px solid var(--input); border-radius: var(--r-md); background: #FFFFFF; font: 400 16px var(--font); color: var(--foreground); transition: border-color 160ms, box-shadow 160ms; }
+.control::placeholder { color: var(--slate-400); }
+.control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(31, 107, 255, .16); }
+.control[aria-invalid="true"] { border-color: #B91C1C; }
+select.control { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235B6478' stroke-width='2' stroke-linecap='round' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+textarea.control { height: 104px; padding: 14px 16px; resize: vertical; }
+.error { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #B91C1C; }
+.error svg { width: 14px; height: 14px; flex: none; }
+.hint { font-size: 13px; color: var(--muted-fg); }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--muted-fg); cursor: pointer; }
+.check input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--primary); flex: none; }
+.notice { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 16px 18px; border-radius: var(--r-md); font-size: 14.5px; background: var(--green-bg); color: #14532D; }
+.notice svg { width: 20px; height: 20px; color: var(--green); }
+.spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .35); border-top-color: #FFFFFF; animation: spin 700ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* cta A */
+.ctaA { display: grid; grid-template-columns: 1.35fr 1fr; border-radius: var(--r-xl); overflow: hidden; background: var(--primary); color: #FFFFFF; }
+.ctaA .copy { padding: 64px 56px; display: grid; gap: 20px; align-content: center; justify-items: start; }
+.ctaA p { color: #DCE7FF; max-width: 44ch; }
+.ctaA .photo { border-radius: 0; min-height: 300px; }
+@media (max-width: 860px) { .ctaA { grid-template-columns: 1fr; border-radius: var(--r-lg); } .ctaA .copy { padding: 32px 22px; } .ctaA .photo { min-height: 180px; order: -1; } }
+
+/* footer B */
+.footB { background: var(--navy-950); color: var(--slate-on-dark); border-radius: var(--r-xl); padding: 48px; display: grid; gap: 40px; }
+.footB .cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 36px; }
+.footB h5 { margin: 0 0 12px; font-size: 14px; font-weight: 600; color: #FFFFFF; }
+.footB ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; font-size: 14px; }
+.footB a { color: var(--slate-on-dark); text-decoration: none; }
+.footB a:hover { color: #FFFFFF; }
+.contactbar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.contactbar > a, .contactbar > div { display: flex; gap: 12px; align-items: center; padding: 16px 18px; border-radius: var(--r-lg); background: var(--navy-900); font-size: 14px; transition: background-color 200ms; }
+.contactbar > a:hover { background: var(--navy-800); }
+.contactbar svg { width: 20px; height: 20px; color: var(--blue-300); flex: none; }
+.contactbar b { color: #FFFFFF; font-weight: 500; display: block; }
+.foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 20px; border-top: 1px solid var(--navy-line); font-size: 13px; }
+.foot-base nav { display: flex; gap: 20px; }
+@media (max-width: 860px) { .footB .cols { grid-template-columns: 1fr 1fr; } .contactbar { grid-template-columns: 1fr; } .footB { padding: 28px 20px; border-radius: var(--r-lg); } }
+@media (max-width: 480px) { .footB .cols { grid-template-columns: 1fr; gap: 28px; } }
+.site-footer { padding-bottom: 32px; }
+
+/* mobile call bar */
+.callbar { display: none; }
+@media (max-width: 767px) {
+  .callbar { display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; position: fixed; z-index: 25; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding: 8px; background: #FFFFFF; border-radius: var(--r-full); box-shadow: var(--shadow-float); }
+  .callbar .btn { height: 44px; padding: 0 12px; }
+  .site-footer { padding-bottom: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; } }
+</style>
+
+<header class="site-header" id="site-header">
+  <div class="container">
+    <a class="brand" href="#top"><span class="brand-mark">LOGO</span>Hemalatha Hospital</a>
+    <nav class="nav" aria-label="Main"><a href="#about">About</a><a href="#departments">Departments</a><a href="#doctors">Doctors</a><a href="#facilities">Facilities</a><a href="#visit">Visit</a><a href="#faq">FAQ</a></nav>
+    <div class="head-actions">
+      <a class="head-phone" href="tel:+918639074341"><i data-lucide="phone"></i><span>086390 74341</span></a>
+      <a class="btn btn-primary btn-sm" href="#enquiry">Book appointment</a>
+      <button class="btn btn-secondary btn-icon menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><i data-lucide="menu"></i></button>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer">
+  <a class="navlink" href="#about">About<i data-lucide="chevron-right"></i></a>
+  <a class="navlink" href="#departments">Departments<i data-lucide="chevron-right"></i></a>
+  <a class="navlink" href="#doctors">Doctors<i data-lucide="chevron-right"></i></a>
+  <a class="navlink" href="#facilities">Facilities<i data-lucide="chevron-right"></i></a>
+  <a class="navlink" href="#visit">Visit<i data-lucide="chevron-right"></i></a>
+  <a class="navlink" href="#faq">FAQ<i data-lucide="chevron-right"></i></a>
+  <a class="btn btn-primary" href="#enquiry">Book an appointment</a>
+  <a class="btn btn-secondary" href="tel:+918639074341"><i data-lucide="phone"></i>086390 74341</a>
+</div>
+
+<main id="top">
+  <section class="hero navy" id="hero">
+    <div class="container">
+      <div class="hero-copy">
+        <span class="eyebrow">Now accepting new patients in Kukatpally</span>
+        <h1 class="t-display" style="max-width:19ch">Specialist care in Kukatpally. Clear answers at every step.</h1>
+        <p class="lead">A multi-speciality hospital where every treatment plan is explained before it begins, and the front desk is a phone call away.</p>
+        <div class="row" style="justify-content:center"><a class="btn btn-primary" href="#enquiry">Book an appointment<i data-lucide="arrow-right"></i></a><a class="btn btn-secondary" href="tel:+918639074341"><i data-lucide="phone"></i>Call 086390 74341</a></div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="deck" id="deck" aria-roledescription="carousel" aria-label="Hospital photos">
+          <button class="photo slide" type="button"><span class="ph-icon"><i data-lucide="activity"></i></span><span class="ph-label"><i data-lucide="camera"></i>Diagnostics room</span></button>
+          <button class="photo slide" type="button"><span class="ph-icon"><i data-lucide="stethoscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>Doctor consultation</span></button>
+          <button class="photo slide" type="button"><span class="ph-icon"><i data-lucide="bed-double"></i></span><span class="ph-label"><i data-lucide="camera"></i>Inpatient ward</span></button>
+          <button class="photo slide" type="button"><span class="ph-icon"><i data-lucide="building-2"></i></span><span class="ph-label"><i data-lucide="camera"></i>Hospital entrance</span></button>
+          <button class="photo slide" type="button"><span class="ph-icon"><i data-lucide="pill"></i></span><span class="ph-label"><i data-lucide="camera"></i>Pharmacy</span></button>
+          <span class="badge-float" style="left:12%;top:16%"><span class="tick"><i data-lucide="check"></i></span>Plans explained first</span>
+          <span class="badge-float" style="right:12%;bottom:14%"><span class="tick"><i data-lucide="check"></i></span>Families kept informed</span>
+        </div>
+        <div class="deck-controls">
+          <button class="btn btn-secondary btn-icon" type="button" id="deck-prev" aria-label="Previous photo"><i data-lucide="arrow-left"></i></button>
+          <div class="deck-dots" id="deck-dots"></div>
+          <button class="btn btn-secondary btn-icon" type="button" id="deck-next" aria-label="Next photo"><i data-lucide="arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="facts"><div><b>Multi-speciality</b><span>Departments under one roof</span></div><div><b>Kukatpally</b><span>Aditya Nagar, 500085</span></div><div><b>Open 24 hours</b><span>Front desk</span></div><div><b>Walk-ins welcome</b><span>To confirm</span></div></div>
+    </div>
+  </section>
+
+  <section class="section surface" id="about">
+    <div class="container aboutB">
+      <div class="media">
+        <div class="photo main"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label" style="left:auto;right:12px"><i data-lucide="camera"></i>Senior doctor</span></div>
+        <div class="photo inset"><span class="ph-icon"><i data-lucide="users"></i></span></div>
+        <span class="badge-float"><span class="tick"><i data-lucide="check"></i></span>One point of contact</span>
+      </div>
+      <div class="stack" style="gap:20px">
+        <span class="eyebrow white" style="justify-self:start">About Hemalatha</span>
+        <h2 class="t-h2">Hospital care designed around families.</h2>
+        <p class="lead">A multi-speciality hospital in Aditya Nagar, Kukatpally. Description to be supplied by the client.</p>
+        <div class="checks">
+          <div><span class="pi"><i data-lucide="messages-square"></i></span><div><b>Plans explained</b><span>Options and costs first</span></div></div>
+          <div><span class="pi"><i data-lucide="users"></i></span><div><b>Families informed</b><span>One point of contact</span></div></div>
+          <div><span class="pi"><i data-lucide="microscope"></i></span><div><b>Diagnostics on site</b><span>To confirm</span></div></div>
+          <div><span class="pi"><i data-lucide="phone-call"></i></span><div><b>Real person answers</b><span>Call the front desk</span></div></div>
+        </div>
+        <a class="btn btn-navy" href="#visit" style="justify-self:start">Plan your visit<i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="departments">
+    <div class="container stack">
+      <div class="head center"><span class="eyebrow">Departments</span><h2 class="t-h2">Expertise you can trust.</h2><p class="lead">Six departments, one front desk. <span class="tag sample">Sample list</span></p></div>
+      <div class="grid3">
+        <article class="card hl interactive"><div class="photo dark"></div><span class="icon-tile"><i data-lucide="stethoscope"></i></span><h4>General Medicine</h4><p>Fevers, infections, diabetes and blood pressure. The first stop when you're not sure where to go.</p><a class="link-arrow" href="#enquiry">Learn more<i data-lucide="arrow-right"></i></a></article>
+        <article class="card interactive"><span class="icon-tile"><i data-lucide="bone"></i></span><h4>Orthopaedics</h4><p>Fractures, joint pain and recovery after surgery.</p><a class="link-arrow" href="#enquiry">Learn more<i data-lucide="arrow-right"></i></a></article>
+        <article class="card interactive"><span class="icon-tile"><i data-lucide="baby"></i></span><h4>Obstetrics &amp; Gynaecology</h4><p>Pregnancy care, delivery and women's health.</p><a class="link-arrow" href="#enquiry">Learn more<i data-lucide="arrow-right"></i></a></article>
+        <article class="card interactive"><span class="icon-tile"><i data-lucide="heart-pulse"></i></span><h4>Paediatrics</h4><p>Care for children from birth through their teens.</p><a class="link-arrow" href="#enquiry">Learn more<i data-lucide="arrow-right"></i></a></article>
+        <article class="card interactive"><span class="icon-tile"><i data-lucide="syringe"></i></span><h4>General Surgery</h4><p>Planned and day-care procedures.</p><a class="link-arrow" href="#enquiry">Learn more<i data-lucide="arrow-right"></i></a></article>
+        <article class="card interactive"><span class="icon-tile"><i data-lucide="microscope"></i></span><h4>Diagnostics</h4><p>Lab tests and imaging on site.</p><a class="link-arrow" href="#enquiry">Learn more<i data-lucide="arrow-right"></i></a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container split">
+      <div class="photo"><span class="ph-icon"><i data-lucide="bed-double"></i></span><span class="ph-label"><i data-lucide="camera"></i>Patient room</span></div>
+      <div class="stack" style="gap:18px">
+        <span class="eyebrow" style="justify-self:start">Why patients choose us</span>
+        <h2 class="t-h2">Hospital care, designed around families.</h2>
+        <div class="points">
+          <div class="point"><span class="pi"><i data-lucide="messages-square"></i></span><div><b>Plans explained before treatment</b><span>You hear the options and costs before anything begins.</span></div></div>
+          <div class="point"><span class="pi"><i data-lucide="users"></i></span><div><b>Families kept informed</b><span>One point of contact while someone you love is admitted.</span></div></div>
+          <div class="point"><span class="pi"><i data-lucide="map-pin"></i></span><div><b>Close to Kukatpally and KPHB</b><span>Easy to reach from JNTU, Pragathi Nagar and Miyapur.</span></div></div>
+          <div class="point"><span class="pi"><i data-lucide="phone-call"></i></span><div><b>A real person answers</b><span>Call the front desk and talk to someone who can help.</span></div></div>
+        </div>
+        <span class="tag sample" style="justify-self:start">Proposed statements · need client sign-off</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface" id="doctors">
+    <div class="container docB-wrap">
+      <div class="stack" style="gap:16px"><span class="eyebrow white" style="justify-self:start">Specialists</span><h2 class="t-h2">Meet our specialists.</h2><p class="lead">Every profile lists qualifications exactly as registered.</p><a class="link-arrow" href="#enquiry">Book with a specialist<i data-lucide="arrow-right"></i></a></div>
+      <div class="docB-cards">
+        <article class="docB"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><div class="band"><b>Doctor name</b><span>Department</span><button class="plus" aria-label="View profile"><i data-lucide="plus"></i></button></div></article>
+        <article class="docB"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><div class="band"><b>Doctor name</b><span>Department</span><button class="plus" aria-label="View profile"><i data-lucide="plus"></i></button></div></article>
+        <article class="docB"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><div class="band"><b>Doctor name</b><span>Department</span><button class="plus" aria-label="View profile"><i data-lucide="plus"></i></button></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="facilities">
+    <div class="container">
+      <div class="panel-tint">
+        <div class="stack" style="gap:22px">
+          <span class="eyebrow white" style="justify-self:start">Facilities</span>
+          <h2 class="t-h2">Wards, lab and pharmacy under one roof.</h2>
+          <div class="numbox"><div class="n"><b>24<em>h</em></b><span>Front desk</span></div><div class="fac-list"><span><i data-lucide="check"></i>Inpatient wards</span><span><i data-lucide="check"></i>Diagnostic lab</span><span><i data-lucide="check"></i>In-house pharmacy</span><span><i data-lucide="check"></i>Family waiting area</span></div></div>
+          <div class="row"><a class="btn btn-primary btn-lead" href="#enquiry"><span class="bubble"><i data-lucide="calendar-check"></i></span>Book an appointment</a><span class="tag sample">Facilities to confirm</span></div>
+        </div>
+        <div class="collage">
+          <div class="photo"><span class="ph-icon"><i data-lucide="bed-double"></i></span><span class="ph-label"><i data-lucide="camera"></i>Ward</span></div>
+          <div class="photo"><span class="ph-icon"><i data-lucide="microscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>Lab</span></div>
+          <div class="seal"><span><i data-lucide="building-2" style="width:22px;height:22px;display:block;margin:0 auto 4px"></i>Under one roof</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container stack">
+      <div class="headsplit"><div class="head"><span class="eyebrow">Patient reviews</span><h2 class="t-h2">In our patients' words.</h2></div><a class="rating-pill" href="https://maps.app.goo.gl/wopgBqKkZyh2eRNg6" target="_blank" rel="noopener"><span class="g-mark">G</span><b>4.7</b><span class="stars" aria-hidden="true"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></span>96 reviews</a></div>
+      <div class="revA">
+        <article class="card review"><div class="stars" aria-label="5 out of 5 stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>"Nurse Deepika did a good job, taking care of my mother. I would recommend Hemalatha health care services."</blockquote><footer><span class="avatar">VD</span><div><b>vijaybhaskar dabeta</b>Google review</div></footer></article>
+        <article class="card review empty"><div class="stars" style="color:var(--slate-200)" aria-hidden="true"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>Second real Google review, quoted in full.</blockquote><footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer></article>
+        <article class="card review empty"><div class="stars" style="color:var(--slate-200)" aria-hidden="true"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>Third real Google review, quoted in full.</blockquote><footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface" id="enquiry">
+    <div class="container enqA">
+      <div class="stack" style="gap:18px">
+        <span class="eyebrow white" style="justify-self:start">Appointment enquiry</span>
+        <h2 class="t-h2">Tell us what you need. We'll call you back.</h2>
+        <p class="lead">The front desk calls back to arrange a time. Nothing is booked until you've spoken to them.</p>
+        <div class="call-card" style="background:#fff"><span class="small">Prefer to talk now?</span><a class="num" href="tel:+918639074341">086390 74341</a><a class="btn btn-primary btn-sm" href="tel:+918639074341"><i data-lucide="phone"></i>Call the hospital</a></div>
+      </div>
+      <form class="form" id="enquiry-form" novalidate>
+        <div class="field"><label for="f-name">Patient name</label><input class="control" id="f-name" autocomplete="name" placeholder="Full name" aria-describedby="e-name"><span class="error" id="e-name" hidden><i data-lucide="circle-alert"></i>Enter the patient's name.</span></div>
+        <div class="field"><label for="f-phone">Mobile number</label><input class="control" id="f-phone" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" aria-describedby="e-phone"><span class="error" id="e-phone" hidden><i data-lucide="circle-alert"></i>Enter a 10-digit mobile number.</span></div>
+        <div class="field"><label for="f-dept">Department</label><select class="control" id="f-dept"><option>Not sure, help me choose</option><option>General Medicine</option><option>Orthopaedics</option><option>Obstetrics &amp; Gynaecology</option><option>Paediatrics</option><option>General Surgery</option><option>Diagnostics</option></select></div>
+        <div class="field"><label for="f-date">Preferred date <span class="opt">(optional)</span></label><input class="control" id="f-date" type="date"></div>
+        <div class="field full"><label for="f-msg">Message <span class="opt">(optional)</span></label><textarea class="control" id="f-msg" placeholder="A short note helps us direct your call"></textarea></div>
+        <label class="check full" for="f-consent"><input type="checkbox" id="f-consent">I agree to be contacted by the hospital about this enquiry.</label>
+        <div class="full row"><button class="btn btn-primary" type="submit" id="f-submit">Send enquiry<i data-lucide="arrow-right"></i></button><span class="hint">We'll call to confirm a time.</span></div>
+        <div class="full notice" id="f-result" role="status" hidden><i data-lucide="circle-check"></i><div><b>Enquiry received.</b> The front desk will call you to arrange a time. Your appointment isn't booked until then.</div></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" id="visit">
+    <div class="container stack">
+      <div class="headsplit"><div class="head"><span class="eyebrow">Visit us</span><h2 class="t-h2">Your visit starts here.</h2></div><span class="small">Easy to find, easy to reach, easy to call.</span></div>
+      <div class="visit-media">
+        <div class="photo"><span class="ph-icon"><i data-lucide="building-2"></i></span><span class="ph-label" style="left:auto;right:12px"><i data-lucide="camera"></i>Hospital entrance</span></div>
+        <div class="visit-card">
+          <span class="small" style="font-size:13px">Hemalatha Health Care</span>
+          <h4>Aditya Nagar, Kukatpally, Hyderabad 500085</h4>
+          <span class="open-dot">Open 24 hours</span>
+          <div class="hours"><div><span>Front desk</span><span>24 hours</span></div><div><span>Outpatient</span><span>To be confirmed</span></div><div><span>Visiting</span><span>To be confirmed</span></div></div>
+          <a class="btn btn-primary" href="https://maps.app.goo.gl/wopgBqKkZyh2eRNg6" target="_blank" rel="noopener" style="width:100%"><i data-lucide="navigation"></i>Get directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface" id="faq">
+    <div class="container stack">
+      <div class="head center"><span class="eyebrow white">FAQ</span><h2 class="t-h2">Everything you need to know.</h2><p class="lead">Answers to the questions families ask the front desk most.</p></div>
+      <div class="faq-topics">
+        <div class="topic-panel"><div class="faq-list" id="faq-list"></div></div>
+        <div class="topic-foot">Still have a question?<a class="link-arrow" href="tel:+918639074341">Call 086390 74341<i data-lucide="arrow-right"></i></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="ctaA">
+        <div class="copy"><h2 class="t-h2" style="color:#fff">Ready to talk to someone who can help?</h2><p>Call the front desk, send an enquiry, or get directions to Aditya Nagar.</p><div class="row"><a class="btn btn-white" href="#enquiry">Book an appointment</a><a class="btn btn-ghost-light" href="tel:+918639074341"><i data-lucide="phone"></i>Call the hospital</a></div></div>
+        <div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label"><i data-lucide="camera"></i>Staff with patient</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footB">
+      <div class="contactbar">
+        <a href="tel:+918639074341"><i data-lucide="phone"></i><span><b>086390 74341</b>Front desk</span></a>
+        <a href="https://maps.app.goo.gl/wopgBqKkZyh2eRNg6" target="_blank" rel="noopener"><i data-lucide="map-pin"></i><span><b>Aditya Nagar, Kukatpally</b>Hyderabad 500085</span></a>
+        <div><i data-lucide="clock"></i><span><b>Open 24 hours</b>To confirm</span></div>
+      </div>
+      <div class="cols">
+        <div style="display:grid;gap:12px;align-content:start"><a class="brand" href="#top" style="color:#fff"><span class="brand-mark">LOGO</span>Hemalatha Hospital</a><p style="font-size:14px;max-width:32ch">Hospital care in Kukatpally, Hyderabad.</p></div>
+        <div><h5>Explore</h5><ul><li><a href="#about">About</a></li><li><a href="#doctors">Doctors</a></li><li><a href="#facilities">Facilities</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div><h5>Departments</h5><ul><li><a href="#departments">General Medicine</a></li><li><a href="#departments">Obstetrics &amp; Gynaecology</a></li><li><a href="#departments">Orthopaedics</a></li><li><a href="#departments">Paediatrics</a></li></ul></div>
+        <div><h5>Patients</h5><ul><li><a href="#enquiry">Book an appointment</a></li><li><a href="#visit">Visiting hours</a></li><li><a href="#top">Privacy policy</a></li><li><a href="#top">Terms</a></li></ul></div>
+      </div>
+      <div class="foot-base"><span>© 2026 Hemalatha Health Care Pvt. Ltd.</span><nav><a href="#top">Privacy</a><a href="#top">Terms</a></nav></div>
+    </div>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn btn-secondary" href="tel:+918639074341"><i data-lucide="phone"></i>Call</a><a class="btn btn-primary" href="#enquiry">Book visit</a></div>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+const faqTopics = [
+  { topic: "Appointments", icon: "calendar-check", questions: [
+    ["Do I need an appointment to see a doctor?", "Proposed: walk-ins are welcome, and calling ahead shortens your wait. Needs confirmation from the hospital."],
+    ["How do I book an appointment?", "Call the front desk on 086390 74341, or send an enquiry and the front desk will call you back to arrange a time."],
+    ["Can I choose which doctor I see?", "Awaiting confirmation from the hospital."]
+  ]},
+  { topic: "Admission", icon: "bed-double", questions: [
+    ["What should I bring for admission?", "A photo ID, previous prescriptions and reports, and a list of current medicines."],
+    ["Can a family member stay overnight?", "Awaiting confirmation from the hospital."]
+  ]},
+  { topic: "Visiting", icon: "map-pin", questions: [
+    ["What are the visiting hours?", "Awaiting confirmation from the hospital."],
+    ["How do I get there?", "The hospital is in Aditya Nagar, Kukatpally. Use the directions button for live Google Maps routing."],
+    ["Is parking available?", "Awaiting confirmation from the hospital."]
+  ]},
+  { topic: "Billing & insurance", icon: "receipt", questions: [
+    ["Do you accept health insurance?", "Awaiting confirmation. No insurer is named until the hospital provides its list."],
+    ["How can I pay?", "Awaiting confirmation from the hospital."]
+  ]}
+];
+const allQuestions = faqTopics.flatMap(group => group.questions);
+document.getElementById("faq-list").innerHTML = allQuestions.map(([question, answer], index) => `<details${index === 0 ? " open" : ""}><summary>${question}<i data-lucide="plus"></i></summary><div class="answer">${answer}</div></details>`).join("");
+
+const deck = document.getElementById("deck");
+const slides = [...deck.querySelectorAll(".slide")];
+const dots = document.getElementById("deck-dots");
+let current = 2;
+slides.forEach((slide, index) => {
+  const dot = document.createElement("button");
+  dot.type = "button";
+  dot.setAttribute("aria-label", `Show photo ${index + 1}`);
+  dot.addEventListener("click", () => showSlide(index));
+  dots.appendChild(dot);
+  slide.addEventListener("click", () => showSlide(index));
+});
+function showSlide(index) {
+  current = (index + slides.length) % slides.length;
+  const narrow = window.matchMedia("(max-width: 767px)").matches;
+  const step = narrow ? 11 : 17;
+  slides.forEach((slide, i) => {
+    let offset = i - current;
+    if (offset > slides.length / 2) offset -= slides.length;
+    if (offset < -slides.length / 2) offset += slides.length;
+    const distance = Math.abs(offset);
+    const scale = 1 - distance * 0.12;
+    slide.style.transform = `translate(-50%, -50%) translateX(${offset * step}%) scale(${scale})`;
+    slide.style.zIndex = String(10 - distance);
+    slide.style.filter = distance ? `brightness(${1 - distance * 0.06})` : "none";
+    slide.style.opacity = distance > 2 ? "0" : "1";
+    slide.setAttribute("aria-current", String(distance === 0));
+    slide.tabIndex = distance === 0 ? -1 : 0;
+    slide.setAttribute("aria-label", slide.querySelector(".ph-label").textContent.trim());
+  });
+  dots.querySelectorAll("button").forEach((dot, i) => dot.setAttribute("aria-current", String(i === current)));
+}
+document.getElementById("deck-prev").addEventListener("click", () => showSlide(current - 1));
+document.getElementById("deck-next").addEventListener("click", () => showSlide(current + 1));
+window.addEventListener("resize", () => showSlide(current));
+showSlide(current);
+
+if (window.lucide) lucide.createIcons();
+
+const header = document.getElementById("site-header");
+window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 60), { passive: true });
+
+const menuButton = document.getElementById("menu-btn");
+const drawer = document.getElementById("drawer");
+function setMenu(open) {
+  drawer.classList.toggle("open", open);
+  menuButton.setAttribute("aria-expanded", String(open));
+  menuButton.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+  if (window.lucide) lucide.createIcons();
+}
+menuButton.addEventListener("click", () => setMenu(!drawer.classList.contains("open")));
+drawer.querySelectorAll("a").forEach(link => link.addEventListener("click", () => setMenu(false)));
+document.addEventListener("keydown", event => { if (event.key === "Escape" && drawer.classList.contains("open")) { setMenu(false); menuButton.focus(); } });
+
+const form = document.getElementById("enquiry-form");
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  const name = document.getElementById("f-name");
+  const phone = document.getElementById("f-phone");
+  const nameOk = name.value.trim().length > 1;
+  const phoneOk = /^[6-9]\d{9}$/.test(phone.value.replace(/\s/g, ""));
+  name.setAttribute("aria-invalid", String(!nameOk));
+  phone.setAttribute("aria-invalid", String(!phoneOk));
+  document.getElementById("e-name").hidden = nameOk;
+  document.getElementById("e-phone").hidden = phoneOk;
+  const result = document.getElementById("f-result");
+  result.hidden = true;
+  if (!nameOk) { name.focus(); return; }
+  if (!phoneOk) { phone.focus(); return; }
+  const submit = document.getElementById("f-submit");
+  submit.disabled = true;
+  submit.innerHTML = '<span class="spin"></span>Sending';
+  setTimeout(() => { submit.disabled = false; submit.textContent = "Send enquiry"; result.hidden = false; }, 1100);
+});
+</script>

@@ -1,0 +1,961 @@
+<title>Hemalatha Hospital Design System</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+<style>
+/* Layout: the reference's own language. Centred 1120px column on white, sentence-case pill eyebrows, tight medium-weight headings, bordered 16px cards, 24px feature panels, pill buttons. Light only, matching the proposed site. */
+:root {
+  color-scheme: light;
+  --navy-950: #0B1B45; --navy-900: #13265A; --navy-800: #1E3270; --navy-line: #24376B;
+  --blue-50: #EFF3FF; --blue-100: #DFE8FF; --blue-200: #C2D4FF; --blue-300: #8FB1FF;
+  --blue-600: #1F6BFF; --blue-700: #1A5EE8; --blue-800: #1757D6;
+  --slate-50: #F7F9FC; --slate-100: #EEF1F6; --slate-200: #E3E7EF; --slate-400: #8C94A6; --slate-600: #5B6478; --slate-on-dark: #C9D3EE;
+  --green: #15803D; --green-bg: #EAF6EE; --amber: #B45309; --amber-bg: #FDF3E6; --red: #B91C1C; --red-bg: #FCEDED;
+
+  --background: #FFFFFF; --surface: var(--slate-50); --tint: var(--blue-50);
+  --foreground: var(--navy-950); --muted-fg: var(--slate-600); --border: var(--slate-200); --input: var(--slate-400);
+  --primary: var(--blue-600); --primary-hover: var(--blue-700); --primary-fg: #FFFFFF; --link: var(--blue-800); --focus: var(--blue-600);
+
+  --font: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --track-tight: -0.04em;
+
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-full: 999px;
+  --shadow-float: 0 18px 40px -12px rgba(11, 27, 69, .22), 0 2px 6px rgba(11, 27, 69, .06);
+  --shadow-hover: 0 12px 28px -14px rgba(11, 27, 69, .20);
+  --shadow-pill: 0 6px 18px -6px rgba(11, 27, 69, .20);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --container: 1120px;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.doctor .tag { justify-self: start; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { overflow-x: clip; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--background); color: var(--foreground); font: 400 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--background); }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3 { font-weight: 500; letter-spacing: var(--track-tight); text-wrap: balance; color: var(--foreground); }
+h4 { font-weight: 600; letter-spacing: -0.01em; }
+a { color: var(--link); }
+code { font-family: var(--mono); font-size: .86em; background: var(--slate-100); padding: 1px 5px; border-radius: 5px; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+.container { max-width: calc(var(--container) + 80px); margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 768px) { .container { padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)); } }
+
+.docbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(255, 255, 255, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.docbar .container { display: flex; align-items: center; gap: 20px; height: 56px; }
+.docbar strong { font-weight: 600; font-size: 15px; white-space: nowrap; letter-spacing: -0.01em; }
+.docbar nav { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.docbar nav a { flex: none; color: var(--muted-fg); font-size: 14px; text-decoration: none; padding: 6px 10px; border-radius: var(--r-full); }
+.docbar nav a:hover { color: var(--foreground); background: var(--slate-100); }
+@media (max-width: 640px) { .docbar strong { display: none; } }
+
+.section { padding-block: 112px; }
+.section + .section { border-top: 1px solid var(--border); }
+@media (max-width: 1023px) { .section { padding-block: 88px; } }
+@media (max-width: 767px) { .section { padding-block: 64px; } }
+.stack { display: grid; gap: 48px; }
+@media (max-width: 767px) { .stack { gap: 32px; } }
+.head { display: grid; gap: 16px; justify-items: start; max-width: 640px; }
+.head.center { justify-items: center; text-align: center; margin-inline: auto; }
+.head.split { max-width: none; grid-template-columns: minmax(0, 1fr) auto; align-items: end; justify-items: stretch; }
+@media (max-width: 767px) { .head.split { grid-template-columns: 1fr; } }
+.head p { color: var(--muted-fg); font-size: 17px; max-width: 52ch; }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: var(--r-full); background: var(--tint); color: var(--link); font-size: 13px; font-weight: 500; line-height: 1.2; }
+.eyebrow::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.eyebrow.on-dark { background: var(--navy-900); color: var(--blue-200); box-shadow: inset 0 0 0 1px var(--navy-line); }
+.eyebrow.amber { background: var(--amber-bg); color: var(--amber); }
+
+.t-display, .t-h1, .t-h2, .t-h3 { font-weight: 500; letter-spacing: var(--track-tight); color: var(--foreground); text-wrap: balance; }
+.t-display { font-size: clamp(40px, 6vw, 68px); line-height: 1.02; }
+.t-h1 { font-size: clamp(34px, 4.4vw, 52px); line-height: 1.06; }
+.t-h2 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.08; }
+.t-h3 { font-size: clamp(24px, 2.4vw, 30px); line-height: 1.15; }
+.t-h4 { font-size: 19px; line-height: 1.3; }
+.t-lead { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.6; color: var(--muted-fg); }
+.t-small { font-size: 14px; line-height: 1.55; color: var(--muted-fg); }
+.t-caption { font-size: 13px; line-height: 1.45; color: var(--muted-fg); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 24px; border-radius: var(--r-full); font: 500 15px/1 var(--font); border: 1px solid transparent; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background-color 180ms var(--ease), border-color 180ms var(--ease), color 180ms var(--ease), box-shadow 180ms var(--ease); }
+.btn svg { width: 17px; height: 17px; stroke-width: 2; transition: transform 200ms var(--ease); }
+.btn:hover svg.lucide-arrow-right, .btn:hover svg.lucide-arrow-up-right { transform: translateX(3px); }
+.btn:active { transform: scale(.98); }
+.btn-sm { height: 40px; padding: 0 18px; font-size: 14px; }
+.btn-lg { height: 54px; padding: 0 28px; font-size: 16px; }
+.btn-primary { background: var(--primary); color: var(--primary-fg); }
+.btn-primary:hover, .btn-primary.is-hover { background: var(--primary-hover); }
+.btn-secondary { background: var(--background); color: var(--foreground); border-color: var(--border); }
+.btn-secondary:hover, .btn-secondary.is-hover { border-color: var(--blue-200); background: var(--tint); }
+.btn-tint { background: var(--tint); color: var(--link); }
+.btn-tint:hover { background: var(--blue-100); }
+.btn-white { background: #FFFFFF; color: var(--navy-950); }
+.btn-white:hover { background: var(--blue-50); }
+.btn-ghost-light { background: transparent; color: #FFFFFF; border-color: rgba(255, 255, 255, .45); }
+.btn-ghost-light:hover { border-color: #FFFFFF; background: rgba(255, 255, 255, .08); }
+.btn-danger { background: var(--red); color: #FFFFFF; }
+.btn-icon { width: 48px; padding: 0; }
+.btn-sm.btn-icon { width: 40px; }
+.btn.is-focus { outline: 2px solid var(--focus); outline-offset: 3px; }
+.btn[disabled] { background: var(--slate-100); color: var(--slate-400); border-color: transparent; cursor: not-allowed; }
+.link-arrow { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--link); text-decoration: none; }
+.link-arrow svg { width: 15px; height: 15px; transition: transform 200ms var(--ease); }
+.link-arrow:hover svg, .card:hover .link-arrow svg { transform: translateX(3px); }
+.spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .35); border-top-color: #FFFFFF; animation: spin 700ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.tag { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: var(--r-full); border: 1px solid var(--border); font-size: 12.5px; color: var(--muted-fg); background: #FFFFFF; white-space: nowrap; }
+.tag.sample { border-color: #F2D3A6; background: var(--amber-bg); color: var(--amber); font-weight: 500; }
+.badge-float { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 8px; border-radius: var(--r-full); background: #FFFFFF; box-shadow: var(--shadow-pill); font-size: 13px; font-weight: 500; color: var(--foreground); white-space: nowrap; }
+.badge-float i, .badge-float svg.tick { width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: #FFFFFF; display: grid; place-items: center; padding: 4px; stroke-width: 3; }
+
+.photo { position: relative; border-radius: var(--r-lg); overflow: hidden; background: radial-gradient(120% 90% at 30% 20%, #F4F7FC 0%, #E2E9F4 55%, #D3DCEB 100%); max-width: 100%; }
+.photo .ph-label { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: var(--r-full); background: rgba(255, 255, 255, .82); font-size: 12px; color: var(--muted-fg); }
+.photo .ph-label svg { width: 13px; height: 13px; }
+.photo .ph-icon { position: absolute; inset: 0; display: grid; place-items: center; color: #B9C6DC; }
+.photo .ph-icon svg { width: 44px; height: 44px; stroke-width: 1.25; }
+.photo.dark { background: radial-gradient(120% 90% at 30% 20%, #2A3D74 0%, #1A2B5F 60%, #13245A 100%); }
+.photo.dark .ph-icon { color: #3C5191; }
+.photo.dark .ph-label { background: rgba(11, 27, 69, .7); color: var(--slate-on-dark); }
+
+.card { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px; display: grid; gap: 12px; align-content: start; transition: border-color 220ms var(--ease), box-shadow 220ms var(--ease), transform 220ms var(--ease); }
+.card.interactive:hover { border-color: var(--blue-200); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+.card.tinted { background: var(--tint); border-color: transparent; }
+.card p { color: var(--muted-fg); font-size: 15px; line-height: 1.6; }
+@media (max-width: 767px) { .card { padding: 22px; } }
+.icon-tile { width: 40px; height: 40px; border-radius: var(--r-sm); background: var(--tint); color: var(--primary); display: grid; place-items: center; margin-bottom: 8px; }
+.icon-tile svg { width: 20px; height: 20px; stroke-width: 1.75; }
+
+.spec { display: grid; gap: 14px; }
+.spec-label { font-size: 13px; font-weight: 500; color: var(--muted-fg); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.spec-label span:last-child { font-family: var(--mono); font-size: 12px; color: var(--slate-400); }
+.board { border: 1px solid var(--border); border-radius: var(--r-xl); padding: 40px; background: #FFFFFF; }
+.board.surface { background: var(--surface); border-color: transparent; }
+@media (max-width: 767px) { .board { padding: 20px; border-radius: var(--r-lg); } }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+
+.analysis { display: grid; gap: 0; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+.a-row { display: grid; grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 18px 24px; border-bottom: 1px solid var(--border); font-size: 15px; }
+.a-row:last-child { border-bottom: 0; }
+.a-row.headrow { background: var(--surface); font-size: 13px; font-weight: 500; color: var(--muted-fg); padding-block: 12px; }
+.a-row b { font-weight: 600; }
+.a-row .keep { color: var(--foreground); }
+.a-row .change { color: var(--muted-fg); }
+@media (max-width: 860px) { .a-row { grid-template-columns: 1fr; gap: 6px; } .a-row.headrow { display: none; } .a-row .keep::before { content: "Keep · "; font-weight: 600; color: var(--green); } .a-row .change::before { content: "Change · "; font-weight: 600; color: var(--amber); } }
+
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+.sw { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); }
+.sw .chip { height: 112px; padding: 14px; display: flex; align-items: flex-end; font-size: 13px; font-weight: 500; }
+.sw .meta { padding: 12px 14px; display: grid; gap: 2px; font-size: 13px; }
+.sw .meta b { font-weight: 600; }
+.sw .meta span { color: var(--muted-fg); font-variant-numeric: tabular-nums; }
+.ramp { display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); border-radius: var(--r-md); overflow: hidden; }
+.ramp div { height: 64px; padding: 8px; font-size: 11px; display: flex; flex-direction: column; justify-content: flex-end; line-height: 1.3; }
+
+.tokens { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px; }
+.tokens th, .tokens td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.tokens th { font-size: 13px; font-weight: 500; color: var(--muted-fg); background: var(--surface); }
+.tokens tr:last-child td { border-bottom: 0; }
+.tokens td.num { font-variant-numeric: tabular-nums; }
+.tokens .dot { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; margin-right: 8px; border: 1px solid rgba(11, 27, 69, .1); }
+.scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-lg); }
+
+.type-spec { display: grid; }
+.type-line { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: baseline; padding-block: 22px; border-bottom: 1px solid var(--border); }
+.type-line:last-child { border-bottom: 0; }
+.type-line .meta { font-size: 13px; color: var(--muted-fg); line-height: 1.5; font-variant-numeric: tabular-nums; }
+.type-line .meta b { display: block; color: var(--foreground); font-weight: 600; font-size: 14px; }
+@media (max-width: 767px) { .type-line { grid-template-columns: 1fr; gap: 8px; } }
+
+.space-ramp { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.space-ramp div { display: grid; gap: 8px; justify-items: center; font-size: 12px; color: var(--muted-fg); font-variant-numeric: tabular-nums; }
+.space-ramp i { display: block; background: var(--blue-200); border-radius: 3px; }
+.radii { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
+.radii div { height: 104px; border: 1px solid var(--border); background: var(--surface); display: grid; place-items: center; text-align: center; font-size: 13px; color: var(--muted-fg); line-height: 1.4; }
+.radii b { color: var(--foreground); font-weight: 600; display: block; }
+
+.cols-demo { display: grid; gap: 10px; }
+.cols-demo .cols { display: grid; gap: 8px; height: 48px; }
+.cols-demo .cols i { background: var(--tint); border: 1px dashed var(--blue-300); border-radius: 6px; }
+.cols-demo span { font-size: 13px; color: var(--muted-fg); }
+
+/* specimen: site header */
+.site-head { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; height: 72px; padding: 0 28px; border: 1px solid var(--border); border-radius: var(--r-lg); background: #FFFFFF; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; letter-spacing: -0.02em; white-space: nowrap; }
+.brand-mark { width: 30px; height: 30px; border-radius: 8px; border: 1.5px dashed var(--blue-300); display: grid; place-items: center; color: var(--blue-300); font-size: 8px; font-weight: 600; letter-spacing: .04em; }
+.site-nav { display: flex; justify-content: center; gap: 4px; }
+.site-nav a { font-size: 14.5px; color: var(--muted-fg); text-decoration: none; padding: 8px 12px; border-radius: var(--r-full); transition: color 160ms, background-color 160ms; }
+.site-nav a:hover { color: var(--foreground); background: var(--surface); }
+.site-nav a.active { color: var(--foreground); font-weight: 500; }
+.head-actions { display: flex; align-items: center; gap: 8px; }
+.head-phone { white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; color: var(--foreground); text-decoration: none; padding: 0 12px; height: 40px; border-radius: var(--r-full); }
+.head-phone svg { width: 16px; height: 16px; color: var(--primary); }
+.head-phone:hover { background: var(--surface); }
+.menu-btn { display: none; }
+@media (max-width: 1080px) { .site-nav, .head-phone span { display: none; } .site-head { grid-template-columns: auto 1fr auto; } .menu-btn { display: inline-flex; } }
+@media (max-width: 560px) { .site-head { padding: 0 14px; gap: 8px; } .head-actions .btn-primary { display: none; } }
+
+/* specimen: hero */
+.hero { display: grid; gap: 28px; justify-items: center; text-align: center; padding-top: 24px; }
+.hero p { max-width: 54ch; }
+.strip { position: relative; display: grid; grid-template-columns: .45fr 1fr 1.5fr 1fr .45fr; gap: 12px; width: min(100vw, 1440px); margin-inline: calc(50% - min(50vw, 720px)); margin-top: 20px; }
+.strip .photo { aspect-ratio: 4 / 5; }
+.strip .photo.wide, .strip .photo.hide-sm { aspect-ratio: auto; }
+.strip .badge-float { position: absolute; z-index: 2; }
+@media (max-width: 767px) { .strip { grid-template-columns: .25fr 1fr 1fr .25fr; } .strip .hide-sm { display: none; } }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; margin-top: 16px; text-align: left; }
+.facts div { padding: 18px 24px; border-left: 1px solid var(--border); display: grid; gap: 2px; }
+.facts div:first-child { border-left: 0; padding-left: 0; }
+.facts b { font-weight: 600; font-size: 15px; }
+.facts span { font-size: 13.5px; color: var(--muted-fg); }
+@media (max-width: 767px) { .facts { grid-template-columns: 1fr 1fr; row-gap: 8px; } .facts div { padding: 14px 16px; } .facts div:nth-child(odd) { border-left: 0; padding-left: 0; } }
+
+/* specimen: services bento */
+.bento { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 16px; }
+.bento .feature { grid-row: span 2; }
+.bento .feature .photo { aspect-ratio: 5 / 4; margin-bottom: 12px; }
+.bento .wide { grid-column: span 2; }
+@media (max-width: 900px) { .bento { grid-template-columns: 1fr 1fr; } .bento .feature { grid-row: auto; grid-column: span 2; } .bento .feature .photo { aspect-ratio: 16 / 9; } }
+@media (max-width: 560px) { .bento { grid-template-columns: 1fr; } .bento .feature, .bento .wide { grid-column: auto; } }
+
+/* specimen: split list */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: center; }
+.split .photo { aspect-ratio: 4 / 5; border-radius: var(--r-xl); }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 40px; } .split .photo { aspect-ratio: 4 / 3; } }
+.points { display: grid; margin-top: 12px; }
+.point { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 16px; padding-block: 18px; border-bottom: 1px solid var(--border); }
+.point:last-child { border-bottom: 0; }
+.point .pi { width: 32px; height: 32px; border-radius: 50%; background: var(--tint); color: var(--primary); display: grid; place-items: center; }
+.point .pi svg { width: 16px; height: 16px; stroke-width: 2; }
+.point b { font-weight: 600; font-size: 16px; display: block; margin-bottom: 2px; }
+.point span { color: var(--muted-fg); font-size: 14.5px; }
+
+/* specimen: doctors */
+.doctors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 860px) { .doctors { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .doctors { grid-template-columns: 1fr; } }
+.doctor { display: grid; gap: 10px; align-content: start; }
+.doctor .photo { aspect-ratio: 4 / 5; transition: transform 400ms var(--ease); }
+.doctor:hover .photo { transform: scale(1.01); }
+.doctor b { font-weight: 600; font-size: 16px; }
+.doctor .role { font-size: 14px; color: var(--muted-fg); margin-top: -6px; }
+
+/* specimen: dark panel */
+.dark-panel { background: var(--navy-950); color: var(--slate-on-dark); border-radius: var(--r-xl); padding: 64px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 64px; align-items: center; }
+.dark-panel h3 { color: #FFFFFF; }
+.dark-panel .photo { aspect-ratio: 1 / 1.05; border-radius: var(--r-lg); }
+.kv { display: grid; margin-top: 20px; border-top: 1px solid var(--navy-line); }
+.kv div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 20px; padding-block: 20px; border-bottom: 1px solid var(--navy-line); }
+.kv small { font-size: 12.5px; color: var(--blue-300); padding-top: 3px; }
+.kv b { display: block; color: #FFFFFF; font-weight: 500; margin-bottom: 4px; }
+.kv span { font-size: 14.5px; }
+@media (max-width: 900px) { .dark-panel { grid-template-columns: 1fr; padding: 28px 22px 32px; gap: 32px; border-radius: var(--r-lg); } .kv div { grid-template-columns: 1fr; gap: 4px; } }
+
+/* specimen: reviews */
+.reviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .reviews { grid-template-columns: 1fr; } }
+.stars { display: flex; gap: 2px; color: #F5A524; }
+.stars svg { width: 15px; height: 15px; fill: currentColor; stroke-width: 0; }
+.review blockquote { margin: 0; font-size: 16.5px; line-height: 1.6; color: var(--foreground); letter-spacing: -0.005em; }
+.review footer { display: flex; align-items: center; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border); margin-top: 4px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--tint); color: var(--link); display: grid; place-items: center; font-size: 13px; font-weight: 600; flex: none; }
+.review footer div { display: grid; font-size: 13px; color: var(--muted-fg); line-height: 1.35; }
+.review footer b { color: var(--foreground); font-weight: 600; font-size: 14px; }
+.review.empty blockquote { color: var(--slate-400); }
+.rating-pill { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 8px; border-radius: var(--r-full); border: 1px solid var(--border); font-size: 14px; color: var(--muted-fg); }
+.rating-pill b { color: var(--foreground); font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.g-mark { width: 30px; height: 30px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-weight: 600; color: var(--foreground); font-size: 14px; }
+
+/* specimen: visit */
+.visit-media { position: relative; }
+.visit-media .photo { aspect-ratio: 16 / 7.5; border-radius: var(--r-xl); }
+.visit-card { position: absolute; top: 20px; left: 20px; width: min(340px, calc(100% - 40px)); background: #FFFFFF; border-radius: var(--r-lg); box-shadow: var(--shadow-float); padding: 24px; display: grid; gap: 14px; }
+.visit-card h4 { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.3; }
+.hours { display: grid; gap: 8px; font-size: 13.5px; padding-top: 14px; border-top: 1px solid var(--border); }
+.hours div { display: grid; grid-template-columns: 110px 1fr; gap: 8px; }
+.hours span:first-child { color: var(--muted-fg); }
+.open-dot { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--green); }
+.open-dot::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 4px var(--green-bg); }
+.info-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.info-pair .card { padding: 20px 24px; gap: 4px; }
+.info-pair small { font-size: 13px; color: var(--link); font-weight: 500; }
+.info-pair p { color: var(--foreground); font-size: 14.5px; }
+@media (max-width: 767px) { .visit-media .photo { aspect-ratio: 4 / 3; } .visit-card { position: relative; top: auto; left: auto; width: auto; margin: -64px 12px 0; } .info-pair { grid-template-columns: 1fr; } }
+
+/* specimen: enquiry */
+.enquiry { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
+@media (max-width: 900px) { .enquiry { grid-template-columns: 1fr; gap: 32px; } }
+.call-card { display: grid; gap: 14px; padding: 24px; border-radius: var(--r-lg); background: var(--tint); margin-top: 8px; }
+.call-card a.num { font-size: 26px; font-weight: 500; letter-spacing: -0.03em; color: var(--foreground); text-decoration: none; font-variant-numeric: tabular-nums; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 32px; border: 1px solid var(--border); border-radius: var(--r-xl); background: #FFFFFF; }
+@media (max-width: 640px) { .form { grid-template-columns: 1fr; padding: 20px; border-radius: var(--r-lg); } }
+.form .full { grid-column: 1 / -1; }
+.field { display: grid; gap: 7px; align-content: start; }
+.field label { font-size: 14px; font-weight: 500; }
+.field label .opt { font-weight: 400; color: var(--muted-fg); }
+.control { width: 100%; height: 50px; padding: 0 16px; border: 1px solid var(--input); border-radius: var(--r-md); background: #FFFFFF; font: 400 16px var(--font); color: var(--foreground); transition: border-color 160ms, box-shadow 160ms; }
+.control::placeholder { color: var(--slate-400); }
+.control:hover { border-color: var(--slate-600); }
+.control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(31, 107, 255, .16); }
+.control[aria-invalid="true"] { border-color: var(--red); }
+.control[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(185, 28, 28, .14); }
+select.control { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235B6478' stroke-width='2' stroke-linecap='round' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+textarea.control { height: 110px; padding: 14px 16px; resize: vertical; }
+.phone-wrap { display: flex; border: 1px solid var(--input); border-radius: var(--r-md); transition: border-color 160ms, box-shadow 160ms; }
+.phone-wrap:focus-within { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(31, 107, 255, .16); }
+.phone-wrap.invalid { border-color: var(--red); }
+.phone-wrap span { display: grid; place-items: center; padding: 0 14px; border-right: 1px solid var(--border); color: var(--muted-fg); font-size: 15px; }
+.phone-wrap .control { border: 0; height: 48px; box-shadow: none !important; border-radius: 0 var(--r-md) var(--r-md) 0; }
+.hint { font-size: 13px; color: var(--muted-fg); }
+.error { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--red); }
+.error svg { width: 14px; height: 14px; flex: none; }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--muted-fg); cursor: pointer; }
+.check input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--primary); flex: none; }
+.form-foot { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.notice { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 16px 18px; border-radius: var(--r-md); font-size: 14.5px; }
+.notice svg { width: 20px; height: 20px; margin-top: 1px; }
+.notice.success { background: var(--green-bg); color: #14532D; }
+.notice.success svg { color: var(--green); }
+
+/* specimen: faq */
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+@media (max-width: 767px) { .faq-grid { grid-template-columns: 1fr; } }
+details.faq { border: 1px solid var(--border); border-radius: var(--r-md); background: #FFFFFF; transition: border-color 200ms; }
+details.faq[open] { border-color: var(--blue-200); }
+details.faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; font-size: 15.5px; font-weight: 500; }
+details.faq summary::-webkit-details-marker { display: none; }
+details.faq summary i, details.faq summary svg { width: 26px; height: 26px; flex: none; border-radius: 50%; background: var(--tint); color: var(--primary); padding: 6px; stroke-width: 2.25; transition: transform 260ms var(--ease); }
+details.faq[open] summary svg { transform: rotate(45deg); }
+details.faq .answer { padding: 0 20px 20px; color: var(--muted-fg); font-size: 15px; display: grid; gap: 10px; justify-items: start; }
+
+/* specimen: cta + footer */
+.cta { display: grid; grid-template-columns: 1.35fr 1fr; border-radius: var(--r-xl); overflow: hidden; background: var(--primary); color: #FFFFFF; }
+.cta .copy { padding: 64px 56px; display: grid; gap: 20px; align-content: center; justify-items: start; }
+.cta h3 { color: #FFFFFF; }
+.cta p { color: #DCE7FF; max-width: 44ch; }
+.cta .photo { border-radius: 0; min-height: 280px; background: radial-gradient(120% 90% at 30% 20%, #E9EFFA 0%, #CFDAEE 100%); }
+@media (max-width: 860px) { .cta { grid-template-columns: 1fr; border-radius: var(--r-lg); } .cta .copy { padding: 36px 24px; } .cta .photo { min-height: 200px; order: -1; } }
+.footer { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; padding-block: 48px 40px; border-top: 1px solid var(--border); margin-top: 48px; }
+.footer h5 { margin: 0 0 14px; font-size: 14px; font-weight: 600; }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 14px; color: var(--muted-fg); }
+.footer a { color: var(--muted-fg); text-decoration: none; }
+.footer a:hover { color: var(--foreground); }
+.footer-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted-fg); }
+.footer-base nav { display: flex; gap: 20px; }
+@media (max-width: 860px) { .footer { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .footer { grid-template-columns: 1fr; gap: 28px; } }
+
+/* specimen: phone frame */
+.phones { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; }
+.phone { width: 340px; max-width: 100%; border: 1px solid var(--border); border-radius: 36px; padding: 10px; background: var(--slate-100); }
+.screen { position: relative; height: 640px; border-radius: 28px; overflow: hidden; background: #FFFFFF; display: flex; flex-direction: column; }
+.m-head { display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 16px; border-bottom: 1px solid var(--border); flex: none; }
+.m-body { padding: 28px 18px; display: grid; gap: 16px; justify-items: center; text-align: center; overflow: hidden; }
+.m-body h3 { font-size: 34px; line-height: 1.04; }
+.m-body .photo { width: 100%; aspect-ratio: 4 / 3; }
+.m-bar { position: absolute; left: 10px; right: 10px; bottom: 10px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px; padding: 8px; background: #FFFFFF; border-radius: var(--r-full); box-shadow: var(--shadow-float); }
+.m-bar .btn { height: 44px; padding: 0 12px; font-size: 14px; }
+.drawer { position: absolute; inset: 60px 0 0; background: #FFFFFF; padding: 12px 18px 24px; display: grid; align-content: start; gap: 4px; transform: translateY(-8px); opacity: 0; visibility: hidden; transition: opacity 240ms var(--ease), transform 240ms var(--ease), visibility 240ms; }
+.drawer.open { opacity: 1; transform: none; visibility: visible; }
+.drawer a.navlink { display: flex; justify-content: space-between; align-items: center; padding: 16px 4px; border-bottom: 1px solid var(--border); font-size: 18px; font-weight: 500; letter-spacing: -0.02em; color: var(--foreground); text-decoration: none; }
+.drawer a.navlink svg { width: 18px; height: 18px; color: var(--slate-400); }
+.drawer .btn { margin-top: 16px; }
+
+.urgent-strip { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 10px 16px; background: var(--navy-950); color: var(--slate-on-dark); font-size: 13.5px; border-radius: var(--r-md); text-align: center; }
+.urgent-strip a { color: #FFFFFF; font-weight: 500; text-decoration: none; }
+.urgent-strip svg { width: 15px; height: 15px; color: var(--blue-300); }
+
+.motion-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.motion-tiles div { height: 96px; border: 1px solid var(--border); border-radius: var(--r-lg); display: grid; place-items: center; font-size: 13px; color: var(--muted-fg); background: #FFFFFF; }
+.motion-tiles.play div { animation: rise 560ms var(--ease) both; }
+.motion-tiles.play div:nth-child(2) { animation-delay: 70ms; } .motion-tiles.play div:nth-child(3) { animation-delay: 140ms; } .motion-tiles.play div:nth-child(4) { animation-delay: 210ms; }
+@keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@media (max-width: 560px) { .motion-tiles { grid-template-columns: 1fr 1fr; } }
+
+.decisions { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.decisions .card b { font-weight: 600; font-size: 16px; }
+.decisions .card .tag { justify-self: start; }
+
+.lucide { stroke-width: 1.75; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 1ms !important; }
+  .motion-tiles.play div { animation-name: fadeonly; }
+  .spin { animation-duration: 2s; }
+}
+@keyframes fadeonly { from { opacity: 0; } to { opacity: 1; } }
+</style>
+
+<header class="docbar">
+  <div class="container">
+    <strong>Hemalatha · Design system</strong>
+    <nav aria-label="Sections">
+      <a href="#reference">Reference</a><a href="#color">Colour</a><a href="#type">Type</a><a href="#layout">Layout</a><a href="#buttons">Buttons</a><a href="#header">Header</a><a href="#hero">Hero</a><a href="#content">Content</a><a href="#trust">Trust</a><a href="#visit">Visit</a><a href="#enquiry">Enquiry</a><a href="#faq">FAQ &amp; CTA</a><a href="#mobile">Mobile</a><a href="#motion">Motion</a><a href="#approve">Approve</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="section">
+  <div class="container hero" style="padding-top:0">
+    <span class="eyebrow amber">Phase 1 · Revision 2 · awaiting approval</span>
+    <h1 class="t-display">The hospital's visual language, rebuilt on your reference.</h1>
+    <p class="t-lead">Revision 1 is gone. Every token and component below comes from the reference site you sent, then adjusted where a hospital needs more than a dental clinic: a visible phone number, readable text and an honest enquiry flow. All previews are live, so hover, tab and submit them.</p>
+    <div class="row" style="justify-content:center"><a class="btn btn-primary" href="#approve">Jump to decisions<i data-lucide="arrow-right"></i></a><a class="btn btn-secondary" href="#reference">Read the analysis</a></div>
+  </div>
+</section>
+
+<section class="section" id="reference">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow">Reference analysis</span>
+      <h2 class="t-h2">What the reference does, and what we change.</h2>
+      <p>The reference is a calm, centred, single-column site: white space does the work, headings are tight and medium-weight, and one electric blue carries every action.</p>
+    </div>
+    <div class="analysis">
+      <div class="a-row headrow"><span>Element</span><span>Keep</span><span>Change for the hospital</span></div>
+      <div class="a-row"><b>Type</b><span class="keep">One geometric grotesk, medium-weight headings with tight tracking, sentences that end in full stops.</span><span class="change">Body text in the reference is 12–13px light grey. We go to 16px at 5.9:1 contrast so older visitors can read it.</span></div>
+      <div class="a-row"><b>Colour</b><span class="keep">White canvas, deep navy for text and one feature panel, electric blue for actions, pale blue tint for eyebrows and highlight cards.</span><span class="change">Blue is used as text only in a darker shade (#1757D6) so links pass AA. Red is reserved for urgent-care messaging.</span></div>
+      <div class="a-row"><b>Header</b><span class="keep">Logo left, five quiet links centred, blue pill CTA right.</span><span class="change">Add the phone number beside the CTA. Calling is a primary goal and the reference hides it in the footer.</span></div>
+      <div class="a-row"><b>Hero</b><span class="keep">Centred eyebrow pill, two-sentence headline, two buttons, a bleeding strip of rounded photos with floating tick badges, a four-up fact row.</span><span class="change">Second button becomes "Call" rather than "Explore". Badges and facts only state things the client has confirmed.</span></div>
+      <div class="a-row"><b>Cards</b><span class="keep">Hairline-bordered white cards at 16px radius, small tinted icon tile, "Learn more →" link, one tinted feature card in a bento grid.</span><span class="change">Bento collapses to two columns on tablet and one on mobile with the feature card first.</span></div>
+      <div class="a-row"><b>Photography</b><span class="keep">Bright, clinical, natural-light photos of real staff, cropped 4:5 for people.</span><span class="change">Real hospital photography only. Placeholders stay visibly labelled until the client supplies photos.</span></div>
+      <div class="a-row"><b>Feature panel</b><span class="keep">Inset navy panel at 24px radius with photo left and label/value rows right.</span><span class="change">Used for Facilities, with every row marked provisional until confirmed.</span></div>
+      <div class="a-row"><b>Visit section</b><span class="keep">Wide photo with a floating white card: address, hours table, full-width directions button. Two tinted info cards below.</span><span class="change">The card adds a tap-to-call line and an open/closed status. On mobile the card drops below the photo instead of covering it.</span></div>
+      <div class="a-row"><b>FAQ</b><span class="keep">Centred heading, two-column grid of separate bordered items with a round plus.</span><span class="change">Answers that need clinical or operational sign-off carry a visible tag in the content file.</span></div>
+      <div class="a-row"><b>Gaps</b><span class="keep">The reference has no reviews, no form and no mobile view.</span><span class="change">Review cards, the enquiry form and the mobile layouts below are new, built in the same language.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="color">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow">Colour</span>
+      <h2 class="t-h2">Navy, one blue, and a lot of white.</h2>
+      <p>Sampled from the reference and checked for contrast. These may shift slightly once the logo arrives.</p>
+    </div>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:var(--navy-950);color:#fff">Ink Navy</div><div class="meta"><b>#0B1B45</b><span>Headings, text, feature panel · 16.7:1</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--blue-600);color:#fff">Action Blue</div><div class="meta"><b>#1F6BFF</b><span>Buttons, CTA panel · white text 4.56:1</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--blue-800);color:#fff">Link Blue</div><div class="meta"><b>#1757D6</b><span>Links, eyebrow text · 6.2:1</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--blue-50);color:var(--link)">Tint</div><div class="meta"><b>#EFF3FF</b><span>Eyebrows, highlight cards, icon tiles</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--slate-600);color:#fff">Slate</div><div class="meta"><b>#5B6478</b><span>Body copy, captions · 5.9:1</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--slate-200)">Hairline</div><div class="meta"><b>#E3E7EF</b><span>Card borders, dividers</span></div></div>
+    </div>
+    <div class="spec">
+      <div class="spec-label"><span>Blue scale</span><span>blue-50 → blue-800</span></div>
+      <div class="ramp">
+        <div style="background:var(--blue-50)">50<br>#EFF3FF</div><div style="background:var(--blue-100)">100<br>#DFE8FF</div><div style="background:var(--blue-200)">200<br>#C2D4FF</div><div style="background:var(--blue-300)">300<br>#8FB1FF</div><div style="background:var(--blue-600);color:#fff">600<br>#1F6BFF</div><div style="background:var(--blue-700);color:#fff">700<br>#1A5EE8</div><div style="background:var(--blue-800);color:#fff">800<br>#1757D6</div><div style="background:var(--navy-800);color:#fff">navy 800<br>#1E3270</div><div style="background:var(--navy-900);color:#fff">navy 900<br>#13265A</div><div style="background:var(--navy-950);color:#fff">navy 950<br>#0B1B45</div>
+      </div>
+    </div>
+    <div class="scroll">
+      <table class="tokens">
+        <thead><tr><th>Semantic token</th><th>Value</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><span class="dot" style="background:var(--primary)"></span>primary / primary-foreground</td><td>blue-600 / white</td><td>Main buttons, CTA panel</td></tr>
+          <tr><td><span class="dot" style="background:var(--blue-50)"></span>secondary / secondary-foreground</td><td>white + hairline / navy-950</td><td>Secondary pill buttons</td></tr>
+          <tr><td><span class="dot" style="background:var(--blue-50)"></span>accent</td><td>blue-50 with blue-800 text</td><td>Eyebrows, icon tiles, highlight cards</td></tr>
+          <tr><td><span class="dot" style="background:#fff"></span>background · <span class="dot" style="background:var(--surface)"></span>surface</td><td>#FFFFFF · #F7F9FC</td><td>Page · table heads and quiet wells</td></tr>
+          <tr><td><span class="dot" style="background:var(--slate-100)"></span>muted · <span class="dot" style="background:var(--slate-600)"></span>muted-foreground</td><td>#EEF1F6 · #5B6478</td><td>Disabled fills · body and captions</td></tr>
+          <tr><td><span class="dot" style="background:var(--border)"></span>border · <span class="dot" style="background:var(--input)"></span>input</td><td>#E3E7EF · #8C94A6</td><td>Dividers · form borders (3.04:1, meets non-text contrast)</td></tr>
+          <tr><td><span class="dot" style="background:var(--focus)"></span>focus</td><td>blue-600, 2px ring, 3px offset</td><td>Every focusable element</td></tr>
+          <tr><td><span class="dot" style="background:var(--green)"></span>success · <span class="dot" style="background:var(--amber)"></span>warning</td><td>#15803D · #B45309</td><td>Form success, open now · provisional tags</td></tr>
+          <tr><td><span class="dot" style="background:var(--red)"></span>error · <span class="dot" style="background:var(--link)"></span>information</td><td>#B91C1C · blue-800</td><td>Validation, urgent care · notices</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="type">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow">Typography</span>
+      <h2 class="t-h2">One family, set tight.</h2>
+      <p>DM Sans is the closest free match to the reference's grotesk. Headings use weight 500 at −0.04em tracking; body text stays at normal tracking.</p>
+    </div>
+    <div class="type-spec">
+      <div class="type-line"><div class="meta"><b>Display</b>500 · 68 → 40px · lh 1.02</div><div class="t-display">Specialist care in Kukatpally.</div></div>
+      <div class="type-line"><div class="meta"><b>H1</b>500 · 52 → 34px · lh 1.06</div><div class="t-h1">Care you can plan around.</div></div>
+      <div class="type-line"><div class="meta"><b>H2</b>500 · 44 → 30px · lh 1.08</div><div class="t-h2">Departments under one roof.</div></div>
+      <div class="type-line"><div class="meta"><b>H3</b>500 · 30 → 24px · lh 1.15</div><div class="t-h3">Planning your visit.</div></div>
+      <div class="type-line"><div class="meta"><b>H4</b>600 · 19px · lh 1.3 · −0.01em</div><div class="t-h4">General Medicine</div></div>
+      <div class="type-line"><div class="meta"><b>Body large</b>400 · 19 → 17px · lh 1.6</div><p class="t-lead" style="max-width:56ch">The front desk is staffed through the day. Call ahead and we'll tell you which department to visit and what to bring.</p></div>
+      <div class="type-line"><div class="meta"><b>Body</b>400 · 16px · lh 1.6</div><p style="max-width:62ch;color:var(--muted-fg)">Share a name and phone number and the hospital will call back to arrange a time with the right department. This sends an enquiry. It does not confirm an appointment.</p></div>
+      <div class="type-line"><div class="meta"><b>Body small</b>400 · 14px · lh 1.55</div><p class="t-small">Ground floor, beside the pharmacy. Wheelchairs available at the entrance.</p></div>
+      <div class="type-line"><div class="meta"><b>Caption</b>400 · 13px · lh 1.45</div><p class="t-caption">Google rating captured 8 Nov 2026</p></div>
+      <div class="type-line"><div class="meta"><b>Overline / eyebrow</b>500 · 13px · sentence case, in a tint pill</div><div><span class="eyebrow">Our departments</span></div></div>
+      <div class="type-line"><div class="meta"><b>Button</b>500 · 15px (14 small, 16 large)</div><div><span style="font-weight:500;font-size:15px">Book an appointment</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="layout">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow">Spacing, layout and shape</span>
+      <h2 class="t-h2">Generous space, few radii.</h2>
+      <p>A 4px base scale. Sections breathe like the reference: 112px between them on desktop, stepping down to 64px on phones.</p>
+    </div>
+    <div class="spec">
+      <div class="spec-label"><span>Spacing scale</span><span>space-1 … space-32</span></div>
+      <div class="space-ramp">
+        <div><i style="width:4px;height:4px"></i>4</div><div><i style="width:8px;height:8px"></i>8</div><div><i style="width:12px;height:12px"></i>12</div><div><i style="width:16px;height:16px"></i>16</div><div><i style="width:20px;height:20px"></i>20</div><div><i style="width:24px;height:24px"></i>24</div><div><i style="width:32px;height:32px"></i>32</div><div><i style="width:40px;height:40px"></i>40</div><div><i style="width:48px;height:48px"></i>48</div><div><i style="width:64px;height:64px"></i>64</div><div><i style="width:80px;height:80px"></i>80</div><div><i style="width:112px;height:112px"></i>112</div>
+      </div>
+    </div>
+    <div class="scroll">
+      <table class="tokens">
+        <thead><tr><th>Role</th><th>Phone &lt;768</th><th>Tablet 768–1023</th><th>Desktop ≥1024</th></tr></thead>
+        <tbody>
+          <tr><td>Section padding</td><td class="num">64</td><td class="num">88</td><td class="num">112</td></tr>
+          <tr><td>Heading block → content</td><td class="num">32</td><td class="num">48</td><td class="num">48</td></tr>
+          <tr><td>Page gutter</td><td class="num">20</td><td class="num">40</td><td class="num">40</td></tr>
+          <tr><td>Card padding</td><td class="num">22</td><td class="num">28</td><td class="num">28</td></tr>
+          <tr><td>Grid gap (cards)</td><td class="num">16</td><td class="num">16</td><td class="num">16–20</td></tr>
+          <tr><td>Split layout gap</td><td class="num">40 (stacked)</td><td class="num">40 (stacked)</td><td class="num">72</td></tr>
+          <tr><td>Feature panel padding</td><td class="num">28 / 22</td><td class="num">40</td><td class="num">64</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols-demo">
+      <div class="cols" style="grid-template-columns:repeat(12,1fr)"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <span>Container 1120px · 12 columns · 20px gap. Tablet 8 columns, phone 4. Breakpoints: 640 · 768 · 1024 · 1280, tested down to 360.</span>
+    </div>
+    <div class="radii">
+      <div style="border-radius:var(--r-sm)"><span><b>8px · sm</b>icon tiles</span></div>
+      <div style="border-radius:var(--r-md)"><span><b>12px · md</b>inputs, FAQ items</span></div>
+      <div style="border-radius:var(--r-lg)"><span><b>16px · lg</b>cards, photos</span></div>
+      <div style="border-radius:var(--r-xl)"><span><b>24px · xl</b>feature panels</span></div>
+      <div style="border-radius:var(--r-full)"><span><b>full</b>buttons, pills</span></div>
+      <div style="border-radius:var(--r-lg);background:#fff;border-color:transparent;box-shadow:var(--shadow-float)"><span><b>float shadow</b>overlay cards only</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="buttons">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow">Buttons and pills</span>
+      <h2 class="t-h2">Pill buttons, one clear primary.</h2>
+      <p>Every button is a full pill like the reference, 48px tall by default so it's easy to tap.</p>
+    </div>
+    <div class="board stack" style="gap:32px">
+      <div class="spec"><div class="spec-label"><span>Variants</span><span>btn-*</span></div>
+        <div class="row">
+          <button class="btn btn-primary">Book an appointment<i data-lucide="arrow-right"></i></button>
+          <button class="btn btn-secondary"><i data-lucide="phone"></i>Call 086390 74341</button>
+          <button class="btn btn-tint"><i data-lucide="navigation"></i>Get directions</button>
+          <a class="link-arrow" href="#buttons">Learn more<i data-lucide="arrow-right"></i></a>
+          <button class="btn btn-secondary btn-icon" aria-label="Call the hospital"><i data-lucide="phone"></i></button>
+          <button class="btn btn-danger"><i data-lucide="siren"></i>Emergency line</button>
+        </div>
+      </div>
+      <div class="spec"><div class="spec-label"><span>Sizes</span><span>40 · 48 · 54</span></div>
+        <div class="row"><button class="btn btn-primary btn-sm">Small</button><button class="btn btn-primary">Default</button><button class="btn btn-primary btn-lg">Large</button></div>
+      </div>
+      <div class="spec"><div class="spec-label"><span>States</span><span>default · hover · pressed · focus · disabled · loading</span></div>
+        <div class="row">
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary is-hover">Hover</button>
+          <button class="btn btn-primary" style="transform:scale(.98);background:var(--blue-800)">Pressed</button>
+          <button class="btn btn-primary is-focus">Focus</button>
+          <button class="btn btn-primary" disabled>Disabled</button>
+          <button class="btn btn-primary" aria-busy="true"><span class="spin"></span>Sending</button>
+        </div>
+        <div class="row">
+          <button class="btn btn-secondary">Default</button>
+          <button class="btn btn-secondary is-hover">Hover</button>
+          <button class="btn btn-secondary is-focus">Focus</button>
+          <button class="btn btn-secondary" disabled>Disabled</button>
+        </div>
+      </div>
+      <div class="spec"><div class="spec-label"><span>Pills, tags and floating badges</span><span>eyebrow · tag · badge-float</span></div>
+        <div class="row">
+          <span class="eyebrow">Our departments</span>
+          <span class="tag">MBBS, MD (General Medicine)</span>
+          <span class="tag sample">Sample content</span>
+          <span class="badge-float"><svg class="tick lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Clear explanations</span>
+          <span class="open-dot">Open now</span>
+        </div>
+      </div>
+    </div>
+    <div class="board" style="background:var(--navy-950);border-color:var(--navy-950)">
+      <div class="spec"><div class="spec-label" style="color:var(--slate-on-dark);border-color:var(--navy-line)"><span>On dark and on blue</span><span style="color:var(--blue-300)">btn-white · btn-ghost-light</span></div>
+        <div class="row"><button class="btn btn-white">Book your first visit</button><button class="btn btn-ghost-light"><i data-lucide="phone"></i>Call the hospital</button><span class="eyebrow on-dark">Facilities</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="header">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow">Header</span>
+      <h2 class="t-h2">Quiet links, phone always in reach.</h2>
+      <p>Sticky, white, with a hairline under it once the page scrolls. Below 1080px the links collapse into the drawer shown in the mobile section. Narrow this window to watch it.</p>
+    </div>
+    <div class="urgent-strip"><i data-lucide="clock"></i>Front desk open 24 hours · <a href="#header">086390 74341</a><span class="tag sample" style="height:22px">Shown only if confirmed</span></div>
+    <div class="site-head">
+      <div class="brand"><span class="brand-mark">LOGO</span>Hemalatha Hospital</div>
+      <nav class="site-nav" aria-label="Sample navigation"><a href="#header" class="active">About</a><a href="#header">Departments</a><a href="#header">Doctors</a><a href="#header">Facilities</a><a href="#header">Patients</a><a href="#header">Contact</a></nav>
+      <div class="head-actions">
+        <a class="head-phone" href="#header"><i data-lucide="phone"></i><span>086390 74341</span></a>
+        <a class="btn btn-primary btn-sm" href="#header">Book appointment</a>
+        <button class="btn btn-secondary btn-sm btn-icon menu-btn" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="hero">
+  <div class="container">
+    <div class="hero">
+      <span class="eyebrow">Now accepting new patients in Kukatpally</span>
+      <h2 class="t-display" style="max-width:19ch">Specialist care in Kukatpally. Clear answers at every step.</h2>
+      <p class="t-lead">Proposed copy: a multi-speciality hospital where every treatment plan is explained before it begins, and the front desk is a phone call away.</p>
+      <div class="row" style="justify-content:center"><a class="btn btn-primary" href="#hero">Book an appointment<i data-lucide="arrow-right"></i></a><a class="btn btn-secondary" href="#hero"><i data-lucide="phone"></i>Call 086390 74341</a></div>
+      <div class="strip">
+        <div class="photo hide-sm" style="border-radius:0 var(--r-lg) var(--r-lg) 0"><span class="ph-icon"><i data-lucide="image"></i></span></div>
+        <div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label"><i data-lucide="camera"></i>Nurse at bedside</span></div>
+        <div class="photo wide"><span class="ph-icon"><i data-lucide="stethoscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>Consultation room</span></div>
+        <div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label"><i data-lucide="camera"></i>Doctor portrait</span></div>
+        <div class="photo hide-sm" style="border-radius:var(--r-lg) 0 0 var(--r-lg)"><span class="ph-icon"><i data-lucide="image"></i></span></div>
+        <span class="badge-float" style="left:6%;top:22%"><svg class="tick lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Plans explained first</span>
+        <span class="badge-float" style="left:44%;top:52%"><svg class="tick lucide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>4.7 on Google</span>
+      </div>
+      <div class="facts">
+        <div><b>4.7 Google rating</b><span>96 reviews, Nov 2026</span></div>
+        <div><b>Kukatpally</b><span>Aditya Nagar, 500085</span></div>
+        <div><b>Open 24 hours</b><span>Front desk, to confirm</span></div>
+        <div><b>Walk-ins welcome</b><span>Proposed, to confirm</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="content">
+  <div class="container stack" style="gap:96px">
+    <div class="stack">
+      <div class="head">
+        <span class="eyebrow">Departments</span>
+        <h2 class="t-h2">Complete care under one roof.</h2>
+        <p>Service bento: one tinted feature card with a photo, three bordered cards. The department names are samples until the hospital confirms its list.</p>
+      </div>
+      <div class="bento">
+        <article class="card tinted interactive feature">
+          <div class="photo"><span class="ph-icon"><i data-lucide="stethoscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>OPD consultation</span></div>
+          <h3 class="t-h4">General Medicine</h3>
+          <p>Fevers, infections, diabetes and blood pressure, and the first stop when you're not sure where to go.</p>
+          <a class="link-arrow" href="#content">Learn more<i data-lucide="arrow-right"></i></a>
+        </article>
+        <article class="card interactive"><span class="icon-tile"><i data-lucide="baby"></i></span><h3 class="t-h4">Obstetrics &amp; Gynaecology</h3><p>Pregnancy care, delivery and women's health.</p><a class="link-arrow" href="#content">Learn more<i data-lucide="arrow-right"></i></a></article>
+        <article class="card interactive"><span class="icon-tile"><i data-lucide="bone"></i></span><h3 class="t-h4">Orthopaedics</h3><p>Fractures, joint pain and recovery after surgery.</p><a class="link-arrow" href="#content">Learn more<i data-lucide="arrow-right"></i></a></article>
+        <article class="card interactive wide"><span class="icon-tile"><i data-lucide="heart-pulse"></i></span><h3 class="t-h4">Paediatrics</h3><p>Check-ups, vaccinations and care for children from birth through their teens.</p><div class="row" style="justify-content:space-between"><a class="link-arrow" href="#content">Learn more<i data-lucide="arrow-right"></i></a><span class="tag sample">Sample department</span></div></article>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="photo"><span class="ph-icon"><i data-lucide="bed-double"></i></span><span class="ph-label"><i data-lucide="camera"></i>Ward or patient room</span></div>
+      <div class="stack" style="gap:20px">
+        <span class="eyebrow" style="justify-self:start">Why patients choose us</span>
+        <h2 class="t-h2">Hospital care, designed around families.</h2>
+        <div class="points">
+          <div class="point"><span class="pi"><i data-lucide="messages-square"></i></span><div><b>Plans explained before treatment</b><span>You hear the options and the costs before anything begins.</span></div></div>
+          <div class="point"><span class="pi"><i data-lucide="users"></i></span><div><b>Families kept informed</b><span>One point of contact while someone you love is admitted.</span></div></div>
+          <div class="point"><span class="pi"><i data-lucide="map-pin"></i></span><div><b>Close to Kukatpally and KPHB</b><span>Easy to reach from JNTU, Pragathi Nagar and Miyapur.</span></div></div>
+          <div class="point"><span class="pi"><i data-lucide="phone-call"></i></span><div><b>A real person answers</b><span>Call the front desk and talk to someone who can help.</span></div></div>
+        </div>
+        <span class="tag sample" style="justify-self:start">Proposed value statements · need client sign-off</span>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="head">
+        <span class="eyebrow">Our doctors</span>
+        <h2 class="t-h2">Experienced hands. Unhurried care.</h2>
+        <p>Portrait 4:5, name, role, and a credential tag taken only from the hospital's own records.</p>
+      </div>
+      <div class="doctors">
+        <article class="doctor"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><b>Doctor name</b><span class="role">Department</span><span class="tag">Qualifications · as registered</span></article>
+        <article class="doctor"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><b>Doctor name</b><span class="role">Department</span><span class="tag">Qualifications · as registered</span></article>
+        <article class="doctor"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><b>Doctor name</b><span class="role">Department</span><span class="tag">Qualifications · as registered</span></article>
+      </div>
+    </div>
+
+    <div class="dark-panel">
+      <div class="photo dark"><span class="ph-icon"><i data-lucide="scan-line"></i></span><span class="ph-label"><i data-lucide="camera"></i>Facility photo</span></div>
+      <div>
+        <span class="eyebrow on-dark">Facilities</span>
+        <h3 class="t-h2" style="margin-top:16px">Everything a stay needs, in one building.</h3>
+        <div class="kv">
+          <div><small>Wards</small><span><b>Inpatient rooms</b>General and private rooms, with family seating.</span></div>
+          <div><small>Lab</small><span><b>Diagnostics</b>Blood tests and imaging without a second trip across town.</span></div>
+          <div><small>Pharmacy</small><span><b>In-house pharmacy</b>Prescriptions filled before you leave.</span></div>
+        </div>
+        <p class="t-caption" style="color:var(--blue-300);margin-top:16px">Every facility here is a placeholder until the hospital confirms it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="trust">
+  <div class="container stack">
+    <div class="head split">
+      <div class="head" style="max-width:640px">
+        <span class="eyebrow">Patient reviews</span>
+        <h2 class="t-h2">In our patients' words.</h2>
+      </div>
+      <span class="rating-pill"><span class="g-mark">G</span><b>4.7</b><span class="stars" aria-hidden="true"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></span>96 Google reviews</span>
+    </div>
+    <div class="reviews">
+      <article class="card review">
+        <div class="stars" aria-label="5 out of 5 stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <blockquote>"Nurse Deepika did a good job, taking care of my mother. I would recommend Hemalatha health care services."</blockquote>
+        <footer><span class="avatar">VD</span><div><b>vijaybhaskar dabeta</b>Google review · a year ago</div></footer>
+      </article>
+      <article class="card review empty">
+        <div class="stars" aria-hidden="true" style="color:var(--slate-200)"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <blockquote>A second real Google review goes here, quoted in full.</blockquote>
+        <footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer>
+      </article>
+      <article class="card review empty">
+        <div class="stars" aria-hidden="true" style="color:var(--slate-200)"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <blockquote>A third real Google review goes here, quoted in full.</blockquote>
+        <footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer>
+      </article>
+    </div>
+    <p class="t-small">Reviews are quoted word for word from Google with the reviewer's public name, and the section links to the listing. No review is edited or written for the client.</p>
+  </div>
+</section>
+
+<section class="section" id="visit">
+  <div class="container stack">
+    <div class="head split">
+      <div class="head" style="max-width:640px"><span class="eyebrow">Visit us</span><h2 class="t-h2">Your visit starts here.</h2></div>
+      <p class="t-small" style="justify-self:end">Easy to find, easy to reach, easy to call.</p>
+    </div>
+    <div>
+      <div class="visit-media">
+        <div class="photo"><span class="ph-icon"><i data-lucide="building-2"></i></span><span class="ph-label" style="left:auto;right:12px"><i data-lucide="camera"></i>Hospital entrance</span></div>
+        <div class="visit-card">
+          <span class="t-caption">Hemalatha Health Care</span>
+          <h4>Aditya Nagar, Kukatpally, Hyderabad 500085</h4>
+          <span class="open-dot">Open 24 hours</span>
+          <div class="hours">
+            <div><span>Front desk</span><span>24 hours</span></div>
+            <div><span>Outpatient</span><span>To be confirmed</span></div>
+            <div><span>Visiting</span><span>To be confirmed</span></div>
+          </div>
+          <a class="btn btn-primary" href="#visit" style="width:100%"><i data-lucide="navigation"></i>Get directions</a>
+          <a class="btn btn-secondary" href="#visit" style="width:100%"><i data-lucide="phone"></i>086390 74341</a>
+        </div>
+      </div>
+      <div class="info-pair">
+        <div class="card tinted"><small>Getting here</small><p>Landmarks and parking details go here once the hospital confirms them.</p></div>
+        <div class="card tinted"><small>First visit</small><p>Bring a photo ID, any previous reports, and a list of current medicines.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="enquiry">
+  <div class="container enquiry">
+    <div class="stack" style="gap:20px">
+      <span class="eyebrow" style="justify-self:start">Appointment enquiry</span>
+      <h2 class="t-h2">Tell us what you need. We'll call you back.</h2>
+      <p class="t-lead">The form sends a request to the front desk. Someone calls back to arrange a time, so nothing is confirmed until you've spoken to them.</p>
+      <div class="call-card">
+        <span class="t-small">Prefer to talk now?</span>
+        <a class="num" href="#enquiry">086390 74341</a>
+        <div class="row"><a class="btn btn-primary btn-sm" href="#enquiry"><i data-lucide="phone"></i>Call the hospital</a></div>
+      </div>
+    </div>
+    <form class="form" id="enquiry-form" novalidate>
+      <div class="field"><label for="f-name">Patient name</label><input class="control" id="f-name" autocomplete="name" placeholder="Full name" aria-describedby="e-name"><span class="error" id="e-name" hidden><i data-lucide="circle-alert"></i>Enter the patient's name.</span></div>
+      <div class="field"><label for="f-phone">Mobile number</label><div class="phone-wrap" id="phone-wrap"><span>+91</span><input class="control" id="f-phone" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" aria-describedby="h-phone e-phone"></div><span class="hint" id="h-phone">We'll call you back on this number.</span><span class="error" id="e-phone" hidden><i data-lucide="circle-alert"></i>Enter a 10-digit mobile number, like 98765 43210.</span></div>
+      <div class="field"><label for="f-dept">Department</label><select class="control" id="f-dept"><option value="">Not sure, help me choose</option><option>General Medicine</option><option>Obstetrics &amp; Gynaecology</option><option>Orthopaedics</option><option>Paediatrics</option></select></div>
+      <div class="field"><label for="f-date">Preferred date <span class="opt">(optional)</span></label><input class="control" id="f-date" type="date"></div>
+      <div class="field full"><label for="f-msg">What do you need help with? <span class="opt">(optional)</span></label><textarea class="control" id="f-msg" placeholder="A short note helps us direct your call"></textarea></div>
+      <label class="check full" for="f-consent"><input type="checkbox" id="f-consent">I agree to be contacted by the hospital about this enquiry.</label>
+      <div class="full form-foot"><button class="btn btn-primary" type="submit" id="f-submit">Send enquiry<i data-lucide="arrow-right"></i></button><span class="hint">Try submitting it empty.</span></div>
+      <div class="full notice success" id="f-result" role="status" hidden><i data-lucide="circle-check"></i><div><b>Enquiry received.</b> The front desk will call you on the number you gave to arrange a time. Your appointment isn't booked until then.</div></div>
+    </form>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container stack" style="gap:96px">
+    <div class="stack">
+      <div class="head center"><span class="eyebrow">FAQ</span><h2 class="t-h2">Good to know before you visit.</h2></div>
+      <div class="faq-grid">
+        <details class="faq" open><summary>Do I need an appointment to see a doctor?<i data-lucide="plus"></i></summary><div class="answer">Proposed answer: walk-ins are welcome, and calling ahead shortens your wait.<span class="tag sample">Needs confirmation</span></div></details>
+        <details class="faq"><summary>What should I bring for admission?<i data-lucide="plus"></i></summary><div class="answer">A photo ID, previous prescriptions and reports, and a list of current medicines.</div></details>
+        <details class="faq"><summary>What are the visiting hours?<i data-lucide="plus"></i></summary><div class="answer">Awaiting confirmation from the hospital.</div></details>
+        <details class="faq"><summary>Do you accept health insurance?<i data-lucide="plus"></i></summary><div class="answer">Awaiting confirmation. No insurer is named until the hospital provides the list.</div></details>
+        <details class="faq"><summary>How do I get there?<i data-lucide="plus"></i></summary><div class="answer">Aditya Nagar, Kukatpally. Use the directions button for live Google Maps routing.</div></details>
+        <details class="faq"><summary>Can family members stay overnight?<i data-lucide="plus"></i></summary><div class="answer">Awaiting confirmation from the hospital.</div></details>
+      </div>
+    </div>
+
+    <div class="cta">
+      <div class="copy">
+        <h3 class="t-h1">Ready to talk to someone who can help?</h3>
+        <p>Call the front desk, send an enquiry, or get directions to Aditya Nagar.</p>
+        <div class="row"><a class="btn btn-white" href="#faq">Book an appointment</a><a class="btn btn-ghost-light" href="#faq"><i data-lucide="phone"></i>Call the hospital</a></div>
+      </div>
+      <div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label"><i data-lucide="camera"></i>Staff with patient</span></div>
+    </div>
+
+    <div>
+      <div class="footer">
+        <div style="display:grid;gap:14px;align-content:start"><div class="brand"><span class="brand-mark">LOGO</span>Hemalatha Hospital</div><p class="t-small" style="max-width:34ch">Hospital care in Kukatpally, Hyderabad. Description to be supplied by the client.</p></div>
+        <div><h5>Explore</h5><ul><li><a href="#faq">About</a></li><li><a href="#faq">Doctors</a></li><li><a href="#faq">Facilities</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div><h5>Departments</h5><ul><li><a href="#faq">General Medicine</a></li><li><a href="#faq">Obstetrics &amp; Gynaecology</a></li><li><a href="#faq">Orthopaedics</a></li><li><a href="#faq">Paediatrics</a></li></ul></div>
+        <div><h5>Visit</h5><ul><li>Aditya Nagar, Kukatpally</li><li>Hyderabad, Telangana 500085</li><li><a href="#faq">086390 74341</a></li><li>Open 24 hours</li></ul></div>
+      </div>
+      <div class="footer-base"><span>© 2026 Hemalatha Health Care Pvt. Ltd.</span><nav><a href="#faq" style="color:inherit">Privacy</a><a href="#faq" style="color:inherit">Terms</a></nav></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="mobile">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow">Mobile</span>
+      <h2 class="t-h2">Designed for the phone first.</h2>
+      <p>The reference shipped no mobile view. Here, the hero image strip becomes one photo, a sticky call-and-book bar sits at the bottom, and the menu opens as a full-height drawer. Tap the menu icon in the left phone.</p>
+    </div>
+    <div class="phones">
+      <div class="phone"><div class="screen">
+        <div class="m-head"><div class="brand" style="font-size:15px"><span class="brand-mark">LOGO</span>Hemalatha</div><button class="btn btn-secondary btn-sm btn-icon" id="m-menu" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button></div>
+        <div class="m-body">
+          <span class="eyebrow">Kukatpally, Hyderabad</span>
+          <h3>Specialist care. Clear answers.</h3>
+          <p class="t-small">Every treatment plan explained before it begins.</p>
+          <div class="photo"><span class="ph-icon"><i data-lucide="stethoscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>Hero photo</span></div>
+        </div>
+        <div class="m-bar"><a class="btn btn-secondary" href="#mobile"><i data-lucide="phone"></i>Call</a><a class="btn btn-primary" href="#mobile">Book visit</a></div>
+        <div class="drawer" id="m-drawer">
+          <a class="navlink" href="#mobile">About<i data-lucide="chevron-right"></i></a>
+          <a class="navlink" href="#mobile">Departments<i data-lucide="chevron-right"></i></a>
+          <a class="navlink" href="#mobile">Doctors<i data-lucide="chevron-right"></i></a>
+          <a class="navlink" href="#mobile">Facilities<i data-lucide="chevron-right"></i></a>
+          <a class="navlink" href="#mobile">Contact<i data-lucide="chevron-right"></i></a>
+          <a class="btn btn-primary" href="#mobile">Book an appointment</a>
+          <a class="btn btn-secondary" href="#mobile"><i data-lucide="phone"></i>086390 74341</a>
+        </div>
+      </div></div>
+      <div class="phone"><div class="screen">
+        <div class="m-head"><div class="brand" style="font-size:15px"><span class="brand-mark">LOGO</span>Hemalatha</div><button class="btn btn-secondary btn-sm btn-icon" aria-label="Open menu"><i data-lucide="menu"></i></button></div>
+        <div class="m-body" style="text-align:left;justify-items:stretch;gap:12px">
+          <span class="eyebrow" style="justify-self:start">Departments</span>
+          <h3 style="font-size:30px">Complete care under one roof.</h3>
+          <article class="card tinted" style="padding:18px"><span class="icon-tile"><i data-lucide="stethoscope"></i></span><b style="font-weight:600">General Medicine</b><p style="font-size:14px">The first stop when you're not sure where to go.</p></article>
+          <article class="card" style="padding:18px"><span class="icon-tile"><i data-lucide="baby"></i></span><b style="font-weight:600">Obstetrics &amp; Gynaecology</b><p style="font-size:14px">Pregnancy care, delivery and women's health.</p></article>
+        </div>
+        <div class="m-bar"><a class="btn btn-secondary" href="#mobile"><i data-lucide="phone"></i>Call</a><a class="btn btn-primary" href="#mobile">Book visit</a></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="motion">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow">Motion</span>
+      <h2 class="t-h2">Small movements that guide the eye.</h2>
+      <p>Built with Motion for React. Sections rise in once as they enter view; nothing loops, nothing hijacks scroll, and the page is fully readable without JavaScript.</p>
+    </div>
+    <div class="board surface stack" style="gap:20px">
+      <div class="row" style="justify-content:space-between"><span class="t-small">Card reveal · 560ms · 70ms stagger · 20px rise</span><button class="btn btn-secondary btn-sm" id="replay"><i data-lucide="rotate-ccw"></i>Replay</button></div>
+      <div class="motion-tiles" id="tiles"><div>Heading</div><div>Card</div><div>Card</div><div>Card</div></div>
+    </div>
+    <div class="scroll">
+      <table class="tokens">
+        <thead><tr><th>Token</th><th>Value</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>fast</code></td><td class="num">180ms</td><td>Button colour, link arrow nudge, input focus</td></tr>
+          <tr><td><code>base</code></td><td class="num">260ms</td><td>Accordion, card lift, drawer</td></tr>
+          <tr><td><code>reveal</code></td><td class="num">560ms</td><td>Section and card entrance (once)</td></tr>
+          <tr><td><code>hero</code></td><td class="num">800ms</td><td>Hero photo strip slides in from 24px, badges pop 200ms later</td></tr>
+          <tr><td><code>ease</code></td><td><code>cubic-bezier(.22,1,.36,1)</code></td><td>Everything entering or lifting</td></tr>
+          <tr><td><code>stagger</code></td><td class="num">70ms, max 6</td><td>Card grids, FAQ items</td></tr>
+          <tr><td><code>parallax</code></td><td class="num">≤ 24px</td><td>Hero strip and visit photo only, desktop only</td></tr>
+          <tr><td>Reduced motion</td><td>fade only</td><td>All movement and parallax switched off</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="approve">
+  <div class="container stack">
+    <div class="head">
+      <span class="eyebrow amber">Decisions</span>
+      <h2 class="t-h2">What I need from you before building.</h2>
+      <p>Approve these, or reply with changes by name.</p>
+    </div>
+    <div class="decisions">
+      <div class="card"><b>Visual language</b><p>Follow the reference closely: centred hero with photo strip, pill buttons, bento services, navy feature panel, floating visit card, blue CTA panel.</p></div>
+      <div class="card"><b>Colour and type</b><p>Ink Navy, Action Blue and Tint from the reference. DM Sans throughout. Body text raised to 16px for readability.</p></div>
+      <div class="card"><b>Conversion additions</b><p>Phone number in the header, a Call button in the hero, a sticky call-and-book bar on mobile.</p></div>
+      <div class="card"><b>Business details</b><p>Address, phone and 24-hour status from Google, marked provisional until the client confirms which listing is the hospital.</p><span class="tag sample">Needs client input</span></div>
+      <div class="card"><b>Reviews</b><p>Quote real Google reviews word for word, even though current ones describe home nursing. Or hold the section until the hospital has its own listing.</p><span class="tag sample">Your call</span></div>
+      <div class="card"><b>Enquiry destination</b><p>The form will show a success state but sends nothing yet. Tell me where submissions should go: email, WhatsApp Business or a CRM.</p><span class="tag sample">Needed before Phase 2</span></div>
+      <div class="card"><b>Still missing</b><p>The hospital logo, real photography, and the other two reference screenshots if there are any.</p><span class="tag sample">Send when ready</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+if (window.lucide) lucide.createIcons();
+
+const form = document.getElementById("enquiry-form");
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  const name = document.getElementById("f-name");
+  const phone = document.getElementById("f-phone");
+  const nameOk = name.value.trim().length > 1;
+  const phoneOk = /^[6-9]\d{9}$/.test(phone.value.replace(/\s/g, ""));
+  name.setAttribute("aria-invalid", String(!nameOk));
+  phone.setAttribute("aria-invalid", String(!phoneOk));
+  document.getElementById("phone-wrap").classList.toggle("invalid", !phoneOk);
+  document.getElementById("e-name").hidden = nameOk;
+  document.getElementById("e-phone").hidden = phoneOk;
+  document.getElementById("h-phone").hidden = !phoneOk;
+  const result = document.getElementById("f-result");
+  result.hidden = true;
+  if (!nameOk) { name.focus(); return; }
+  if (!phoneOk) { phone.focus(); return; }
+  const submit = document.getElementById("f-submit");
+  submit.disabled = true;
+  submit.innerHTML = '<span class="spin"></span>Sending';
+  setTimeout(() => {
+    submit.disabled = false;
+    submit.textContent = "Send enquiry";
+    result.hidden = false;
+  }, 1100);
+});
+
+const tiles = document.getElementById("tiles");
+document.getElementById("replay").addEventListener("click", () => {
+  tiles.classList.remove("play");
+  void tiles.offsetWidth;
+  tiles.classList.add("play");
+});
+
+const menuButton = document.getElementById("m-menu");
+const drawer = document.getElementById("m-drawer");
+menuButton.addEventListener("click", () => {
+  const open = drawer.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", String(open));
+  menuButton.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+  if (window.lucide) lucide.createIcons();
+});
+</script>

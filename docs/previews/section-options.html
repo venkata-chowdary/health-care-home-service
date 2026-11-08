@@ -1,0 +1,924 @@
+<title>Hemalatha Section Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+<style>
+/* Layout: a picker. Each landing-page section is a group of full-width option canvases (A/B/C) drawn in the approved Revision 2 palette; a sticky tray at the bottom collects the picks. Light only. */
+:root {
+  color-scheme: light;
+  --navy-950: #0B1B45; --navy-900: #13265A; --navy-800: #1E3270; --navy-line: #24376B;
+  --blue-50: #EFF3FF; --blue-100: #DFE8FF; --blue-200: #C2D4FF; --blue-300: #8FB1FF;
+  --blue-600: #1F6BFF; --blue-700: #1A5EE8; --blue-800: #1757D6;
+  --slate-50: #F7F9FC; --slate-100: #EEF1F6; --slate-200: #E3E7EF; --slate-400: #8C94A6; --slate-600: #5B6478; --slate-on-dark: #C9D3EE;
+  --green: #15803D; --green-bg: #EAF6EE; --amber: #B45309; --amber-bg: #FDF3E6; --red: #B91C1C;
+  --background: #FFFFFF; --surface: var(--slate-50); --tint: var(--blue-50);
+  --foreground: var(--navy-950); --muted-fg: var(--slate-600); --border: var(--slate-200); --input: var(--slate-400);
+  --primary: var(--blue-600); --primary-hover: var(--blue-700); --link: var(--blue-800);
+  --font: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --track-tight: -0.04em;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-full: 999px;
+  --shadow-float: 0 18px 40px -12px rgba(11, 27, 69, .22), 0 2px 6px rgba(11, 27, 69, .06);
+  --shadow-hover: 0 12px 28px -14px rgba(11, 27, 69, .20);
+  --shadow-pill: 0 6px 18px -6px rgba(11, 27, 69, .20);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { overflow-x: clip; }
+body { background: var(--surface); color: var(--foreground); font: 400 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: clip; padding-bottom: 96px; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, .t-display, .t-h1, .t-h2, .t-h3 { font-weight: 500; letter-spacing: var(--track-tight); text-wrap: balance; color: inherit; }
+h4 { font-weight: 600; letter-spacing: -0.01em; }
+a { color: var(--link); }
+:focus-visible { outline: 2px solid var(--focus, #1F6BFF); outline-offset: 3px; }
+.lucide { stroke-width: 1.75; }
+
+.page { max-width: 1280px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 768px) { .page { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); } }
+
+.intro { padding-block: 64px 40px; display: grid; gap: 16px; justify-items: start; max-width: 760px; }
+.intro p { color: var(--muted-fg); font-size: 17px; }
+.refs { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.group { padding-block: 40px; display: grid; gap: 20px; }
+.group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 32px; border-top: 1px solid var(--border); }
+.group-head h2 { font-size: clamp(26px, 3vw, 34px); line-height: 1.1; }
+.group-head span { font-size: 14px; color: var(--muted-fg); }
+.option { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; transition: border-color 200ms, box-shadow 200ms; }
+.option.chosen { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(31, 107, 255, .18); }
+.opt-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px 12px 20px; border-bottom: 1px solid var(--border); background: #FFFFFF; flex-wrap: wrap; }
+.opt-letter { width: 30px; height: 30px; border-radius: 50%; background: var(--navy-950); color: #FFFFFF; display: grid; place-items: center; font-weight: 600; font-size: 14px; flex: none; }
+.opt-title { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+.opt-src { font-size: 13px; color: var(--muted-fg); }
+.opt-bar .pick { margin-left: auto; }
+.option.chosen .opt-letter { background: var(--primary); }
+.canvas { padding: 56px; }
+@media (max-width: 900px) { .canvas { padding: 36px 24px; } }
+@media (max-width: 560px) { .canvas { padding: 28px 16px; } }
+.canvas.flush { padding: 0; }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: var(--r-full); background: var(--tint); color: var(--link); font-size: 13px; font-weight: 500; line-height: 1.2; }
+.eyebrow::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.eyebrow.on-dark { background: rgba(255, 255, 255, .08); color: var(--blue-200); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); }
+.t-display { font-size: clamp(38px, 5.4vw, 64px); line-height: 1.03; }
+.t-h2 { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.08; }
+.t-h3 { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.15; }
+.lead { font-size: clamp(16px, 1.4vw, 18px); line-height: 1.6; color: var(--muted-fg); }
+.small { font-size: 14px; color: var(--muted-fg); }
+.tag { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 11px; border-radius: var(--r-full); border: 1px solid var(--border); font-size: 12.5px; color: var(--muted-fg); background: #FFFFFF; white-space: nowrap; }
+.tag.sample { border-color: #F2D3A6; background: var(--amber-bg); color: var(--amber); font-weight: 500; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 24px; border-radius: var(--r-full); font: 500 15px/1 var(--font); border: 1px solid transparent; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background-color 180ms var(--ease), border-color 180ms var(--ease), color 180ms var(--ease); }
+.btn svg { width: 17px; height: 17px; stroke-width: 2; transition: transform 200ms var(--ease); }
+.btn:hover svg.lucide-arrow-right { transform: translateX(3px); }
+.btn:active { transform: scale(.98); }
+.btn-sm { height: 40px; padding: 0 18px; font-size: 14px; }
+.btn-primary { background: var(--primary); color: #FFFFFF; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary { background: #FFFFFF; color: var(--foreground); border-color: var(--border); }
+.btn-secondary:hover { border-color: var(--blue-200); background: var(--tint); }
+.btn-white { background: #FFFFFF; color: var(--navy-950); }
+.btn-white:hover { background: var(--blue-50); }
+.btn-ghost-light { background: transparent; color: #FFFFFF; border-color: rgba(255, 255, 255, .45); }
+.btn-ghost-light:hover { border-color: #FFFFFF; background: rgba(255, 255, 255, .08); }
+.btn-navy { background: var(--navy-950); color: #FFFFFF; }
+.btn-navy:hover { background: var(--navy-800); }
+.btn-icon { width: 44px; height: 44px; padding: 0; }
+.btn-lead { padding-left: 6px; }
+.btn-lead .bubble { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #FFFFFF; display: grid; place-items: center; }
+.btn-white.btn-lead .bubble { background: var(--primary); }
+.pick[aria-pressed="true"] { background: var(--primary); color: #FFFFFF; border-color: var(--primary); }
+.link-arrow { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--link); text-decoration: none; }
+.link-arrow svg { width: 15px; height: 15px; transition: transform 200ms var(--ease); }
+.card:hover .link-arrow svg, .link-arrow:hover svg { transform: translateX(3px); }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+
+.photo { position: relative; border-radius: var(--r-lg); overflow: hidden; background: radial-gradient(120% 90% at 30% 20%, #F4F7FC 0%, #E2E9F4 55%, #D3DCEB 100%); max-width: 100%; }
+.photo .ph-icon { position: absolute; inset: 0; display: grid; place-items: center; color: #B9C6DC; }
+.photo .ph-icon svg { width: 40px; height: 40px; stroke-width: 1.25; }
+.photo .ph-label { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: var(--r-full); background: rgba(255, 255, 255, .85); font-size: 12px; color: var(--muted-fg); white-space: nowrap; }
+.photo .ph-label svg { width: 13px; height: 13px; }
+.photo.dark { background: radial-gradient(120% 90% at 30% 20%, #2A3D74 0%, #1A2B5F 60%, #13245A 100%); }
+.photo.dark .ph-icon { color: #3C5191; }
+.photo.dark .ph-label { background: rgba(11, 27, 69, .7); color: var(--slate-on-dark); }
+.photo.blue { background: radial-gradient(100% 80% at 60% 30%, #4E8BFF 0%, #2C74FF 60%, #1F6BFF 100%); }
+.photo.blue .ph-icon { color: rgba(255, 255, 255, .55); }
+.photo.blue .ph-label { background: rgba(255, 255, 255, .18); color: #FFFFFF; }
+
+.card { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--r-lg); padding: 26px; display: grid; gap: 10px; align-content: start; transition: border-color 220ms var(--ease), box-shadow 220ms var(--ease), transform 220ms var(--ease); }
+.card.interactive:hover { border-color: var(--blue-200); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+.card.tinted { background: var(--tint); border-color: transparent; }
+.card p { color: var(--muted-fg); font-size: 15px; }
+.icon-tile { width: 40px; height: 40px; border-radius: var(--r-sm); background: var(--tint); color: var(--primary); display: grid; place-items: center; margin-bottom: 6px; }
+.icon-tile svg { width: 20px; height: 20px; }
+.icon-tile.solid { background: var(--primary); color: #FFFFFF; }
+.badge-float { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 8px; border-radius: var(--r-full); background: #FFFFFF; box-shadow: var(--shadow-pill); font-size: 13px; font-weight: 500; color: var(--foreground); white-space: nowrap; }
+.badge-float .tick { width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: #FFFFFF; display: grid; place-items: center; }
+.badge-float .tick svg { width: 12px; height: 12px; stroke-width: 3; }
+.stars { display: flex; gap: 2px; color: #F5A524; }
+.stars svg { width: 15px; height: 15px; fill: currentColor; stroke-width: 0; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--tint); color: var(--link); display: grid; place-items: center; font-size: 13px; font-weight: 600; flex: none; }
+.center { text-align: center; justify-items: center; margin-inline: auto; }
+.head { display: grid; gap: 14px; max-width: 640px; justify-items: start; }
+.head.center { justify-items: center; }
+.stack { display: grid; gap: 40px; }
+
+/* hero A */
+.heroA { display: grid; gap: 26px; justify-items: center; text-align: center; }
+.heroA p { max-width: 54ch; }
+.heroA .strip { position: relative; display: grid; grid-template-columns: .4fr 1fr 1.5fr 1fr .4fr; gap: 12px; width: calc(100% + 112px); margin-inline: -56px; margin-top: 12px; }
+.heroA .strip .photo { aspect-ratio: 4 / 5; }
+.heroA .strip .photo.fill { aspect-ratio: auto; }
+.heroA .strip .badge-float { position: absolute; z-index: 2; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; text-align: left; }
+.facts div { padding: 16px 22px; border-left: 1px solid var(--border); display: grid; gap: 2px; }
+.facts div:first-child { border-left: 0; padding-left: 0; }
+.facts b { font-weight: 600; font-size: 15px; }
+.facts span { font-size: 13.5px; color: var(--muted-fg); }
+@media (max-width: 900px) { .heroA .strip { width: calc(100% + 48px); margin-inline: -24px; } }
+@media (max-width: 700px) { .heroA .strip { grid-template-columns: .8fr 1.3fr .8fr; width: calc(100% + 32px); margin-inline: -16px; } .heroA .strip .hide-sm { display: none; } .facts { grid-template-columns: 1fr 1fr; } .facts div:nth-child(odd) { border-left: 0; padding-left: 0; } .facts div { padding: 12px 14px; } }
+
+/* hero B */
+.heroB { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); background: var(--primary); color: #FFFFFF; border-radius: var(--r-xl); overflow: hidden; min-height: 500px; }
+.heroB .copy { padding: 64px 56px; display: grid; gap: 22px; align-content: center; justify-items: start; }
+.heroB .copy p { color: #DCE7FF; max-width: 42ch; }
+.heroB .figure { position: relative; display: grid; align-items: end; padding: 40px 40px 0; }
+.heroB .figure .photo { height: 100%; min-height: 360px; border-radius: 200px 200px 0 0; }
+.heroB .figure .badge-float { position: absolute; left: 12px; bottom: 56px; }
+.heroB .figure .badge-float.second { left: auto; right: 24px; bottom: auto; top: 72px; }
+.heroB .quick { display: flex; gap: 28px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .22); width: 100%; }
+.heroB .quick div { display: grid; }
+.heroB .quick b { font-size: 22px; font-weight: 500; letter-spacing: -0.03em; }
+.heroB .quick span { font-size: 13px; color: #DCE7FF; }
+@media (max-width: 900px) { .heroB { grid-template-columns: 1fr; min-height: 0; } .heroB .copy { padding: 36px 24px 8px; } .heroB .figure { padding: 24px 24px 0; } .heroB .figure .photo { min-height: 260px; } }
+
+/* hero C */
+.heroC { position: relative; border-radius: var(--r-xl); overflow: hidden; background: linear-gradient(180deg, rgba(11, 27, 69, .72), rgba(11, 27, 69, .9)), radial-gradient(120% 90% at 30% 20%, #3A5BA8 0%, #1E3270 60%, #0B1B45 100%); color: #FFFFFF; padding: 72px 40px 0; display: grid; gap: 24px; justify-items: center; text-align: center; }
+.heroC p { color: var(--slate-on-dark); max-width: 56ch; }
+.heroC .stats { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.heroC .stats div { display: grid; text-align: left; }
+.heroC .stats b { font-size: 22px; font-weight: 500; letter-spacing: -0.03em; }
+.heroC .stats span { font-size: 13px; color: var(--slate-on-dark); }
+.heroC .collage { display: grid; grid-template-columns: 1fr 1.6fr 1fr; gap: 12px; align-items: end; width: min(860px, 100%); margin-top: 16px; }
+.heroC .collage .photo { border-radius: var(--r-lg) var(--r-lg) 0 0; }
+.heroC .collage .photo:nth-child(1), .heroC .collage .photo:nth-child(3) { height: 170px; }
+.heroC .collage .photo:nth-child(2) { height: 230px; }
+@media (max-width: 700px) { .heroC { padding: 48px 20px 0; } .heroC .collage { grid-template-columns: 1fr; } .heroC .collage .photo:nth-child(1), .heroC .collage .photo:nth-child(3) { display: none; } .heroC .collage .photo:nth-child(2) { height: 180px; } }
+
+/* about A */
+.aboutA { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 56px; }
+.aboutA .big { font-size: clamp(22px, 2.4vw, 30px); line-height: 1.35; letter-spacing: -0.025em; font-weight: 500; }
+.aboutA .big span { color: var(--slate-400); }
+.aboutA .label { display: grid; gap: 16px; align-content: start; }
+.statrow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border); grid-column: 1 / -1; }
+.stat { display: flex; align-items: center; gap: 14px; }
+.stat .icon-tile { margin: 0; width: 52px; height: 52px; border-radius: var(--r-md); }
+.stat b { display: block; font-size: 26px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+.stat span { font-size: 13.5px; color: var(--muted-fg); }
+@media (max-width: 800px) { .aboutA { grid-template-columns: 1fr; gap: 20px; } .statrow { grid-template-columns: 1fr; } }
+
+/* about B */
+.aboutB { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 64px; align-items: center; }
+.aboutB .media { position: relative; padding: 0 0 40px 40px; }
+.aboutB .media .photo.main { aspect-ratio: 4 / 4.4; border-radius: var(--r-xl); }
+.aboutB .media .photo.inset { position: absolute; left: 0; bottom: 0; width: 44%; aspect-ratio: 4 / 3; border: 5px solid #FFFFFF; box-shadow: var(--shadow-float); }
+.aboutB .media .badge-float { position: absolute; right: -12px; top: 32px; }
+.checks { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; margin-block: 8px 8px; }
+.checks > div { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; }
+.checks .pi { width: 32px; height: 32px; border-radius: 50%; background: var(--tint); color: var(--primary); display: grid; place-items: center; }
+.checks .pi svg { width: 16px; height: 16px; stroke-width: 2; }
+.checks b { font-weight: 600; font-size: 15px; display: block; }
+.checks span { font-size: 13.5px; color: var(--muted-fg); }
+@media (max-width: 860px) { .aboutB { grid-template-columns: 1fr; gap: 40px; } .checks { grid-template-columns: 1fr; } }
+
+/* departments A bento */
+.bento { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.bento .feature { grid-row: span 2; }
+.bento .feature .photo { aspect-ratio: 5 / 4; margin-bottom: 10px; }
+.bento .wide { grid-column: span 2; }
+@media (max-width: 900px) { .bento { grid-template-columns: 1fr 1fr; } .bento .feature { grid-row: auto; grid-column: span 2; } .bento .feature .photo { aspect-ratio: 16 / 9; } }
+@media (max-width: 560px) { .bento { grid-template-columns: 1fr; } .bento .feature, .bento .wide { grid-column: auto; } }
+
+/* departments B grid */
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .grid3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .grid3 { grid-template-columns: 1fr; } }
+.card.hl { position: relative; overflow: hidden; background: var(--navy-950); border-color: var(--navy-950); color: #FFFFFF; }
+.card.hl p { color: var(--slate-on-dark); }
+.card.hl .link-arrow { color: #FFFFFF; }
+.card.hl .icon-tile { background: rgba(255, 255, 255, .1); color: #FFFFFF; }
+.card.hl .photo { position: absolute; right: -20px; top: 0; bottom: 0; width: 45%; border-radius: 0; opacity: .5; }
+.card.hl > *:not(.photo) { position: relative; }
+
+/* departments C tabs */
+.tabs { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 32px; align-items: start; }
+.tablist { display: grid; gap: 6px; }
+.tablist button { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); border: 1px solid transparent; background: transparent; font: 500 15px var(--font); color: var(--muted-fg); text-align: left; cursor: pointer; transition: background-color 180ms, color 180ms, border-color 180ms; }
+.tablist button svg { width: 18px; height: 18px; }
+.tablist button:hover { background: var(--surface); color: var(--foreground); }
+.tablist button[aria-selected="true"] { background: var(--tint); color: var(--link); border-color: var(--blue-100); }
+.tabpanel { background: var(--navy-950); color: var(--slate-on-dark); border-radius: var(--r-xl); padding: 40px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 32px; align-items: center; min-height: 340px; }
+.tabpanel h3 { color: #FFFFFF; }
+.tabpanel .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-block: 8px 12px; }
+.tabpanel .chips span { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: var(--r-md); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); font-size: 13.5px; color: #FFFFFF; }
+.tabpanel .chips svg { width: 15px; height: 15px; color: var(--blue-300); flex: none; }
+.tabpanel .photo { aspect-ratio: 4 / 5; }
+.tabpanel .copy { display: grid; gap: 14px; justify-items: start; }
+.fade-in { animation: fadein 360ms var(--ease) both; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 900px) { .tabs { grid-template-columns: 1fr; } .tablist { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; padding-bottom: 4px; } .tabpanel { grid-template-columns: 1fr; padding: 28px 22px; } .tabpanel .photo { aspect-ratio: 16 / 9; order: -1; } }
+@media (max-width: 480px) { .tabpanel .chips { grid-template-columns: 1fr; } }
+
+/* why A split list */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+.split .photo { aspect-ratio: 4 / 4.6; border-radius: var(--r-xl); }
+.points { display: grid; }
+.point { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 16px; padding-block: 16px; border-bottom: 1px solid var(--border); }
+.point:last-child { border-bottom: 0; }
+.point .pi { width: 32px; height: 32px; border-radius: 50%; background: var(--tint); color: var(--primary); display: grid; place-items: center; }
+.point .pi svg { width: 16px; height: 16px; stroke-width: 2; }
+.point b { font-weight: 600; display: block; }
+.point span { color: var(--muted-fg); font-size: 14.5px; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; gap: 32px; } .split .photo { aspect-ratio: 4 / 3; } }
+
+/* why B mosaic */
+.mosaic-wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 48px; align-items: center; }
+.mosaic { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; gap: 12px; }
+.mosaic .photo.a { grid-row: span 2; aspect-ratio: 4 / 5.2; }
+.mosaic .photo.b { grid-row: span 2; aspect-ratio: 4 / 5.2; }
+.mosaic .note { border-radius: var(--r-lg); padding: 18px; display: grid; gap: 10px; align-content: start; }
+.mosaic .note.blue { background: var(--tint); }
+.mosaic .note.navy { background: var(--navy-950); color: #FFFFFF; }
+.mosaic .note.navy span { color: var(--slate-on-dark); }
+.mosaic .note b { font-weight: 600; font-size: 15px; line-height: 1.35; }
+.mosaic .note span { font-size: 13px; color: var(--muted-fg); }
+.mosaic .note .big { font-size: 34px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
+.feature-list { display: grid; gap: 12px; }
+.feature-list .card { grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; padding: 20px; }
+.feature-list .card .icon-tile { margin: 0; width: 44px; height: 44px; }
+.feature-list .card b { font-weight: 600; display: block; margin-bottom: 2px; }
+@media (max-width: 900px) { .mosaic-wrap { grid-template-columns: 1fr; gap: 32px; } }
+
+/* doctors */
+.docs3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 860px) { .docs3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .docs3 { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 74%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; } .docs3 > * { scroll-snap-align: start; } }
+.docA { display: grid; gap: 10px; align-content: start; }
+.docA .photo { aspect-ratio: 4 / 5; }
+.docA b { font-weight: 600; }
+.docA .role { font-size: 14px; color: var(--muted-fg); margin-top: -6px; }
+.docA .tag { justify-self: start; }
+.docB-wrap { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 40px; align-items: center; }
+.docB-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.docB { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); background: #FFFFFF; transition: box-shadow 220ms var(--ease), transform 220ms var(--ease); }
+.docB:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+.docB .photo { aspect-ratio: 1 / 1; border-radius: 0; }
+.docB .band { background: var(--tint); padding: 16px; display: grid; justify-items: center; gap: 2px; text-align: center; }
+.docB .band b { font-weight: 600; font-size: 15px; }
+.docB .band span { font-size: 13px; color: var(--muted-fg); }
+.docB .band .plus { margin-top: 8px; width: 30px; height: 30px; border-radius: 50%; background: #FFFFFF; color: var(--primary); display: grid; place-items: center; box-shadow: var(--shadow-pill); }
+.docB .band .plus svg { width: 15px; height: 15px; stroke-width: 2.25; }
+@media (max-width: 900px) { .docB-wrap { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .docB-cards { grid-template-columns: 1fr 1fr; } }
+.docC { display: grid; gap: 8px; justify-items: center; text-align: center; }
+.docC .stage { position: relative; width: 100%; aspect-ratio: 4 / 4.2; }
+.docC .stage .block { position: absolute; inset: 14% 0 0 0; border-radius: var(--r-xl); background: var(--tint); clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%); }
+.docC:nth-child(2) .stage .block { background: var(--navy-950); }
+.docC:nth-child(3) .stage .block { background: var(--blue-200); }
+.docC .stage .photo { position: absolute; left: 14%; right: 14%; top: 0; bottom: 0; border-radius: var(--r-lg) var(--r-lg) 0 0; background: radial-gradient(120% 90% at 50% 20%, #FAFBFE 0%, #E7ECF5 100%); }
+.docC b { font-weight: 600; margin-top: 8px; }
+.docC span { font-size: 13.5px; color: var(--muted-fg); }
+
+/* highlight band */
+.panel-navy { background: var(--navy-950); color: var(--slate-on-dark); border-radius: var(--r-xl); padding: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
+.panel-navy h3 { color: #FFFFFF; }
+.panel-navy .photo { aspect-ratio: 1 / 1.05; }
+.kv { display: grid; margin-top: 20px; border-top: 1px solid var(--navy-line); }
+.kv div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 20px; padding-block: 18px; border-bottom: 1px solid var(--navy-line); }
+.kv small { font-size: 12.5px; color: var(--blue-300); padding-top: 3px; }
+.kv b { display: block; color: #FFFFFF; font-weight: 500; margin-bottom: 2px; }
+.kv span { font-size: 14.5px; }
+@media (max-width: 900px) { .panel-navy { grid-template-columns: 1fr; padding: 28px 22px; gap: 28px; } .kv div { grid-template-columns: 1fr; gap: 2px; } }
+.panel-tint { background: var(--tint); border-radius: var(--r-xl); padding: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.panel-tint .numbox { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 24px; align-items: center; padding-block: 24px; border-block: 1px solid var(--blue-100); }
+.panel-tint .numbox .n { background: #FFFFFF; border-radius: var(--r-lg); padding: 18px 22px; display: grid; }
+.panel-tint .numbox .n b { font-size: 48px; font-weight: 500; letter-spacing: -0.05em; line-height: 1; }
+.panel-tint .numbox .n b em { font-style: normal; color: var(--primary); }
+.panel-tint .numbox .n span { font-size: 12.5px; color: var(--muted-fg); margin-top: 6px; }
+.panel-tint .collage { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.panel-tint .collage .photo { aspect-ratio: 4 / 5; }
+.panel-tint .collage .photo:nth-child(2) { margin-top: 40px; }
+.panel-tint .collage .seal { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 96px; height: 96px; border-radius: 50%; background: var(--primary); color: #FFFFFF; display: grid; place-items: center; text-align: center; font-size: 12px; font-weight: 500; line-height: 1.25; border: 5px solid var(--tint); }
+.panel-tint .collage .seal b { display: block; font-size: 22px; letter-spacing: -0.03em; }
+@media (max-width: 900px) { .panel-tint { grid-template-columns: 1fr; padding: 28px 22px; gap: 32px; } }
+
+/* reviews */
+.revA { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 900px) { .revA { grid-template-columns: 1fr; } }
+.review blockquote { margin: 0; font-size: 16px; line-height: 1.6; color: var(--foreground); }
+.review footer { display: flex; align-items: center; gap: 10px; padding-top: 14px; border-top: 1px solid var(--border); margin-top: 4px; }
+.review footer div { display: grid; font-size: 13px; color: var(--muted-fg); line-height: 1.35; }
+.review footer b { color: var(--foreground); font-weight: 600; font-size: 14px; }
+.review.empty blockquote { color: var(--slate-400); }
+.rating-pill { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 8px; border-radius: var(--r-full); border: 1px solid var(--border); font-size: 14px; color: var(--muted-fg); background: #FFFFFF; }
+.rating-pill b { color: var(--foreground); font-size: 16px; font-weight: 600; }
+.g-mark { width: 30px; height: 30px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-weight: 600; color: var(--foreground); font-size: 14px; }
+.headsplit { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
+.revB-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(280px, 1fr); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+.revB-track::-webkit-scrollbar { display: none; }
+.revB { scroll-snap-align: start; background: var(--navy-950); color: var(--slate-on-dark); border-radius: var(--r-lg); overflow: hidden; display: grid; grid-template-rows: 1fr auto; }
+.revB .body { padding: 24px; display: grid; gap: 14px; align-content: start; }
+.revB blockquote { margin: 0; color: #FFFFFF; font-size: 15.5px; line-height: 1.6; }
+.revB.empty blockquote { color: #7E8BB0; }
+.revB footer { display: flex; align-items: center; gap: 10px; padding: 16px 24px; background: var(--navy-900); font-size: 13px; }
+.revB footer b { color: #FFFFFF; font-weight: 600; display: block; font-size: 14px; }
+.revB .avatar { background: var(--navy-800); color: var(--blue-200); }
+.revB-nav { display: flex; gap: 8px; justify-content: center; margin-top: 20px; }
+.revB-nav .btn { background: var(--navy-950); color: #FFFFFF; }
+.revB-nav .btn:hover { background: var(--navy-800); }
+@media (max-width: 560px) { .revB-track { grid-auto-columns: 86%; } }
+.revC { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 40px; background: var(--tint); border-radius: var(--r-xl); padding: 24px; align-items: stretch; max-width: 900px; margin-inline: auto; }
+.revC .side { background: var(--navy-950); border-radius: var(--r-lg); padding: 28px; display: grid; gap: 16px; align-content: space-between; color: var(--slate-on-dark); }
+.revC .side .score { font-size: 64px; font-weight: 500; letter-spacing: -0.05em; color: #FFFFFF; line-height: 1; }
+.revC .side .googlebar { display: flex; align-items: center; gap: 10px; background: var(--primary); border-radius: var(--r-md); padding: 10px 12px; color: #FFFFFF; font-size: 13px; }
+.revC .main { padding: 16px 16px 16px 0; display: grid; gap: 20px; align-content: space-between; }
+.revC blockquote { margin: 0; font-size: clamp(19px, 2vw, 24px); line-height: 1.45; letter-spacing: -0.02em; font-weight: 500; }
+.revC .who { display: flex; align-items: center; gap: 12px; justify-content: space-between; flex-wrap: wrap; }
+.revC .who > div { display: flex; gap: 10px; align-items: center; }
+.revC .who b { font-weight: 600; display: block; }
+.revC .who span { font-size: 13px; color: var(--muted-fg); }
+@media (max-width: 760px) { .revC { grid-template-columns: 1fr; padding: 16px; gap: 20px; } .revC .main { padding: 4px; } }
+
+/* contact */
+.enqA { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 48px; align-items: start; }
+@media (max-width: 900px) { .enqA { grid-template-columns: 1fr; gap: 28px; } }
+.call-card { display: grid; gap: 12px; padding: 22px; border-radius: var(--r-lg); background: var(--tint); margin-top: 8px; justify-items: start; }
+.call-card .num { font-size: 26px; font-weight: 500; letter-spacing: -0.03em; color: var(--foreground); text-decoration: none; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 28px; border: 1px solid var(--border); border-radius: var(--r-xl); background: #FFFFFF; }
+.form .full { grid-column: 1 / -1; }
+@media (max-width: 640px) { .form { grid-template-columns: 1fr; padding: 18px; } }
+.field { display: grid; gap: 7px; align-content: start; }
+.field label { font-size: 14px; font-weight: 500; }
+.field label .opt { font-weight: 400; color: var(--muted-fg); }
+.control { width: 100%; height: 50px; padding: 0 16px; border: 1px solid var(--input); border-radius: var(--r-md); background: #FFFFFF; font: 400 16px var(--font); color: var(--foreground); transition: border-color 160ms, box-shadow 160ms; }
+.control::placeholder { color: var(--slate-400); }
+.control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(31, 107, 255, .16); }
+select.control { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%235B6478' stroke-width='2' stroke-linecap='round' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+textarea.control { height: 96px; padding: 14px 16px; resize: vertical; }
+.enqB { position: relative; }
+.enqB .photo { height: 380px; border-radius: var(--r-xl); }
+.enqB .bar { position: relative; margin: -110px 32px 0; background: #FFFFFF; border-radius: var(--r-lg); box-shadow: var(--shadow-float); padding: 24px; display: grid; gap: 16px; }
+.enqB .bar .fields { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end; }
+.enqB .bar .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 900px) { .enqB .bar .fields { grid-template-columns: 1fr 1fr; } .enqB .bar .fields .btn { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .enqB .photo { height: 220px; } .enqB .bar { margin: -48px 10px 0; padding: 18px; } .enqB .bar .fields { grid-template-columns: 1fr; } }
+
+/* cta + footer */
+.ctaA { display: grid; grid-template-columns: 1.35fr 1fr; border-radius: var(--r-xl); overflow: hidden; background: var(--primary); color: #FFFFFF; }
+.ctaA .copy { padding: 56px; display: grid; gap: 18px; align-content: center; justify-items: start; }
+.ctaA p { color: #DCE7FF; max-width: 44ch; }
+.ctaA .photo { border-radius: 0; min-height: 280px; }
+@media (max-width: 860px) { .ctaA { grid-template-columns: 1fr; } .ctaA .copy { padding: 32px 22px; } .ctaA .photo { min-height: 180px; order: -1; } }
+.ctaB { background: var(--navy-950); color: var(--slate-on-dark); border-radius: var(--r-xl); padding: 64px 32px; display: grid; gap: 20px; justify-items: center; text-align: center; position: relative; overflow: hidden; }
+.ctaB h3 { color: #FFFFFF; max-width: 18ch; }
+.ctaB .ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: min(760px, 100%); margin-top: 12px; text-align: left; }
+.ctaB .ways a { display: grid; gap: 4px; padding: 18px; border-radius: var(--r-lg); background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); color: #FFFFFF; text-decoration: none; transition: background-color 200ms; }
+.ctaB .ways a:hover { background: rgba(255, 255, 255, .1); }
+.ctaB .ways svg { width: 20px; height: 20px; color: var(--blue-300); margin-bottom: 6px; }
+.ctaB .ways span { font-size: 13px; color: var(--slate-on-dark); }
+@media (max-width: 700px) { .ctaB { padding: 40px 20px; } .ctaB .ways { grid-template-columns: 1fr; } }
+.footA { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 36px; }
+.footA h5, .footB h5 { margin: 0 0 12px; font-size: 14px; font-weight: 600; }
+.footA ul, .footB ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; font-size: 14px; color: var(--muted-fg); }
+.foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 18px; margin-top: 32px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted-fg); }
+.footB { background: var(--navy-950); color: var(--slate-on-dark); border-radius: var(--r-xl); padding: 48px; display: grid; gap: 36px; }
+.footB .cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 36px; }
+.footB h5 { color: #FFFFFF; }
+.footB ul { color: var(--slate-on-dark); }
+.footB .contactbar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.footB .contactbar div { display: flex; gap: 12px; align-items: center; padding: 16px; border-radius: var(--r-lg); background: var(--navy-900); font-size: 14px; }
+.footB .contactbar svg { width: 20px; height: 20px; color: var(--blue-300); flex: none; }
+.footB .contactbar b { color: #FFFFFF; font-weight: 500; display: block; }
+.footB .foot-base { border-color: var(--navy-line); color: var(--slate-on-dark); margin-top: 0; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; letter-spacing: -0.02em; white-space: nowrap; }
+.brand-mark { width: 30px; height: 30px; border-radius: 8px; border: 1.5px dashed var(--blue-300); display: grid; place-items: center; color: var(--blue-300); font-size: 8px; font-weight: 600; }
+@media (max-width: 860px) { .footA, .footB .cols { grid-template-columns: 1fr 1fr; } .footB .contactbar { grid-template-columns: 1fr; } .footB { padding: 28px 20px; } }
+@media (max-width: 480px) { .footA, .footB .cols { grid-template-columns: 1fr; } }
+
+/* tray */
+.tray { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); pointer-events: none; }
+.tray-inner { pointer-events: auto; max-width: 980px; margin: 0 auto; background: var(--navy-950); color: var(--slate-on-dark); border-radius: var(--r-full); padding: 8px 8px 8px 22px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-float); }
+.tray-inner .label { font-size: 13px; white-space: nowrap; }
+.tray-inner .picks { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+.tray-inner .picks span { flex: none; font-size: 13px; padding: 6px 10px; border-radius: var(--r-full); background: var(--navy-900); color: var(--slate-on-dark); white-space: nowrap; }
+.tray-inner .picks span.set { background: var(--primary); color: #FFFFFF; }
+.tray-inner .btn { height: 40px; }
+@media (max-width: 560px) { .tray-inner { border-radius: var(--r-lg); padding: 10px; flex-wrap: wrap; } .tray-inner .label { display: none; } .tray-inner .btn { width: 100%; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; } }
+</style>
+
+<div class="page">
+  <header class="intro">
+    <span class="eyebrow">Section options · pick one per section</span>
+    <h1 class="t-display">Choose the sections for the Hemalatha site.</h1>
+    <p>All options use the colours, font and buttons you liked from Revision 2. The layouts come from your three references. Pick one option per section; your picks collect in the bar at the bottom, and "Copy picks" gives you a line to paste back to me.</p>
+    <div class="refs"><span class="tag">Ref 1 · Aurora Dental</span><span class="tag">Ref 2 · MediFlex</span><span class="tag">Ref 3 · CareNova</span><span class="tag sample">Grey frames are photo slots</span></div>
+  </header>
+
+  <section class="group" data-group="Hero">
+    <div class="group-head"><h2>Hero</h2><span>3 options</span></div>
+
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Centred headline with photo strip</span><span class="opt-src">Ref 1</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas">
+        <div class="heroA">
+          <span class="eyebrow">Now accepting new patients in Kukatpally</span>
+          <h2 class="t-display" style="max-width:19ch">Specialist care in Kukatpally. Clear answers at every step.</h2>
+          <p class="lead">A multi-speciality hospital where every treatment plan is explained before it begins, and the front desk is a phone call away.</p>
+          <div class="row" style="justify-content:center"><a class="btn btn-primary" href="#">Book an appointment<i data-lucide="arrow-right"></i></a><a class="btn btn-secondary" href="#"><i data-lucide="phone"></i>Call 086390 74341</a></div>
+          <div class="strip">
+            <div class="photo fill hide-sm" style="border-radius:0 var(--r-lg) var(--r-lg) 0"></div>
+            <div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label"><i data-lucide="camera"></i>Nurse at bedside</span></div>
+            <div class="photo fill"><span class="ph-icon"><i data-lucide="stethoscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>Consultation</span></div>
+            <div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label"><i data-lucide="camera"></i>Doctor</span></div>
+            <div class="photo fill hide-sm" style="border-radius:var(--r-lg) 0 0 var(--r-lg)"></div>
+            <span class="badge-float" style="left:8%;top:20%"><span class="tick"><i data-lucide="check"></i></span>Plans explained first</span>
+            <span class="badge-float" style="left:45%;top:56%"><span class="tick"><i data-lucide="check"></i></span>4.7 on Google</span>
+          </div>
+          <div class="facts"><div><b>4.7 Google rating</b><span>96 reviews</span></div><div><b>Kukatpally</b><span>Aditya Nagar</span></div><div><b>Open 24 hours</b><span>Front desk</span></div><div><b>Walk-ins welcome</b><span>To confirm</span></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Blue panel with doctor portrait</span><span class="opt-src">Ref 3</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas">
+        <div class="heroB">
+          <div class="copy">
+            <span class="eyebrow on-dark">Multi-speciality hospital · Kukatpally</span>
+            <h2 class="t-display">Hospital care that explains itself.</h2>
+            <p>Every plan is talked through before treatment begins, and families are kept informed throughout a stay.</p>
+            <div class="row"><a class="btn btn-white btn-lead" href="#"><span class="bubble"><i data-lucide="calendar-check"></i></span>Book an appointment</a><a class="btn btn-ghost-light" href="#"><i data-lucide="phone"></i>086390 74341</a></div>
+            <div class="quick"><div><b>4.7</b><span>Google rating</span></div><div><b>24 hrs</b><span>Front desk</span></div><div><b>Kukatpally</b><span>Aditya Nagar</span></div></div>
+          </div>
+          <div class="figure">
+            <div class="photo blue" style="background:radial-gradient(100% 80% at 50% 25%, #6A9DFF 0%, #3B7CFF 70%)"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label" style="left:50%;translate:-50% 0"><i data-lucide="camera"></i>Doctor portrait, cut out</span></div>
+            <span class="badge-float"><span class="tick"><i data-lucide="check"></i></span>Families kept informed</span>
+            <span class="badge-float second"><span class="tick"><i data-lucide="star"></i></span>4.7 · 96 reviews</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="option" data-option="C">
+      <div class="opt-bar"><span class="opt-letter">C</span><span class="opt-title">Navy photo backdrop with collage</span><span class="opt-src">Ref 2</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose C</button></div>
+      <div class="canvas">
+        <div class="heroC">
+          <span class="eyebrow on-dark">Hemalatha Hospital · Kukatpally</span>
+          <h2 class="t-display" style="max-width:17ch">Specialist care, close to home in Kukatpally.</h2>
+          <p>Departments, diagnostics and inpatient care under one roof, with a front desk that answers the phone.</p>
+          <div class="stats"><a class="btn btn-white" href="#">Book an appointment<i data-lucide="arrow-right"></i></a><div><b>4.7</b><span>Google rating</span></div><div><b>24 hrs</b><span>Front desk</span></div></div>
+          <div class="collage">
+            <div class="photo"><span class="ph-icon"><i data-lucide="microscope"></i></span></div>
+            <div class="photo"><span class="ph-icon"><i data-lucide="stethoscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>Hospital interior</span></div>
+            <div class="photo"><span class="ph-icon"><i data-lucide="bed-double"></i></span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="About">
+    <div class="group-head"><h2>About introduction</h2><span>2 options</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Statement with key facts</span><span class="opt-src">Ref 3</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas">
+        <div class="aboutA">
+          <div class="label"><span class="eyebrow" style="justify-self:start">About us</span><a class="link-arrow" href="#">Our story<i data-lucide="arrow-right"></i></a></div>
+          <p class="big">Hemalatha is a hospital in Kukatpally built around one idea: <span>patients and families should understand their care.</span> We explain the options, the costs and the next step before anything begins.</p>
+          <div class="statrow">
+            <div class="stat"><span class="icon-tile"><i data-lucide="star"></i></span><div><b>4.7</b><span>Google rating, 96 reviews</span></div></div>
+            <div class="stat"><span class="icon-tile"><i data-lucide="clock"></i></span><div><b>24 hrs</b><span>Front desk, to confirm</span></div></div>
+            <div class="stat"><span class="icon-tile"><i data-lucide="map-pin"></i></span><div><b>Kukatpally</b><span>Aditya Nagar, 500085</span></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Layered photos with checklist</span><span class="opt-src">Ref 2</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas">
+        <div class="aboutB">
+          <div class="media">
+            <div class="photo main"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label" style="left:auto;right:12px"><i data-lucide="camera"></i>Senior doctor</span></div>
+            <div class="photo inset"><span class="ph-icon"><i data-lucide="users"></i></span></div>
+            <span class="badge-float"><span class="tick"><i data-lucide="star"></i></span>4.7 on Google</span>
+          </div>
+          <div class="stack" style="gap:18px">
+            <span class="eyebrow" style="justify-self:start">About Hemalatha</span>
+            <h2 class="t-h2">Hospital care designed around families.</h2>
+            <p class="lead">A multi-speciality hospital in Kukatpally. Description to be supplied by the client.</p>
+            <div class="checks">
+              <div><span class="pi"><i data-lucide="messages-square"></i></span><div><b>Plans explained</b><span>Options and costs first</span></div></div>
+              <div><span class="pi"><i data-lucide="users"></i></span><div><b>Families informed</b><span>One point of contact</span></div></div>
+              <div><span class="pi"><i data-lucide="microscope"></i></span><div><b>Diagnostics on site</b><span>To confirm</span></div></div>
+              <div><span class="pi"><i data-lucide="phone-call"></i></span><div><b>Real person answers</b><span>Call the front desk</span></div></div>
+            </div>
+            <a class="btn btn-navy" href="#" style="justify-self:start">More about us<i data-lucide="arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="Departments">
+    <div class="group-head"><h2>Departments</h2><span>3 options · department names are samples</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Bento with one feature card</span><span class="opt-src">Ref 1</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas stack">
+        <div class="head"><span class="eyebrow">Departments</span><h2 class="t-h2">Complete care under one roof.</h2></div>
+        <div class="bento">
+          <article class="card tinted interactive feature"><div class="photo"><span class="ph-icon"><i data-lucide="stethoscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>OPD consultation</span></div><h4>General Medicine</h4><p>Fevers, infections, diabetes and blood pressure, and the first stop when you're not sure where to go.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+          <article class="card interactive"><span class="icon-tile"><i data-lucide="baby"></i></span><h4>Obstetrics &amp; Gynaecology</h4><p>Pregnancy care, delivery and women's health.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+          <article class="card interactive"><span class="icon-tile"><i data-lucide="bone"></i></span><h4>Orthopaedics</h4><p>Fractures, joint pain and recovery after surgery.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+          <article class="card interactive wide"><span class="icon-tile"><i data-lucide="heart-pulse"></i></span><h4>Paediatrics</h4><p>Check-ups, vaccinations and care for children from birth through their teens.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Six-card grid, first card highlighted</span><span class="opt-src">Ref 2</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas stack" style="background:var(--surface)">
+        <div class="head center"><span class="eyebrow">Departments</span><h2 class="t-h2">Expertise you can trust.</h2><p class="lead">Six departments, one front desk.</p></div>
+        <div class="grid3">
+          <article class="card hl interactive"><div class="photo dark"></div><span class="icon-tile"><i data-lucide="stethoscope"></i></span><h4>General Medicine</h4><p>The first stop when you're not sure where to go.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+          <article class="card interactive"><span class="icon-tile"><i data-lucide="bone"></i></span><h4>Orthopaedics</h4><p>Fractures, joint pain and recovery after surgery.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+          <article class="card interactive"><span class="icon-tile"><i data-lucide="baby"></i></span><h4>Obstetrics &amp; Gynaecology</h4><p>Pregnancy care, delivery and women's health.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+          <article class="card interactive"><span class="icon-tile"><i data-lucide="heart-pulse"></i></span><h4>Paediatrics</h4><p>Care for children from birth through their teens.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+          <article class="card interactive"><span class="icon-tile"><i data-lucide="syringe"></i></span><h4>General Surgery</h4><p>Planned and day-care procedures.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+          <article class="card interactive"><span class="icon-tile"><i data-lucide="microscope"></i></span><h4>Diagnostics</h4><p>Lab tests and imaging on site.</p><a class="link-arrow" href="#">Learn more<i data-lucide="arrow-right"></i></a></article>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="C">
+      <div class="opt-bar"><span class="opt-letter">C</span><span class="opt-title">Department explorer with tabs</span><span class="opt-src">Ref 2</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose C</button></div>
+      <div class="canvas stack">
+        <div class="head"><span class="eyebrow">Departments</span><h2 class="t-h2">Find the right department.</h2><p class="lead">Click a department to see what it covers.</p></div>
+        <div class="tabs">
+          <div class="tablist" role="tablist" aria-label="Departments" id="dept-tabs"></div>
+          <div class="tabpanel" role="tabpanel" id="dept-panel"></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="Why us">
+    <div class="group-head"><h2>Why choose us</h2><span>2 options · value statements need sign-off</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Large photo with a point list</span><span class="opt-src">Ref 1</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas">
+        <div class="split">
+          <div class="photo"><span class="ph-icon"><i data-lucide="bed-double"></i></span><span class="ph-label"><i data-lucide="camera"></i>Patient room</span></div>
+          <div class="stack" style="gap:18px">
+            <span class="eyebrow" style="justify-self:start">Why patients choose us</span>
+            <h2 class="t-h2">Hospital care, designed around families.</h2>
+            <div class="points">
+              <div class="point"><span class="pi"><i data-lucide="messages-square"></i></span><div><b>Plans explained before treatment</b><span>You hear the options and costs before anything begins.</span></div></div>
+              <div class="point"><span class="pi"><i data-lucide="users"></i></span><div><b>Families kept informed</b><span>One point of contact while someone you love is admitted.</span></div></div>
+              <div class="point"><span class="pi"><i data-lucide="map-pin"></i></span><div><b>Close to Kukatpally and KPHB</b><span>Easy to reach from JNTU, Pragathi Nagar and Miyapur.</span></div></div>
+              <div class="point"><span class="pi"><i data-lucide="phone-call"></i></span><div><b>A real person answers</b><span>Call the front desk and talk to someone who can help.</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Photo mosaic with feature cards</span><span class="opt-src">Ref 3</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas stack">
+        <div class="head center"><span class="eyebrow">Why patients trust us</span><h2 class="t-h2">Care you can understand.</h2></div>
+        <div class="mosaic-wrap">
+          <div class="mosaic">
+            <div class="photo a"><span class="ph-icon"><i data-lucide="baby"></i></span><span class="ph-label"><i data-lucide="camera"></i>Paediatric visit</span></div>
+            <div class="note blue"><b>Departments under one roof</b><span>Sample list, to confirm</span></div>
+            <div class="photo b"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label"><i data-lucide="camera"></i>Doctor on ward</span></div>
+            <div class="note navy"><span class="big">4.7</span><span>Google rating from 96 reviews</span></div>
+          </div>
+          <div class="feature-list">
+            <div class="card"><span class="icon-tile solid"><i data-lucide="messages-square"></i></span><div><b>Plans explained first</b><p>You hear the options and the costs before treatment begins.</p></div></div>
+            <div class="card"><span class="icon-tile solid"><i data-lucide="users"></i></span><div><b>Families kept informed</b><p>One point of contact through every admission.</p></div></div>
+            <div class="card"><span class="icon-tile solid"><i data-lucide="phone-call"></i></span><div><b>A real person answers</b><p>Call the front desk any time it's open.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="Doctors">
+    <div class="group-head"><h2>Doctors</h2><span>3 options · demo profiles only</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Tall portraits with credential tag</span><span class="opt-src">Ref 1</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas stack">
+        <div class="head"><span class="eyebrow">Our doctors</span><h2 class="t-h2">Experienced hands. Unhurried care.</h2></div>
+        <div class="docs3">
+          <article class="docA"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><b>Doctor name</b><span class="role">Department</span><span class="tag">Qualifications · as registered</span></article>
+          <article class="docA"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><b>Doctor name</b><span class="role">Department</span><span class="tag">Qualifications · as registered</span></article>
+          <article class="docA"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label">Demo profile</span></div><b>Doctor name</b><span class="role">Department</span><span class="tag">Qualifications · as registered</span></article>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Intro column with tinted name bands</span><span class="opt-src">Ref 2</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas" style="background:var(--surface)">
+        <div class="docB-wrap">
+          <div class="stack" style="gap:16px"><span class="eyebrow" style="justify-self:start">Specialists</span><h2 class="t-h2">Meet our specialists.</h2><p class="small">Every profile lists qualifications exactly as registered.</p><a class="link-arrow" href="#">All doctors<i data-lucide="arrow-right"></i></a></div>
+          <div class="docB-cards">
+            <article class="docB"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span></div><div class="band"><b>Doctor name</b><span>Department</span><span class="plus"><i data-lucide="plus"></i></span></div></article>
+            <article class="docB"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span></div><div class="band"><b>Doctor name</b><span>Department</span><span class="plus"><i data-lucide="plus"></i></span></div></article>
+            <article class="docB"><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span></div><div class="band"><b>Doctor name</b><span>Department</span><span class="plus"><i data-lucide="plus"></i></span></div></article>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="C">
+      <div class="opt-bar"><span class="opt-letter">C</span><span class="opt-title">Portraits on colour blocks</span><span class="opt-src">Ref 3</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose C</button></div>
+      <div class="canvas stack">
+        <div class="head center"><span class="eyebrow">Our doctors</span><h2 class="t-h2">Experienced doctors.</h2></div>
+        <div class="docs3">
+          <article class="docC"><div class="stage"><div class="block"></div><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span></div></div><b>Doctor name</b><span>Department</span></article>
+          <article class="docC"><div class="stage"><div class="block"></div><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span></div></div><b>Doctor name</b><span>Department</span></article>
+          <article class="docC"><div class="stage"><div class="block"></div><div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span></div></div><b>Doctor name</b><span>Department</span></article>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="Facilities">
+    <div class="group-head"><h2>Facilities highlight</h2><span>2 options · placeholders until confirmed</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Navy panel with detail rows</span><span class="opt-src">Ref 1</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas">
+        <div class="panel-navy">
+          <div class="photo dark"><span class="ph-icon"><i data-lucide="scan-line"></i></span><span class="ph-label"><i data-lucide="camera"></i>Facility</span></div>
+          <div>
+            <span class="eyebrow on-dark">Facilities</span>
+            <h3 class="t-h2" style="margin-top:16px">Everything a stay needs, in one building.</h3>
+            <div class="kv">
+              <div><small>Wards</small><span><b>Inpatient rooms</b>General and private rooms, with family seating.</span></div>
+              <div><small>Lab</small><span><b>Diagnostics</b>Blood tests and imaging without a second trip.</span></div>
+              <div><small>Pharmacy</small><span><b>In-house pharmacy</b>Prescriptions filled before you leave.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Light-blue band with big figure and collage</span><span class="opt-src">Ref 3</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas">
+        <div class="panel-tint">
+          <div class="stack" style="gap:22px">
+            <span class="eyebrow" style="justify-self:start;background:#fff">Facilities</span>
+            <h3 class="t-h2">Wards, lab and pharmacy under one roof.</h3>
+            <div class="numbox"><div class="n"><b>24<em>h</em></b><span>Front desk</span></div><p class="small">The front desk is open round the clock. Facility details appear here once the hospital confirms them.</p></div>
+            <a class="btn btn-primary btn-lead" href="#" style="justify-self:start"><span class="bubble" style="background:#fff;color:var(--primary)"><i data-lucide="calendar-check"></i></span>Book an appointment</a>
+          </div>
+          <div class="collage">
+            <div class="photo"><span class="ph-icon"><i data-lucide="bed-double"></i></span><span class="ph-label"><i data-lucide="camera"></i>Ward</span></div>
+            <div class="photo"><span class="ph-icon"><i data-lucide="microscope"></i></span><span class="ph-label"><i data-lucide="camera"></i>Lab</span></div>
+            <div class="seal"><span><b>4.7</b>on Google</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="Reviews">
+    <div class="group-head"><h2>Patient reviews</h2><span>3 options · real Google reviews only</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Three cards with rating pill</span><span class="opt-src">Revision 2</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas stack">
+        <div class="headsplit"><div class="head"><span class="eyebrow">Patient reviews</span><h2 class="t-h2">In our patients' words.</h2></div><span class="rating-pill"><span class="g-mark">G</span><b>4.7</b><span class="stars" aria-hidden="true"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></span>96 reviews</span></div>
+        <div class="revA">
+          <article class="card review"><div class="stars" aria-label="5 stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>"Nurse Deepika did a good job, taking care of my mother. I would recommend Hemalatha health care services."</blockquote><footer><span class="avatar">VD</span><div><b>vijaybhaskar dabeta</b>Google review</div></footer></article>
+          <article class="card review empty"><div class="stars" style="color:var(--slate-200)" aria-hidden="true"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>Second real review, quoted in full.</blockquote><footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer></article>
+          <article class="card review empty"><div class="stars" style="color:var(--slate-200)" aria-hidden="true"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>Third real review, quoted in full.</blockquote><footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer></article>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Navy cards in a sliding row</span><span class="opt-src">Ref 2</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas stack" style="background:var(--surface)">
+        <div class="head center"><span class="eyebrow">Reviews</span><h2 class="t-h2">What our patients say.</h2></div>
+        <div>
+          <div class="revB-track" id="revB-track">
+            <article class="revB"><div class="body"><div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>"Nurse Deepika did a good job, taking care of my mother. I would recommend Hemalatha health care services."</blockquote></div><footer><span class="avatar">VD</span><div><b>vijaybhaskar dabeta</b>Google review</div></footer></article>
+            <article class="revB empty"><div class="body"><div class="stars" style="color:#3C5191"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>Real review slot, quoted in full.</blockquote></div><footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer></article>
+            <article class="revB empty"><div class="body"><div class="stars" style="color:#3C5191"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>Real review slot, quoted in full.</blockquote></div><footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer></article>
+            <article class="revB empty"><div class="body"><div class="stars" style="color:#3C5191"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>Real review slot, quoted in full.</blockquote></div><footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer></article>
+            <article class="revB empty"><div class="body"><div class="stars" style="color:#3C5191"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><blockquote>Real review slot, quoted in full.</blockquote></div><footer><span class="avatar">··</span><div><b>Reviewer name</b>Google review</div></footer></article>
+          </div>
+          <div class="revB-nav"><button class="btn btn-icon" id="revB-prev" aria-label="Previous reviews"><i data-lucide="chevron-left"></i></button><button class="btn btn-icon" id="revB-next" aria-label="Next reviews"><i data-lucide="chevron-right"></i></button></div>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="C">
+      <div class="opt-bar"><span class="opt-letter">C</span><span class="opt-title">One large featured review</span><span class="opt-src">Ref 3</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose C</button></div>
+      <div class="canvas stack">
+        <div class="head center"><span class="eyebrow">Reviews</span><h2 class="t-h2">Heard from families.</h2></div>
+        <div class="revC">
+          <div class="side"><div><span class="score">4.7</span><div class="stars" style="margin-top:10px"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div></div><span>Average from 96 Google reviews, captured Nov 2026</span><div class="googlebar"><span class="g-mark" style="background:#fff">G</span>Read all on Google</div></div>
+          <div class="main"><blockquote>"Nurse Deepika did a good job, taking care of my mother. I would recommend Hemalatha health care services."</blockquote><div class="who"><div><span class="avatar">VD</span><div><b>vijaybhaskar dabeta</b><span>Google review</span></div></div><div class="row" style="gap:8px"><button class="btn btn-secondary btn-icon" aria-label="Previous review"><i data-lucide="arrow-left"></i></button><button class="btn btn-secondary btn-icon" aria-label="Next review"><i data-lucide="arrow-right"></i></button></div></div></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="Enquiry">
+    <div class="group-head"><h2>Appointment enquiry</h2><span>2 options</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Full form beside a call card</span><span class="opt-src">Revision 2</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas">
+        <div class="enqA">
+          <div class="stack" style="gap:18px">
+            <span class="eyebrow" style="justify-self:start">Appointment enquiry</span>
+            <h2 class="t-h2">Tell us what you need. We'll call you back.</h2>
+            <p class="lead">The front desk calls back to arrange a time. Nothing is booked until you've spoken to them.</p>
+            <div class="call-card"><span class="small">Prefer to talk now?</span><a class="num" href="#">086390 74341</a><a class="btn btn-primary btn-sm" href="#"><i data-lucide="phone"></i>Call the hospital</a></div>
+          </div>
+          <form class="form" onsubmit="event.preventDefault()">
+            <div class="field"><label for="a-name">Patient name</label><input class="control" id="a-name" placeholder="Full name"></div>
+            <div class="field"><label for="a-phone">Mobile number</label><input class="control" id="a-phone" inputmode="numeric" placeholder="98765 43210"></div>
+            <div class="field"><label for="a-dept">Department</label><select class="control" id="a-dept"><option>Not sure, help me choose</option><option>General Medicine</option><option>Orthopaedics</option></select></div>
+            <div class="field"><label for="a-date">Preferred date <span class="opt">(optional)</span></label><input class="control" id="a-date" type="date"></div>
+            <div class="field full"><label for="a-msg">Message <span class="opt">(optional)</span></label><textarea class="control" id="a-msg" placeholder="A short note helps us direct your call"></textarea></div>
+            <div class="full"><button class="btn btn-primary" type="submit">Send enquiry<i data-lucide="arrow-right"></i></button></div>
+          </form>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Team photo with a short form bar</span><span class="opt-src">Ref 3</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas">
+        <div class="enqB">
+          <div class="photo dark"><span class="ph-icon"><i data-lucide="users"></i></span><span class="ph-label" style="top:12px;bottom:auto"><i data-lucide="camera"></i>Hospital team photo</span></div>
+          <form class="bar" onsubmit="event.preventDefault()">
+            <div class="top"><h3 class="t-h3">Get in touch.</h3><span class="small">Leave a number and the front desk will call you back.</span></div>
+            <div class="fields">
+              <div class="field"><label for="b-name">Patient name</label><input class="control" id="b-name" placeholder="Full name"></div>
+              <div class="field"><label for="b-phone">Mobile number</label><input class="control" id="b-phone" inputmode="numeric" placeholder="98765 43210"></div>
+              <div class="field"><label for="b-dept">Department</label><select class="control" id="b-dept"><option>Not sure</option><option>General Medicine</option></select></div>
+              <button class="btn btn-primary" type="submit" style="height:50px">Request a call</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="Closing CTA">
+    <div class="group-head"><h2>Closing call to action</h2><span>2 options</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Blue panel with photo</span><span class="opt-src">Ref 1</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas">
+        <div class="ctaA">
+          <div class="copy"><h3 class="t-h2" style="color:#fff">Ready to talk to someone who can help?</h3><p>Call the front desk, send an enquiry, or get directions to Aditya Nagar.</p><div class="row"><a class="btn btn-white" href="#">Book an appointment</a><a class="btn btn-ghost-light" href="#"><i data-lucide="phone"></i>Call the hospital</a></div></div>
+          <div class="photo"><span class="ph-icon"><i data-lucide="user-round"></i></span><span class="ph-label"><i data-lucide="camera"></i>Staff with patient</span></div>
+        </div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Navy panel with three ways to reach us</span><span class="opt-src">New, from Ref 2 tones</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas">
+        <div class="ctaB">
+          <span class="eyebrow on-dark">We're here to help</span>
+          <h3 class="t-h2">Three ways to reach Hemalatha.</h3>
+          <div class="ways">
+            <a href="#"><i data-lucide="phone"></i><b>Call the front desk</b><span>086390 74341</span></a>
+            <a href="#"><i data-lucide="calendar-check"></i><b>Send an enquiry</b><span>We'll call you back</span></a>
+            <a href="#"><i data-lucide="navigation"></i><b>Get directions</b><span>Aditya Nagar, Kukatpally</span></a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="group" data-group="Footer">
+    <div class="group-head"><h2>Footer</h2><span>2 options</span></div>
+    <article class="option" data-option="A">
+      <div class="opt-bar"><span class="opt-letter">A</span><span class="opt-title">Light and minimal</span><span class="opt-src">Ref 1</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose A</button></div>
+      <div class="canvas">
+        <div class="footA">
+          <div style="display:grid;gap:12px;align-content:start"><div class="brand"><span class="brand-mark">LOGO</span>Hemalatha Hospital</div><p class="small" style="max-width:32ch">Hospital care in Kukatpally, Hyderabad.</p></div>
+          <div><h5>Explore</h5><ul><li>About</li><li>Doctors</li><li>Facilities</li><li>FAQ</li></ul></div>
+          <div><h5>Departments</h5><ul><li>General Medicine</li><li>Obstetrics &amp; Gynaecology</li><li>Orthopaedics</li><li>Paediatrics</li></ul></div>
+          <div><h5>Visit</h5><ul><li>Aditya Nagar, Kukatpally</li><li>Hyderabad 500085</li><li>086390 74341</li><li>Open 24 hours</li></ul></div>
+        </div>
+        <div class="foot-base"><span>© 2026 Hemalatha Health Care Pvt. Ltd.</span><span>Privacy · Terms</span></div>
+      </div>
+    </article>
+    <article class="option" data-option="B">
+      <div class="opt-bar"><span class="opt-letter">B</span><span class="opt-title">Navy with contact strip</span><span class="opt-src">Ref 2 &amp; 3</span><button class="btn btn-secondary btn-sm pick" aria-pressed="false">Choose B</button></div>
+      <div class="canvas">
+        <div class="footB">
+          <div class="contactbar">
+            <div><i data-lucide="phone"></i><span><b>086390 74341</b>Front desk</span></div>
+            <div><i data-lucide="map-pin"></i><span><b>Aditya Nagar, Kukatpally</b>Hyderabad 500085</span></div>
+            <div><i data-lucide="clock"></i><span><b>Open 24 hours</b>To confirm</span></div>
+          </div>
+          <div class="cols">
+            <div style="display:grid;gap:12px;align-content:start"><div class="brand" style="color:#fff"><span class="brand-mark">LOGO</span>Hemalatha Hospital</div><p style="font-size:14px;max-width:32ch">Hospital care in Kukatpally, Hyderabad.</p></div>
+            <div><h5>Explore</h5><ul><li>About</li><li>Doctors</li><li>Facilities</li><li>FAQ</li></ul></div>
+            <div><h5>Departments</h5><ul><li>General Medicine</li><li>Obstetrics &amp; Gynaecology</li><li>Orthopaedics</li><li>Paediatrics</li></ul></div>
+            <div><h5>Patients</h5><ul><li>Book an appointment</li><li>Visiting hours</li><li>Privacy policy</li><li>Terms</li></ul></div>
+          </div>
+          <div class="foot-base"><span>© 2026 Hemalatha Health Care Pvt. Ltd.</span><span>Privacy · Terms</span></div>
+        </div>
+      </div>
+    </article>
+  </section>
+</div>
+
+<div class="tray" role="region" aria-label="Your picks">
+  <div class="tray-inner">
+    <span class="label">Your picks</span>
+    <div class="picks" id="picks"></div>
+    <button class="btn btn-primary" id="copy-picks"><i data-lucide="copy"></i><span>Copy picks</span></button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+const departments = [
+  { name: "General Medicine", icon: "stethoscope", text: "Fevers, infections, diabetes, blood pressure and long-term conditions. The first stop when you're not sure which department you need.", items: ["Outpatient consultations", "Diabetes care", "Blood pressure clinics", "Admissions"] },
+  { name: "Obstetrics & Gynaecology", icon: "baby", text: "Care through pregnancy and delivery, and women's health at every age.", items: ["Antenatal check-ups", "Delivery", "Postnatal care", "Gynaecology clinic"] },
+  { name: "Orthopaedics", icon: "bone", text: "Fractures, joint pain and back problems, and recovery after surgery.", items: ["Fracture care", "Joint pain clinic", "Surgery", "Physiotherapy"] },
+  { name: "Paediatrics", icon: "heart-pulse", text: "Check-ups, vaccinations and care for children from birth through their teens.", items: ["Newborn care", "Vaccinations", "Growth check-ups", "Child admissions"] },
+  { name: "Diagnostics", icon: "microscope", text: "Lab tests and imaging on site, so results reach your doctor without a second trip.", items: ["Blood tests", "X-ray", "Ultrasound", "ECG"] }
+];
+const tabList = document.getElementById("dept-tabs");
+const tabPanel = document.getElementById("dept-panel");
+function showDepartment(index) {
+  const department = departments[index];
+  tabList.querySelectorAll("button").forEach((button, i) => button.setAttribute("aria-selected", String(i === index)));
+  tabPanel.innerHTML = `<div class="copy fade-in"><span class="icon-tile" style="background:rgba(255,255,255,.1);color:#fff"><i data-lucide="${department.icon}"></i></span><h3 class="t-h3">${department.name}</h3><p>${department.text}</p><div class="chips">${department.items.map(item => `<span><i data-lucide="check"></i>${item}</span>`).join("")}</div><div class="row"><a class="btn btn-white btn-sm" href="#">View department</a><span class="tag sample">Sample content</span></div></div><div class="photo dark fade-in"><span class="ph-icon"><i data-lucide="${department.icon}"></i></span><span class="ph-label"><i data-lucide="camera"></i>${department.name}</span></div>`;
+  if (window.lucide) lucide.createIcons();
+}
+departments.forEach((department, index) => {
+  const button = document.createElement("button");
+  button.setAttribute("role", "tab");
+  button.innerHTML = `<i data-lucide="${department.icon}"></i>${department.name}`;
+  button.addEventListener("click", () => showDepartment(index));
+  tabList.appendChild(button);
+});
+showDepartment(0);
+
+const track = document.getElementById("revB-track");
+document.getElementById("revB-prev").addEventListener("click", () => track.scrollBy({ left: -track.clientWidth * 0.8, behavior: "smooth" }));
+document.getElementById("revB-next").addEventListener("click", () => track.scrollBy({ left: track.clientWidth * 0.8, behavior: "smooth" }));
+
+const groups = [...document.querySelectorAll(".group")];
+let picks = {};
+try { picks = JSON.parse(localStorage.getItem("hemalatha-picks") || "{}"); } catch (error) { picks = {}; }
+const picksBar = document.getElementById("picks");
+function renderPicks() {
+  picksBar.innerHTML = groups.map(group => {
+    const name = group.dataset.group;
+    const choice = picks[name];
+    return `<span class="${choice ? "set" : ""}">${name} ${choice || "–"}</span>`;
+  }).join("");
+  groups.forEach(group => {
+    group.querySelectorAll(".option").forEach(option => {
+      const chosen = picks[group.dataset.group] === option.dataset.option;
+      option.classList.toggle("chosen", chosen);
+      const button = option.querySelector(".pick");
+      button.setAttribute("aria-pressed", String(chosen));
+      button.textContent = chosen ? `Chosen ${option.dataset.option}` : `Choose ${option.dataset.option}`;
+    });
+  });
+  try { localStorage.setItem("hemalatha-picks", JSON.stringify(picks)); } catch (error) {}
+}
+groups.forEach(group => {
+  group.querySelectorAll(".option").forEach(option => {
+    option.querySelector(".pick").addEventListener("click", () => {
+      const name = group.dataset.group;
+      picks[name] = picks[name] === option.dataset.option ? undefined : option.dataset.option;
+      renderPicks();
+    });
+  });
+});
+renderPicks();
+
+const copyButton = document.getElementById("copy-picks");
+copyButton.addEventListener("click", () => {
+  const line = groups.map(group => `${group.dataset.group}: ${picks[group.dataset.group] || "no pick"}`).join(" · ");
+  const label = copyButton.querySelector("span");
+  navigator.clipboard.writeText(line).then(() => {
+    label.textContent = "Copied";
+    setTimeout(() => { label.textContent = "Copy picks"; }, 1600);
+  }).catch(() => {
+    label.textContent = "Copy failed. Select the picks text instead";
+    setTimeout(() => { label.textContent = "Copy picks"; }, 2400);
+  });
+});
+
+if (window.lucide) lucide.createIcons();
+</script>

@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #0b1b45;
+  --color-navy-900: #13265a;
+  --color-navy-800: #1e3270;
+  --color-navy-line: #24376b;
+
+  --color-blue-50: #eff3ff;
+  --color-blue-100: #dfe8ff;
+  --color-blue-200: #c2d4ff;
+  --color-blue-300: #8fb1ff;
+  --color-blue-600: #1f6bff;
+  --color-blue-700: #1a5ee8;
+  --color-blue-800: #1757d6;
+
+  --color-slate-50: #f7f9fc;
+  --color-slate-100: #eef1f6;
+  --color-slate-200: #e3e7ef;
+  --color-slate-400: #8c94a6;
+  --color-slate-600: #5b6478;
+  --color-slate-on-dark: #c9d3ee;
+
+  --color-logo-blue: #109adb;
+
+  --color-star: #f5a524;
+  --color-placeholder-icon: #b9c6dc;
+  --color-placeholder-icon-dark: #3c5191;
+
+  --color-white: #ffffff;
+  --color-background: #ffffff;
+  --color-foreground: var(--color-navy-950);
+  --color-surface: var(--color-slate-50);
+  --color-muted: var(--color-slate-100);
+  --color-muted-foreground: var(--color-slate-600);
+  --color-border: var(--color-slate-200);
+  --color-input: var(--color-slate-400);
+  --color-focus: var(--color-blue-600);
+
+  --color-primary: var(--color-blue-600);
+  --color-primary-hover: var(--color-blue-700);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #ffffff;
+  --color-secondary-foreground: var(--color-navy-950);
+  --color-accent: var(--color-blue-50);
+  --color-accent-foreground: var(--color-blue-800);
+  --color-link: var(--color-blue-800);
+
+  --color-success: #15803d;
+  --color-success-surface: #eaf6ee;
+  --color-warning: #b45309;
+  --color-warning-surface: #fdf3e6;
+  --color-warning-border: #f2d3a6;
+  --color-error: #b91c1c;
+  --color-error-surface: #fceded;
+  --color-info: var(--color-blue-800);
+  --color-info-surface: var(--color-blue-50);
+
+  --text-display: clamp(2.375rem, 5.6vw, 4.125rem);
+  --text-display--line-height: 1.03;
+  --text-h1: clamp(2.125rem, 4.4vw, 3.25rem);
+  --text-h1--line-height: 1.06;
+  --text-h2: clamp(1.75rem, 3.5vw, 2.75rem);
+  --text-h2--line-height: 1.08;
+  --text-h3: clamp(1.375rem, 2.2vw, 1.75rem);
+  --text-h3--line-height: 1.15;
+  --text-h4: 1.1875rem;
+  --text-h4--line-height: 1.3;
+  --text-body-lg: clamp(1rem, 1.4vw, 1.125rem);
+  --text-body-lg--line-height: 1.6;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.55;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.45;
+  --text-button: 0.9375rem;
+  --text-button--line-height: 1;
+
+  --tracking-heading: -0.04em;
+  --tracking-title: -0.01em;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-card: var(--radius-lg);
+  --radius-panel: var(--radius-xl);
+  --radius-input: var(--radius-md);
+  --radius-button: 999px;
+
+  --shadow-pill: 0 6px 18px -6px rgb(11 27 69 / 0.2);
+  --shadow-hover: 0 12px 28px -14px rgb(11 27 69 / 0.2);
+  --shadow-float: 0 18px 40px -12px rgb(11 27 69 / 0.22), 0 2px 6px rgb(11 27 69 / 0.06);
+  --shadow-deck: 0 30px 60px -24px rgb(11 27 69 / 0.35);
+
+  --background-image-placeholder: radial-gradient(120% 90% at 30% 20%, #f4f7fc 0%, #e2e9f4 55%, #d3dceb 100%);
+  --background-image-placeholder-dark: radial-gradient(120% 90% at 30% 20%, #2a3d74 0%, #1a2b5f 60%, #13245a 100%);
+
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --spacing-section: 7rem;
+  --spacing-section-tablet: 5.5rem;
+  --spacing-section-mobile: 4rem;
+  --container-content: 75rem;
+}
+
+@custom-variant hovered (&:hover, &[data-state="hover"]);
+@custom-variant pressed (&:active, &[data-state="active"]);
+@custom-variant focused (&:focus-visible, &[data-state="focus"]);
+
+@theme inline {
+  --font-sans: var(--font-dm-sans), "Segoe UI", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 500;
+    letter-spacing: var(--tracking-heading);
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      transition-duration: 1ms !important;
+    }
+  }
+}
