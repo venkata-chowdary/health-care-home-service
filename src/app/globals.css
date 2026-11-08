@@ -97,6 +97,8 @@
   --background-image-placeholder: radial-gradient(120% 90% at 30% 20%, #f4f7fc 0%, #e2e9f4 55%, #d3dceb 100%);
   --background-image-placeholder-dark: radial-gradient(120% 90% at 30% 20%, #2a3d74 0%, #1a2b5f 60%, #13245a 100%);
 
+  --background-image-hero-navy: radial-gradient(60% 70% at 15% 10%, rgb(58 91 168 / 0.55) 0%, transparent 60%), radial-gradient(50% 60% at 90% 30%, rgb(31 107 255 / 0.35) 0%, transparent 65%), linear-gradient(180deg, #13265a 0%, #0b1b45 100%);
+
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
 
@@ -134,6 +136,10 @@
     font-weight: 500;
     letter-spacing: var(--tracking-heading);
     text-wrap: balance;
+  }
+
+  section[id] {
+    scroll-margin-top: 4.75rem;
   }
 
   :focus-visible {

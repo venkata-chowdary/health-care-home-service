@@ -45,6 +45,10 @@ export const hospital = {
     eyebrow: { value: "Now accepting new patients in Kukatpally", status: "sample", source: proposedCopy } as Field<string>,
     headline: { value: "Specialist care in Kukatpally. Clear answers at every step.", status: "sample", source: proposedCopy } as Field<string>,
     lead: { value: "A multi-speciality hospital where every treatment plan is explained before it begins, and the front desk is a phone call away.", status: "sample", source: proposedCopy } as Field<string>,
+    primaryCtaLabel: "Book an appointment",
+    callLabel: "Call",
+    photosLabel: "Hospital photos",
+    badges: ["Plans explained first", "Families kept informed"],
   },
 
   facts: [
@@ -55,12 +59,12 @@ export const hospital = {
   ],
 
   heroPhotos: [
-    { label: "Diagnostics room", src: null, status: "sample", source: "Awaiting client photography" },
-    { label: "Doctor consultation", src: null, status: "sample", source: "Awaiting client photography" },
-    { label: "Inpatient ward", src: null, status: "sample", source: "Awaiting client photography" },
-    { label: "Hospital entrance", src: null, status: "sample", source: "Awaiting client photography" },
-    { label: "Pharmacy", src: null, status: "sample", source: "Awaiting client photography" },
-  ] as { label: string; src: string | null; status: VerificationStatus; source: string }[],
+    { label: "Diagnostics room", icon: "activity", src: null, status: "sample", source: "Awaiting client photography" },
+    { label: "Doctor consultation", icon: "stethoscope", src: null, status: "sample", source: "Awaiting client photography" },
+    { label: "Inpatient ward", icon: "bed-double", src: null, status: "sample", source: "Awaiting client photography" },
+    { label: "Hospital entrance", icon: "building-2", src: null, status: "sample", source: "Awaiting client photography" },
+    { label: "Pharmacy", icon: "pill", src: null, status: "sample", source: "Awaiting client photography" },
+  ] as { label: string; icon: string; src: string | null; status: VerificationStatus; source: string }[],
 
   departments: [
     { name: "General Medicine", icon: "stethoscope", summary: "Fevers, infections, diabetes and blood pressure. The first stop when you're not sure where to go.", status: "sample" },
@@ -101,6 +105,36 @@ export const hospital = {
     { topic: "Billing & insurance", question: "Do you accept health insurance?", answer: "Awaiting confirmation. No insurer is named until the hospital provides its list.", status: "sample" },
     { topic: "Billing & insurance", question: "How can I pay?", answer: "Awaiting confirmation from the hospital.", status: "sample" },
   ] as { topic: string; question: string; answer: string; status: VerificationStatus }[],
+
+  navigation: {
+    items: [
+      { label: "About", href: "#about" },
+      { label: "Departments", href: "#departments" },
+      { label: "Doctors", href: "#doctors" },
+      { label: "Facilities", href: "#facilities" },
+      { label: "Visit", href: "#visit" },
+      { label: "FAQ", href: "#faq" },
+    ],
+    bookLabel: "Book appointment",
+    drawerBookLabel: "Book an appointment",
+    bookHref: "#enquiry",
+    mobileBar: { callLabel: "Call", bookLabel: "Book visit" },
+  },
+
+  footer: {
+    tagline: "Hospital care in Kukatpally, Hyderabad.",
+    explore: [
+      { label: "About", href: "#about" },
+      { label: "Doctors", href: "#doctors" },
+      { label: "Facilities", href: "#facilities" },
+      { label: "FAQ", href: "#faq" },
+    ],
+    patients: [
+      { label: "Book an appointment", href: "#enquiry" },
+      { label: "Visiting hours", href: "#visit" },
+    ],
+    departmentLinkCount: 4,
+  },
 
   enquiry: {
     destination: { value: null, status: "sample", source: "Awaiting client: email, WhatsApp Business or CRM" } as Field<string | null>,

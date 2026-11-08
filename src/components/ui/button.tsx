@@ -6,16 +6,18 @@ import { cn } from "@/lib/cn";
 import { Icon, type IconName } from "./icon";
 
 const variants = {
-  primary: "bg-primary text-primary-foreground hovered:bg-primary-hover",
+  primary: "border-transparent bg-primary text-primary-foreground hovered:bg-primary-hover",
   secondary: "border-border bg-secondary text-secondary-foreground hovered:border-blue-200 hovered:bg-accent",
-  white: "bg-background text-foreground hovered:bg-accent",
+  white: "border-transparent bg-background text-foreground hovered:bg-accent",
   "ghost-light": "border-white/45 bg-transparent text-white hovered:border-white hovered:bg-white/8",
-  navy: "bg-navy-950 text-white hovered:bg-navy-800",
+  glass: "border-white/20 bg-white/8 text-white hovered:border-white/45 hovered:bg-white/12",
+  navy: "border-transparent bg-navy-950 text-white hovered:bg-navy-800",
 };
 
 const sizes = {
   default: "h-12 px-6 text-button",
   sm: "h-10 px-[18px] text-body-sm",
+  compact: "h-11 px-3 text-button",
 };
 
 type ButtonOptions = {
@@ -39,7 +41,7 @@ export function Button({ variant = "primary", size = "default", iconOnly = false
   const disabled = loading || disabledByProp;
 
   const classes = cn(
-    "group/button inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-button border border-transparent font-medium no-underline",
+    "group/button inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-button border font-medium no-underline",
     "transition-[background-color,border-color,color] duration-180 ease-standard",
     "pressed:scale-[0.98] focused:outline-2 focused:outline-offset-3 focused:outline-focus",
     "aria-disabled:pointer-events-none aria-disabled:cursor-not-allowed aria-disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",

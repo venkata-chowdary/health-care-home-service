@@ -12,12 +12,13 @@ type PhotoFrameProps = Omit<ComponentProps<"div">, "children"> & {
   preload?: boolean;
   label?: string;
   labelIcon?: IconName | null;
+  labelClassName?: string;
   labelSide?: "left" | "right";
   icon?: IconName;
   tone?: "light" | "dark";
 };
 
-export function PhotoFrame({ alt, src, sizes = "100vw", preload, label, labelIcon = "camera", labelSide = "left", icon = "user-round", tone = "light", className, ...props }: PhotoFrameProps) {
+export function PhotoFrame({ alt, src, sizes = "100vw", preload, label, labelIcon = "camera", labelSide = "left", labelClassName, icon = "user-round", tone = "light", className, ...props }: PhotoFrameProps) {
   if (src) {
     return (
       <div className={cn("relative max-w-full overflow-hidden rounded-lg", className)} {...props}>
@@ -39,6 +40,7 @@ export function PhotoFrame({ alt, src, sizes = "100vw", preload, label, labelIco
             "absolute bottom-3 inline-flex items-center gap-1.5 whitespace-nowrap rounded-button px-2.5 py-[5px] text-xs",
             labelSide === "left" ? "left-3" : "right-3",
             dark ? "bg-navy-950/70 text-slate-on-dark" : "bg-white/85 text-muted-foreground",
+            labelClassName,
           )}
         >
           {labelIcon && <Icon name={labelIcon} size={13} />}
