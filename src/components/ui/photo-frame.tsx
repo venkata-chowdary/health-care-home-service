@@ -14,14 +14,18 @@ type PhotoFrameProps = Omit<ComponentProps<"div">, "children"> & {
   labelIcon?: IconName | null;
   labelClassName?: string;
   labelSide?: "left" | "right";
-  icon?: IconName;
+  icon?: IconName | null;
+  radius?: "none" | "lg" | "xl";
+  floating?: boolean;
   tone?: "light" | "dark";
 };
 
-export function PhotoFrame({ alt, src, sizes = "100vw", preload, label, labelIcon = "camera", labelSide = "left", labelClassName, icon = "user-round", tone = "light", className, ...props }: PhotoFrameProps) {
+export function PhotoFrame({ alt, src, sizes = "100vw", preload, label, labelIcon = "camera", labelSide = "left", labelClassName, icon = "user-round", radius = "lg", floating = false, tone = "light", className, ...props }: PhotoFrameProps) {
+  const radiusClass = { none: "rounded-none", lg: "rounded-lg", xl: "rounded-xl" }[radius];
+
   if (src) {
     return (
-      <div className={cn("relative max-w-full overflow-hidden rounded-lg", className)} {...props}>
+      <div className={cn(floating ? "absolute" : "relative", "max-w-full overflow-hidden", radiusClass, className)} {...props}>
         <Image src={src} alt={alt} fill sizes={sizes} preload={preload} className="object-cover" />
       </div>
     );
@@ -30,10 +34,12 @@ export function PhotoFrame({ alt, src, sizes = "100vw", preload, label, labelIco
   const dark = tone === "dark";
 
   return (
-    <div role="img" aria-label={alt} className={cn("relative max-w-full overflow-hidden rounded-lg", dark ? "bg-placeholder-dark" : "bg-placeholder", className)} {...props}>
-      <span className={cn("absolute inset-0 grid place-items-center", dark ? "text-placeholder-icon-dark" : "text-placeholder-icon")}>
-        <Icon name={icon} size={40} strokeWidth={1.25} />
-      </span>
+    <div role="img" aria-label={alt} className={cn(floating ? "absolute" : "relative", "max-w-full overflow-hidden", radiusClass, dark ? "bg-placeholder-dark" : "bg-placeholder", className)} {...props}>
+      {icon && (
+        <span className={cn("absolute inset-0 grid place-items-center", dark ? "text-placeholder-icon-dark" : "text-placeholder-icon")}>
+          <Icon name={icon} size={40} strokeWidth={1.25} />
+        </span>
+      )}
       {label && (
         <span
           className={cn(

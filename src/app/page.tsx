@@ -1,7 +1,17 @@
 import { MobileCallBar } from "@/components/layout/mobile-call-bar";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { About } from "@/components/sections/about";
+import { Cta } from "@/components/sections/cta";
+import { Departments } from "@/components/sections/departments";
+import { Doctors } from "@/components/sections/doctors";
+import { Enquiry } from "@/components/sections/enquiry";
+import { Facilities } from "@/components/sections/facilities";
+import { Faq } from "@/components/sections/faq";
 import { Hero } from "@/components/sections/hero";
+import { Reviews } from "@/components/sections/reviews";
+import { Visit } from "@/components/sections/visit";
+import { WhyUs } from "@/components/sections/why-us";
 import { hospital } from "@/data/hospital-content";
 
 export default function Home() {
@@ -18,16 +28,16 @@ export default function Home() {
 
       <main id="top">
         <Hero />
-        <section id="about" aria-label="About" />
-        <section id="departments" aria-label="Departments" />
-        <section id="why-us" aria-label="Why patients choose us" />
-        <section id="doctors" aria-label="Doctors" />
-        <section id="facilities" aria-label="Facilities" />
-        <section id="reviews" aria-label="Patient reviews" />
-        <section id="enquiry" aria-label="Appointment enquiry" />
-        <section id="visit" aria-label="Visit us" />
-        <section id="faq" aria-label="Frequently asked questions" />
-        <section id="cta" aria-label="Contact" />
+        <About />
+        <Departments />
+        <WhyUs />
+        <Doctors />
+        <Facilities />
+        <Reviews />
+        <Enquiry />
+        <Visit />
+        <Faq />
+        <Cta />
       </main>
 
       <SiteFooter />

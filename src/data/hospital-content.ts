@@ -106,6 +106,63 @@ export const hospital = {
     { topic: "Billing & insurance", question: "How can I pay?", answer: "Awaiting confirmation from the hospital.", status: "sample" },
   ] as { topic: string; question: string; answer: string; status: VerificationStatus }[],
 
+  about: {
+    eyebrow: "About Hemalatha",
+    title: "Hospital care designed around families.",
+    lead: "A multi-speciality hospital in Aditya Nagar, Kukatpally. Description to be supplied by the client.",
+    mainPhoto: { label: "Senior doctor", icon: "user-round" },
+    insetIcon: "users",
+    badge: "One point of contact",
+    checks: [
+      { icon: "messages-square", title: "Plans explained", detail: "Options and costs first" },
+      { icon: "users", title: "Families informed", detail: "One point of contact" },
+      { icon: "microscope", title: "Diagnostics on site", detail: "To confirm" },
+      { icon: "phone-call", title: "Real person answers", detail: "Call the front desk" },
+    ],
+    ctaLabel: "Plan your visit",
+    ctaHref: "#visit",
+    status: "sample" as VerificationStatus,
+  },
+
+  departmentsSection: {
+    eyebrow: "Departments",
+    title: "Expertise you can trust.",
+    lead: "Six departments, one front desk.",
+    sampleTag: "Sample list",
+    linkLabel: "Learn more",
+    linkHref: "#enquiry",
+  },
+
+  whyUs: {
+    eyebrow: "Why patients choose us",
+    title: "Hospital care, designed around families.",
+    photo: { label: "Patient room", icon: "bed-double" },
+    sampleTag: "Proposed statements · need client sign-off",
+  },
+
+  doctorsSection: {
+    eyebrow: "Specialists",
+    title: "Meet our specialists.",
+    lead: "Every profile lists qualifications exactly as registered.",
+    linkLabel: "Book with a specialist",
+    linkHref: "#enquiry",
+    photoLabel: "Demo profile",
+  },
+
+  facilitiesSection: {
+    eyebrow: "Facilities",
+    title: "Wards, lab and pharmacy under one roof.",
+    figure: { value: "24", unit: "h", label: "Front desk" },
+    ctaLabel: "Book an appointment",
+    ctaHref: "#enquiry",
+    sampleTag: "Facilities to confirm",
+    photos: [
+      { label: "Ward", icon: "bed-double" },
+      { label: "Lab", icon: "microscope" },
+    ],
+    seal: "Under one roof",
+  },
+
   navigation: {
     items: [
       { label: "About", href: "#about" },
@@ -136,7 +193,68 @@ export const hospital = {
     departmentLinkCount: 4,
   },
 
+  reviewsSection: {
+    eyebrow: "Patient reviews",
+    title: "In our patients' words.",
+    ratingLinkLabel: "Google rating",
+    reviewCountSuffix: "reviews",
+    sourceLabel: "Google review",
+    emptyAuthorInitials: "··",
+    emptyAuthor: "Reviewer name",
+    slotCount: 3,
+    emptySlotTexts: ["First real Google review, quoted in full.", "Second real Google review, quoted in full.", "Third real Google review, quoted in full."],
+  },
+
   enquiry: {
     destination: { value: null, status: "sample", source: "Awaiting client: email, WhatsApp Business or CRM" } as Field<string | null>,
+    eyebrow: "Appointment enquiry",
+    title: "Tell us what you need. We'll call you back.",
+    lead: "The front desk calls back to arrange a time. Nothing is booked until you've spoken to them.",
+    callPrompt: "Prefer to talk now?",
+    callLabel: "Call the hospital",
+    formLabel: "Appointment enquiry form",
+    nameLabel: "Patient name",
+    namePlaceholder: "Full name",
+    phoneLabel: "Mobile number",
+    phonePlaceholder: "98765 43210",
+    departmentLabel: "Department",
+    departmentDefault: "Not sure, help me choose",
+    dateLabel: "Preferred date",
+    messageLabel: "Message",
+    messagePlaceholder: "A short note helps us direct your call",
+    optionalLabel: "(optional)",
+    consentLabel: "I agree to be contacted by the hospital about this enquiry.",
+    submitLabel: "Send enquiry",
+    sendingLabel: "Sending…",
+    hint: "We'll call to confirm a time.",
+    successTitle: "Enquiry received.",
+    successBody: "The front desk will call you to arrange a time. Your appointment isn't booked until then.",
+    failureMessage: "We couldn't send your enquiry. Please call the front desk instead.",
+  },
+
+  visitSection: {
+    eyebrow: "Visit us",
+    title: "Your visit starts here.",
+    aside: "Easy to find, easy to reach, easy to call.",
+    photo: { label: "Hospital entrance", icon: "building-2" },
+    directionsLabel: "Get directions",
+    openPrefix: "Open",
+  },
+
+  faqSection: {
+    eyebrow: "FAQ",
+    title: "Everything you need to know.",
+    lead: "Answers to the questions families ask the front desk most.",
+    footPrompt: "Still have a question?",
+    footCallPrefix: "Call",
+  },
+
+  ctaSection: {
+    title: "Ready to talk to someone who can help?",
+    lead: "Call the front desk, send an enquiry, or get directions to Aditya Nagar.",
+    bookLabel: "Book an appointment",
+    bookHref: "#enquiry",
+    callLabel: "Call the hospital",
+    photo: { label: "Staff with patient", icon: "user-round" },
   },
 };

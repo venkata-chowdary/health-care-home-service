@@ -126,6 +126,7 @@
     background: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
   }
