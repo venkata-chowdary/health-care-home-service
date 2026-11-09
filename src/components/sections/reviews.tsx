@@ -9,7 +9,7 @@ export function Reviews() {
   const { reviewsSection, googleRating } = hospital;
 
   return (
-    <Section id="reviews" aria-labelledby="reviews-heading" flushTop containerClassName="grid gap-12 max-md:gap-8">
+    <Section id="reviews" aria-labelledby="reviews-heading" flushTop containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading headingId="reviews-heading" eyebrow={reviewsSection.eyebrow} title={reviewsSection.title} />
         <a

@@ -14,7 +14,7 @@ export function ServiceRelated({ slugs, surface }: ServiceRelatedProps) {
   const relatedServices = slugs.map((slug) => services.find((service) => service.slug === slug)).filter((service) => service !== undefined);
 
   return (
-    <Section id="related" aria-labelledby="related-heading" surface={surface} containerClassName="grid gap-12 max-md:gap-8">
+    <Section id="related" aria-labelledby="related-heading" surface={surface} containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <SectionHeading headingId="related-heading" align="center" eyebrow={serviceBlocks.relatedEyebrow} eyebrowVariant={surface ? "white" : "default"} title={serviceBlocks.relatedTitle} />
       <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
         {relatedServices.map((service, index) => (

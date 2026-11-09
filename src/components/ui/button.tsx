@@ -17,7 +17,7 @@ const variants = {
 
 const sizes = {
   default: "h-12 px-6 text-button",
-  sm: "h-10 px-[18px] text-body-sm",
+  sm: "touch-target h-10 px-[18px] text-body-sm",
   compact: "h-11 px-3 text-button",
 };
 

@@ -105,7 +105,23 @@
   --spacing-section: 7rem;
   --spacing-section-tablet: 5.5rem;
   --spacing-section-mobile: 4rem;
+  --spacing-tap: 2.75rem;
+  --spacing-call-bar: 4.5rem;
   --container-content: 75rem;
+}
+
+@utility touch-target {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, var(--spacing-tap));
+    height: max(100%, var(--spacing-tap));
+    transform: translate(-50%, -50%);
+  }
 }
 
 @custom-variant hovered (&:hover, &[data-state="hover"]);
@@ -136,6 +152,10 @@
     font-weight: 500;
     letter-spacing: var(--tracking-heading);
     text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   section[id] {
@@ -177,4 +197,18 @@
       transition-duration: 1ms !important;
     }
   }
+}
+
+[data-call-bar] {
+  transition:
+    transform 200ms var(--ease-standard),
+    opacity 200ms var(--ease-standard),
+    visibility 0s linear 0s;
+}
+
+body:has(input:not([type="checkbox"], [type="radio"]):focus, textarea:focus, select:focus) [data-call-bar] {
+  transform: translateY(calc(100% + 1.5rem));
+  opacity: 0;
+  visibility: hidden;
+  transition-delay: 0s, 0s, 200ms;
 }

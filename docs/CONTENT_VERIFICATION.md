@@ -39,4 +39,30 @@ Every business-sensitive field lives in `src/data/hospital-content.ts` with a `s
 | AI-generated home-care images (`public/images/generated/`) | sample | Illustrative stand-ins showing Telugu home-care scenes. Must be replaced or approved by the client before launch; real photography of their own staff and visits (with consent) is preferred. |
 | White logo for dark backgrounds | generated | `public/images/brand/logo-white.png` was derived from the PNG; replace with the designer's file if available |
 
+## Content revamp (Nov 2026)
+
+The page now carries general educational content that makes no claims about Hemalatha. It needs a read-through by someone qualified before launch, and a named reviewer once the client supplies one.
+
+| Item | Status | Needed from client |
+|---|---|---|
+| `/guides` articles (5), `src/data/guides.ts` | provisional | General guidance written without a clinician. Have a doctor or senior nurse review before launch and add a "reviewed by" line only if they agree |
+| "Is home care right for us?" block | provisional | Same medical review |
+| Per-service "what a visit looks like", "before we start", "when to call the doctor" | provisional | Same medical review; confirm the visit routines match how the team actually works |
+| Landing and service FAQs | verified / provisional / sample | The critical care single-visit answer is `sample`. Excluded from FAQPage schema |
+| JSON-LD (MedicalBusiness, FAQPage, Service, Article, BreadcrumbList) | provisional | No `url`, `geo` or `aggregateRating` is emitted until the domain, branch address and Google rating are confirmed |
+| Care team section | sample | Shown with three demo profiles and AI portraits. Replace with real staff, qualifications, photos and written consent before launch |
+
+### Questions for the client (not shown on the site until answered)
+
+These live in `clientQuestions` in `src/data/hospital-content.ts`.
+
+1. How quickly can a nurse or caregiver start after a call?
+2. How are nurses and caregivers verified and trained?
+3. Can a family ask for a different caregiver, and what happens if the regular caregiver is absent?
+4. Are 12-hour and 24-hour live-in shifts available for each service?
+5. Is there a minimum booking period?
+6. What are the prices, and how do customers pay?
+7. Which equipment does Hemalatha supply for a home ICU, and what does the family arrange?
+8. Is the company registered, and under what details?
+
 Never present `sample` content as fact, and never add accreditations, bed counts, success rates, insurer names or ratings that the client has not supplied.

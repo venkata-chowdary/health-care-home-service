@@ -24,17 +24,17 @@ export function ServiceHero({ name, eyebrow, title, lead, facts, photo }: Servic
 
   return (
     <section aria-labelledby="service-heading" className="pt-8 pb-section-mobile md:pb-section-tablet lg:pb-section">
-      <Container className="grid gap-8 max-md:gap-6">
+      <Container className="grid grid-cols-[minmax(0,1fr)] gap-8 max-md:gap-6">
         <nav aria-label={serviceHero.breadcrumbLabel}>
           <ol className="flex flex-wrap items-center gap-1.5 text-body-sm text-muted-foreground">
             <li>
-              <Link href="/" className="text-link no-underline">
+              <Link href="/" className="touch-target text-link no-underline">
                 {serviceHero.homeLabel}
               </Link>
             </li>
             <Icon name="chevron-right" size={14} className="text-slate-400" />
             <li>
-              <Link href="/#services" className="text-link no-underline">
+              <Link href="/#services" className="touch-target text-link no-underline">
                 {serviceHero.servicesLabel}
               </Link>
             </li>
@@ -46,13 +46,13 @@ export function ServiceHero({ name, eyebrow, title, lead, facts, photo }: Servic
         </nav>
 
         <div className="grid grid-cols-2 items-center gap-14 max-[900px]:grid-cols-1 max-[900px]:gap-9">
-          <Reveal trigger="load" className="grid justify-items-start gap-5">
+          <Reveal trigger="load" className="grid min-w-0 justify-items-start gap-5">
             <Eyebrow>{eyebrow}</Eyebrow>
             <h1 id="service-heading" className="text-h1 font-medium tracking-heading text-balance">
               {title}
             </h1>
             <p className="max-w-[46ch] text-body-lg text-muted-foreground">{lead}</p>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 max-[480px]:w-full max-[480px]:flex-col max-[480px]:items-stretch">
               <RequestButton />
               <CallButton />
             </div>

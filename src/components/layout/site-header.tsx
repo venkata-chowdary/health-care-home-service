@@ -93,20 +93,20 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
         )}
       >
         <Container className="grid h-[76px] grid-cols-[auto_1fr_auto] items-center gap-6 max-[560px]:h-[68px] max-[560px]:gap-2">
-          <a href="#top" className="flex items-center">
-            <Image src="/images/brand/logo.png" alt={brandName} width={1080} height={238} preload className="h-9 w-auto" />
+          <a href="#top" className="touch-target flex items-center">
+            <Image src="/images/brand/logo.png" alt={brandName} width={1080} height={238} sizes="164px" preload className="h-9 w-auto" />
           </a>
 
           <nav aria-label="Main" className="flex justify-center gap-1 max-[1080px]:hidden">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="rounded-button px-3 py-2 text-[14.5px] text-muted-foreground transition-colors duration-160 hover:bg-surface hover:text-foreground">
+              <a key={item.href} href={item.href} className="touch-target rounded-button px-3 py-2 text-[14.5px] text-muted-foreground transition-colors duration-160 hover:bg-surface hover:text-foreground">
                 {item.label}
               </a>
             ))}
           </nav>
 
           <div className="col-start-3 flex items-center gap-2">
-            <Button href={phone.href} variant="outline" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-10 max-[560px]:px-0">
+            <Button href={phone.href} variant="outline" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-11 max-[560px]:px-0">
               <span className="max-[560px]:hidden">{phone.display}</span>
             </Button>
             <Button href={bookHref} iconBefore="calendar-check" className="max-[560px]:hidden">

@@ -1,7 +1,7 @@
 type StepCardProps = {
   number: number;
   stepLabel: string;
-  title: string;
+  title?: string;
   detail: string;
 };
 
@@ -12,7 +12,7 @@ export function StepCard({ number, stepLabel, title, detail }: StepCardProps) {
         <span className="text-caption leading-none text-muted-foreground">{stepLabel}</span>
         <b className="text-[48px] leading-none font-medium tracking-[-0.05em] text-primary">{number}</b>
       </p>
-      <h3 className="text-body font-semibold tracking-title">{title}</h3>
+      {title && <h3 className="text-body font-semibold tracking-title">{title}</h3>}
       <p className="text-[15px] text-muted-foreground">{detail}</p>
     </article>
   );

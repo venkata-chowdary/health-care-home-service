@@ -200,7 +200,7 @@ export function EnquiryForm({ copy, serviceNames, areaNames, defaultService }: E
         <textarea id="enquiry-message" name="message" placeholder={copy.messagePlaceholder} className={cn(controlClasses, "h-[104px] resize-y py-3.5")} />
       </Field>
 
-      <label htmlFor="enquiry-consent" className="col-span-full flex cursor-pointer items-start gap-3 text-body-sm text-muted-foreground">
+      <label htmlFor="enquiry-consent" className="col-span-full flex min-h-tap cursor-pointer items-start gap-3 py-3 text-body-sm text-muted-foreground">
         <input id="enquiry-consent" name="consent" type="checkbox" className="mt-px size-5 flex-none accent-primary" />
         {copy.consentLabel}
       </label>

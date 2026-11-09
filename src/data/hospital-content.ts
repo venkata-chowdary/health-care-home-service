@@ -164,7 +164,11 @@ export type ServicePage = {
   eyebrow: string;
   title: string;
   lead: string;
+  seo: { title: string; description: string };
   facts: { label: string; detail: string }[];
+  visit: string[];
+  prepare: string[];
+  callDoctor: string[];
   included: { icon: string; name: string; detail: string }[];
   whoFor: string[];
   whoForPhoto: PhotoSlot;
@@ -178,7 +182,6 @@ export type ServicePage = {
   source: string;
 };
 
-const awaiting = "Awaiting confirmation from Hemalatha Health Care.";
 const pageSource = "Proposed copy. Sub-service names come from the client flyers";
 
 const servicePages: Record<string, ServicePage> = {
@@ -186,10 +189,34 @@ const servicePages: Record<string, ServicePage> = {
     eyebrow: "Home nursing",
     title: "Nursing care at home.",
     lead: "Nurses for injections, dressings, IVs and routine checks, at home.",
+    seo: {
+      title: "Home nursing in Hyderabad",
+      description: "Nurses at home in Hyderabad for injections, wound dressing, IV infusion, catheter and Ryles tube care, nebulisation and BP and sugar checks. Call 86390 74341.",
+    },
     facts: [
-      { label: "Available 24/7", detail: "Call or message any time" },
-      { label: "A nurse visits", detail: "To your home in Hyderabad" },
-      { label: "Care options", detail: "Single visits, 12-hour and 24-hour" },
+      { label: "Clinical procedures", detail: "Injections, IV, catheter and Ryles tube" },
+      { label: "Visits or shifts", detail: "Single visits, 12-hour and 24-hour" },
+      { label: "Regular monitoring", detail: "BP, sugar and medicines on schedule" },
+    ],
+    visit: [
+      "The nurse reviews the doctor's prescription and the patient's recent notes.",
+      "Blood pressure, pulse, temperature or sugar are checked and written down.",
+      "The procedure is done: injection, dressing, IV, catheter or tube care, nebulisation.",
+      "Medicines are given as prescribed and the family is shown what to watch for.",
+      "Readings and anything unusual are recorded for the family and the doctor.",
+    ],
+    prepare: [
+      "The doctor's prescription and the latest discharge summary",
+      "A list of current medicines, with doses and times",
+      "Any dressing, injection or IV supplies already bought, or ask the coordinator what is needed",
+      "A clean, well-lit space and somewhere to wash hands",
+      "The doctor's phone number, and the nearest hospital the family would use",
+    ],
+    callDoctor: [
+      "Fever, chills or a wound that becomes red, swollen, hot or starts to smell",
+      "A catheter or feeding tube that blocks, falls out or causes pain",
+      "Breathing that becomes fast or laboured, or lips turning blue",
+      "A sudden, very high or very low blood sugar reading",
     ],
     included: [
       { icon: "syringe", name: "Injections", detail: "Given at home at the times prescribed." },
@@ -210,11 +237,11 @@ const servicePages: Record<string, ServicePage> = {
     },
     role: { title: "Registered nurse", detail: "A nurse carries out the procedures, records readings and keeps the family informed. Qualifications to be confirmed.", teamRoles: ["Nurse"] },
     faqs: [
-      { question: "Do you bring the supplies?", answer: awaiting, status: "sample" },
-      { question: "Can a nurse visit daily at a fixed time?", answer: awaiting, status: "sample" },
-      { question: "Do I need a doctor's prescription?", answer: awaiting, status: "sample" },
-      { question: "How quickly can a nurse come?", answer: `${awaiting} Call 86390 74341 and a coordinator will tell you what is possible.`, status: "sample" },
       { question: "Can you change a catheter or Ryles tube?", answer: "Catheterisation and Ryles tube insertion and care are part of our home nursing.", status: "verified" },
+      { question: "Which procedures can a nurse do at home?", answer: "Injections, wound dressing, IV infusion and cannula care, catheterisation, Ryles tube care, nebulisation, BP and sugar checks and giving medicines on schedule.", status: "verified" },
+      { question: "Why might a prescription be needed?", answer: "Injections, IV fluids and many other procedures are ordered by a doctor. Keep the prescription or discharge summary ready so the nurse can follow it exactly.", status: "provisional" },
+      { question: "Who should I call if the patient gets worse between visits?", answer: "Call the patient's doctor, or your local emergency number if the situation is serious. Home nursing does not replace emergency services.", status: "provisional" },
+      { question: "Is a single visit enough, or do we need a shift?", answer: "A single visit suits one procedure such as a dressing or injection. If the patient needs watching through the day or night, a longer shift is usually the better fit. Describe the situation to a coordinator and they will suggest one.", status: "provisional" },
     ],
     related: ["post-operative-care", "elder-care", "critical-care-at-home"],
     reviewKeywords: ["nurse", "nursing"],
@@ -225,10 +252,34 @@ const servicePages: Record<string, ServicePage> = {
     eyebrow: "Critical care at home",
     title: "Critical care at home.",
     lead: "ICU-trained nurses and equipment setup so a critically ill patient can be cared for at home.",
+    seo: {
+      title: "Critical care at home in Hyderabad",
+      description: "ICU-trained nurses for ventilator, tracheostomy and oxygen therapy care, stroke and cardiac patients, and home ICU setup help in Hyderabad. Call 86390 74341.",
+    },
     facts: [
-      { label: "Available 24/7", detail: "Monitoring around the clock" },
-      { label: "ICU-trained nurses", detail: "At the bedside" },
-      { label: "Care options", detail: "12-hour and 24-hour" },
+      { label: "ICU-trained nurses", detail: "At the bedside, not only on call" },
+      { label: "Equipment care", detail: "Ventilator, tracheostomy and oxygen" },
+      { label: "Round-the-clock cover", detail: "12-hour and 24-hour shifts" },
+    ],
+    visit: [
+      "The nurse takes handover: diagnosis, medicines, equipment settings and the doctor's instructions.",
+      "Vital signs, oxygen saturation and equipment are checked and recorded.",
+      "Tracheostomy, suction, feeding tube and skin care are done at the set times.",
+      "Position changes and mouth care are carried out to prevent pressure sores and infections.",
+      "At shift change the next nurse is told what happened, and the family gets a summary.",
+    ],
+    prepare: [
+      "The ICU discharge summary and the treating doctor's written instructions",
+      "A room that can hold an adjustable bed, equipment and a person on each side of the bed",
+      "A reliable power supply, and a backup for oxygen and suction equipment",
+      "The numbers of the treating doctor, the equipment supplier and the nearest hospital",
+      "A plan for who in the family decides when to shift the patient back to hospital",
+    ],
+    callDoctor: [
+      "Oxygen saturation falling below the level the doctor has set",
+      "A blocked or dislodged tracheostomy tube, or thick secretions that suction cannot clear",
+      "Chest pain, new weakness on one side, slurred speech or drooping of the face",
+      "Any equipment alarm that cannot be resolved straight away. Call your local emergency number first in a crisis",
     ],
     included: [
       { icon: "wind", name: "Ventilator care", detail: "Nurses trained to care for patients on a ventilator." },
@@ -256,11 +307,11 @@ const servicePages: Record<string, ServicePage> = {
       tag: "To confirm with the client",
     },
     faqs: [
-      { question: "What equipment do you arrange?", answer: "Home ICU setup assistance is part of this service. Which equipment we supply is awaiting confirmation.", status: "provisional" },
-      { question: "Can you continue ICU care after a patient leaves the ICU?", answer: awaiting, status: "sample" },
-      { question: "What happens in an emergency?", answer: "Call your local emergency number first. This service does not replace emergency services. Your coordinator can explain the plan for your patient.", status: "sample" },
-      { question: "Do nurses work in shifts?", answer: "12-hour and 24-hour care are options. Shift details are awaiting confirmation.", status: "sample" },
-      { question: "Do you coordinate with the patient's doctor?", answer: awaiting, status: "sample" },
+      { question: "Can critical care really be done at home?", answer: "For many patients discharged from an ICU, yes, if the doctor agrees, the room is prepared and ICU-trained nurses are present. Ask the treating doctor whether home care is safe for your patient.", status: "provisional" },
+      { question: "Which conditions do you support?", answer: "Ventilator and tracheostomy care, oxygen therapy support, and care for cardiac and stroke patients, with continuous monitoring.", status: "verified" },
+      { question: "Do you help set up the room?", answer: "Home ICU setup assistance is part of this service. A coordinator can explain what your patient is likely to need.", status: "verified" },
+      { question: "What happens in an emergency?", answer: "Call your local emergency number first. This service does not replace emergency services. Agree a plan with the treating doctor in advance for who to call and which hospital to go to.", status: "provisional" },
+      { question: "Why is a single visit not offered?", answer: "Critically ill patients need someone who can watch them continuously, so this service is organised around 12-hour and 24-hour cover rather than one-off visits.", status: "sample" },
     ],
     related: ["home-nursing", "post-operative-care", "physiotherapy-at-home"],
     reviewKeywords: ["icu", "ventilator", "critical"],
@@ -271,10 +322,34 @@ const servicePages: Record<string, ServicePage> = {
     eyebrow: "Elder care and attendants",
     title: "Elder care at home.",
     lead: "Caregivers and attendants who help older parents live safely and comfortably at home.",
+    seo: {
+      title: "Elder care and attendants at home in Hyderabad",
+      description: "Caregivers and attendants for older parents at home in Hyderabad: daily assistance, medication reminders, mobility help, bedridden care and dementia support. Call 86390 74341.",
+    },
     facts: [
-      { label: "Available 24/7", detail: "Day and night cover" },
-      { label: "A caregiver visits", detail: "Nurse visits added if needed" },
-      { label: "Care options", detail: "12-hour day care and 24-hour live-in" },
+      { label: "Daily living help", detail: "Hygiene, meals, mobility and company" },
+      { label: "Memory care", detail: "Dementia and Alzheimer's support" },
+      { label: "Day or live-in", detail: "12-hour day care and 24-hour live-in" },
+    ],
+    visit: [
+      "The caregiver greets the patient and checks how they slept, ate and felt.",
+      "Washing, dressing, toileting and grooming are done at the patient's own pace.",
+      "Medicines are reminded or given as the family has instructed, and BP or sugar is noted.",
+      "Meals, drinks, walking and gentle activity are fitted around the patient's routine.",
+      "The caregiver keeps company, notes any change in mood or health, and tells the family.",
+    ],
+    prepare: [
+      "A short written routine: wake time, meals, medicines, naps, favourite activities",
+      "The medicines list, the doctor's number and any allergies or dietary limits",
+      "Who the caregiver should call, and in what order, if something goes wrong",
+      "A safe path to the bathroom: clear floor, a light at night, grab rails if possible",
+      "A conversation with your parent beforehand so the caregiver is not a surprise",
+    ],
+    callDoctor: [
+      "Sudden confusion, drowsiness or a change in behaviour that is not usual for them",
+      "A fall, especially with a blow to the head, or new pain when moving",
+      "Refusing food or water for a day, or signs of dehydration",
+      "Chest pain, sudden weakness or trouble speaking. Call your local emergency number",
     ],
     included: [
       { icon: "hand-heart", name: "Daily assistance and personal hygiene", detail: "Help with washing, dressing and the daily routine." },
@@ -295,11 +370,11 @@ const servicePages: Record<string, ServicePage> = {
     },
     role: { title: "Caregiver or attendant", detail: "A caregiver or attendant helps with daily life. A nurse can visit as well if medical care is needed.", teamRoles: ["Caregiver", "Nurse"] },
     faqs: [
-      { question: "Can the same caregiver come every day?", answer: awaiting, status: "sample" },
-      { question: "What if my parent doesn't get along with the caregiver?", answer: awaiting, status: "sample" },
-      { question: "Do caregivers cook?", answer: awaiting, status: "sample" },
       { question: "Do you handle dementia care?", answer: "Yes. Dementia and Alzheimer's support is part of our elder care.", status: "verified" },
-      { question: "Can I check in while I'm away?", answer: `${awaiting} Your coordinator is your point of contact.`, status: "sample" },
+      { question: "What is the difference between a caregiver and a nurse?", answer: "A caregiver or attendant helps with daily life: washing, dressing, meals, moving about and company. A nurse does clinical tasks such as injections, dressings and tube care. A nurse can visit as well when medical care is needed.", status: "provisional" },
+      { question: "How do I help my parent accept a caregiver?", answer: "Introduce the idea early, explain the help as support rather than supervision, and let your parent keep their own routine. Starting with a few hours a day often feels easier than a full shift.", status: "provisional" },
+      { question: "Is a day shift or live-in care better for a parent who lives alone?", answer: "A day shift suits someone who is mostly independent but needs help with meals, medicines and mobility. Live-in cover is usually considered when a parent needs help at night, is bedridden, or may wander because of dementia.", status: "provisional" },
+      { question: "Can a nurse and physiotherapist visit alongside the caregiver?", answer: "Yes. Nursing and physiotherapy at home are separate services that can be arranged together with elder care.", status: "provisional" },
     ],
     related: ["home-nursing", "physiotherapy-at-home", "post-operative-care"],
     reviewKeywords: ["mother", "father", "parent", "caregiver", "elder"],
@@ -310,10 +385,34 @@ const servicePages: Record<string, ServicePage> = {
     eyebrow: "Post-operative and patient care",
     title: "Post-operative care at home.",
     lead: "Help with recovery after surgery or a hospital stay, at home.",
+    seo: {
+      title: "Post-operative care at home in Hyderabad",
+      description: "Nurses and patient attendants for recovery at home after surgery or a hospital stay in Hyderabad: wound care, medicines, mobility help and bedridden care. Call 86390 74341.",
+    },
     facts: [
-      { label: "Available 24/7", detail: "Call or message any time" },
-      { label: "Nurses and attendants", detail: "Visit your home" },
-      { label: "Care options", detail: "Single visits, 12-hour and 24-hour" },
+      { label: "Wound and medicine care", detail: "Dressings and medicines on schedule" },
+      { label: "Hands-on help", detail: "Moving, toileting and hygiene support" },
+      { label: "Recovery support", detail: "Fits with physiotherapy at home" },
+    ],
+    visit: [
+      "The nurse reads the discharge summary and the surgeon's instructions for wound care, diet and activity.",
+      "The wound is inspected and dressed, and any change in colour, swelling or discharge is noted.",
+      "Medicines, including pain relief and any injections, are given at the right times.",
+      "The attendant helps the patient sit up, stand, walk and use the toilet safely.",
+      "Progress is noted day by day so the family and the surgeon can see how recovery is going.",
+    ],
+    prepare: [
+      "The discharge summary, and the date of the review visit or suture removal",
+      "A written list of medicines, with what each is for and when to give it",
+      "Instructions on diet, bathing and what the patient must not do",
+      "A bed the patient can get on and off easily, and a clear path to the toilet",
+      "The surgeon's or hospital's contact number for questions after discharge",
+    ],
+    callDoctor: [
+      "Fever, or a wound that is red, hot, leaking pus or opening up",
+      "Pain that is getting worse instead of better, or a swollen, tender calf",
+      "Breathlessness, chest pain or sudden dizziness. Call your local emergency number",
+      "Vomiting that will not stop, or no urine for many hours",
     ],
     included: [
       { icon: "bed-double", name: "Post-surgery recovery support", detail: "Help through the first weeks at home." },
@@ -334,10 +433,10 @@ const servicePages: Record<string, ServicePage> = {
     },
     role: { title: "Nurse and patient attendant", detail: "A nurse handles wound care and medicines. A patient attendant helps with moving, hygiene and daily needs.", teamRoles: ["Nurse", "Caregiver"] },
     faqs: [
-      { question: "How soon after discharge can you start?", answer: `${awaiting} Call 86390 74341 to ask about your situation.`, status: "sample" },
-      { question: "Can you manage drains and stitches?", answer: awaiting, status: "sample" },
-      { question: "How long does post-operative care usually last?", answer: "It depends on the surgery and the patient. Your coordinator can discuss this with you.", status: "sample" },
+      { question: "Should care start before or after the patient leaves hospital?", answer: "Ideally the arrangements are made before discharge, so the nurse is there when the patient arrives home and can take over from the hospital team. Call 86390 74341 as soon as the discharge date is known.", status: "provisional" },
+      { question: "How long does post-operative care usually last?", answer: "It depends on the surgery and the patient. Some patients need a few days of dressings, others weeks of help. The surgeon's review visits are the best guide, and a coordinator can adjust the care to match.", status: "provisional" },
       { question: "Can physiotherapy be added?", answer: "Physiotherapy at home is one of our services, and post-operative care can be coordinated with it.", status: "provisional" },
+      { question: "What does a patient attendant do that a nurse does not?", answer: "An attendant helps with moving, toileting, bathing and daily needs. A nurse handles wound care, medicines and medical checks. Many recoveries need both.", status: "provisional" },
     ],
     related: ["physiotherapy-at-home", "home-nursing", "elder-care"],
     reviewKeywords: ["surgery", "operation", "recovery"],
@@ -348,10 +447,34 @@ const servicePages: Record<string, ServicePage> = {
     eyebrow: "Physiotherapy at home",
     title: "Physiotherapy at home.",
     lead: "A physiotherapist visits your home for pain relief, recovery and better mobility.",
+    seo: {
+      title: "Physiotherapy at home in Hyderabad",
+      description: "Home physiotherapy in Hyderabad for back, neck, knee and shoulder pain, post-fracture and stroke rehabilitation and elderly mobility. Call 86390 74341.",
+    },
     facts: [
-      { label: "Available 24/7", detail: "Call or message to book" },
-      { label: "A physiotherapist visits", detail: "To your home" },
-      { label: "Care options", detail: "Single sessions and session packages" },
+      { label: "Assessment first", detail: "A plan built around the patient" },
+      { label: "Treatment methods", detail: "Exercise, manual and laser therapy" },
+      { label: "No travel", detail: "Useful after surgery, stroke or a fall" },
+    ],
+    visit: [
+      "The physiotherapist asks about pain, history, daily activities and goals.",
+      "Movement, strength, balance and walking are assessed.",
+      "A treatment plan is explained: exercises, hands-on treatment and, where suitable, laser therapy.",
+      "The patient practises the exercises with guidance, and the family learns how to help.",
+      "Progress is reviewed at later sessions and the plan is adjusted.",
+    ],
+    prepare: [
+      "Scans, X-rays and the surgeon's or doctor's notes, if any",
+      "A list of medicines and any precautions the surgeon has given, such as weight-bearing limits",
+      "Comfortable clothing, and a firm chair or bed to work on",
+      "Clear floor space for walking practice, and a walking aid if one is used",
+      "A family member present for the first session, to learn the home exercises",
+    ],
+    callDoctor: [
+      "Sudden severe pain, or pain after a fall that does not ease with rest",
+      "New numbness, weakness or loss of bladder or bowel control",
+      "A swollen, hot or tender calf, or sudden breathlessness",
+      "Chest pain or dizziness during exercise. Stop and call your local emergency number if it is severe",
     ],
     included: [
       { icon: "bone", name: "Back and neck pain", detail: "Treatment and exercises for spine and neck pain." },
@@ -389,11 +512,11 @@ const servicePages: Record<string, ServicePage> = {
       tag: "List to confirm",
     },
     faqs: [
-      { question: "How long is a session?", answer: awaiting, status: "sample" },
-      { question: "Do you bring equipment?", answer: awaiting, status: "sample" },
-      { question: "How many sessions will I need?", answer: "It depends on the condition. The physiotherapist will advise after the first assessment.", status: "sample" },
-      { question: "Can sessions be at a fixed time?", answer: awaiting, status: "sample" },
       { question: "Do you treat stroke patients?", answer: "Yes. Stroke and neurological rehabilitation is part of physiotherapy at home.", status: "verified" },
+      { question: "Which problems can home physiotherapy help with?", answer: "Back, neck, knee, joint and shoulder pain, post-fracture rehabilitation, stroke and neurological recovery and elderly mobility.", status: "verified" },
+      { question: "How many sessions will I need?", answer: "It depends on the condition. The physiotherapist will advise after the first assessment.", status: "provisional" },
+      { question: "When is home physiotherapy better than a clinic?", answer: "When travelling is painful or risky, such as soon after surgery, a fracture or stroke, or for frail older people. Exercises are also practised in the place where the patient actually has to move: their own bedroom, bathroom and stairs.", status: "provisional" },
+      { question: "Should I tell the doctor before starting?", answer: "Yes. Share the surgeon's or doctor's advice, especially about movement limits after an operation or fracture, so the physiotherapist can plan around it.", status: "provisional" },
     ],
     related: ["post-operative-care", "elder-care", "home-nursing"],
     reviewKeywords: ["physio", "exercise"],
@@ -465,20 +588,20 @@ export const hospital = {
   },
 
   hero: {
-    eyebrow: { value: "Home healthcare across Hyderabad · 24/7", status: "sample", source: proposedCopy } as Field<string>,
+    eyebrow: { value: "Home healthcare in Hyderabad", status: "sample", source: proposedCopy } as Field<string>,
     headline: { value: "Nursing, elder care and physiotherapy at your home.", status: "sample", source: proposedCopy } as Field<string>,
     lead: { value: "Nurses, caregivers and physiotherapists who come to you, day or night, and a coordinator you can call.", status: "sample", source: proposedCopy } as Field<string>,
     primaryCtaLabel: "Request care",
     callLabel: "Call",
     photosLabel: "Home care photos",
-    badges: ["Available 24/7", "Care at your home"],
+    badges: ["Call or WhatsApp", "Home visits"],
   },
 
   facts: [
     { label: "Available 24/7", detail: "Day and night", status: "verified", source: clientFlyers },
+    { label: "Six kinds of care", detail: "Nursing to newborn care", status: "verified", source: clientFlyers },
     { label: "Nurses and caregivers", detail: "Plus physiotherapists", status: "verified", source: clientFlyers },
     { label: "4 branches", detail: "Across Hyderabad", status: "provisional", source: `${clientFlyers}; branches to confirm` },
-    { label: "We come to you", detail: "Care at your home", status: "verified", source: clientFlyers },
   ],
 
   heroPhotos: [
@@ -569,10 +692,10 @@ export const hospital = {
   }[],
 
   howItWorks: [
-    { title: "Call or request care", detail: "Phone, WhatsApp or the form below. Tell us who needs care and why." },
-    { title: "We understand the patient's needs", detail: "A coordinator asks about the patient's condition and the help needed." },
-    { title: "We arrange the right person", detail: "A suitable nurse, caregiver or physiotherapist is arranged." },
-    { title: "Care starts at home", detail: "Care begins at home, with a coordinator you can call." },
+    { title: "Call or request care", detail: "Phone, WhatsApp or the form below. Say who needs care, what happened and where they are." },
+    { title: "We ask about the patient", detail: "A coordinator asks about the condition, the doctor's advice and what help is needed day to day." },
+    { title: "We arrange the right person", detail: "A nurse, caregiver or physiotherapist suited to the patient is arranged." },
+    { title: "Care starts at home", detail: "The visit begins, and the coordinator remains your contact if anything needs changing." },
   ],
   howItWorksStatus: "sample" as VerificationStatus,
 
@@ -606,30 +729,38 @@ export const hospital = {
   },
 
   faqs: [
-    { question: "How quickly can a nurse or caregiver start?", answer: "Awaiting confirmation from Hemalatha Health Care. Call 86390 74341 and a coordinator will tell you what is possible for your situation.", status: "sample" },
-    { question: "Are your nurses and caregivers trained? What checks do you do?", answer: "Awaiting confirmation from Hemalatha Health Care. No checks are described until the team supplies them.", status: "sample" },
-    { question: "Can I ask for a different caregiver?", answer: "Awaiting confirmation from Hemalatha Health Care.", status: "sample" },
-    { question: "Do you offer 12-hour and 24-hour live-in care?", answer: "Awaiting confirmation from Hemalatha Health Care. You can choose a care type when you request care.", status: "sample" },
-    { question: "Is there a minimum booking period?", answer: "Awaiting confirmation from Hemalatha Health Care.", status: "sample" },
-    { question: "How much does home nursing cost?", answer: "Awaiting confirmation from Hemalatha Health Care. Prices are not listed until the team supplies them. Call for a quote.", status: "sample" },
-    { question: "Can you set up ICU equipment at home?", answer: "Home ICU setup assistance is part of our critical care at home. A coordinator will explain what your patient needs.", status: "provisional" },
+    { question: "Which services do you offer at home?", answer: "Home nursing, critical care at home, elder care and attendants, post-operative and patient care, and physiotherapy. Newborn and mother care is offered through our sister service, Hemalatha Baby Care.", status: "verified" },
+    { question: "What is the difference between a nurse, a caregiver and a physiotherapist?", answer: "A nurse does clinical tasks such as injections, dressings and tube care. A caregiver or attendant helps with washing, meals, moving about and company. A physiotherapist treats pain and rebuilds movement with exercises. Many patients need more than one.", status: "provisional" },
+    { question: "Should I choose a 12-hour or a 24-hour shift?", answer: "A 12-hour shift suits a patient who needs help through the day while family is around at night. Round-the-clock cover is usually chosen when the patient needs someone at night too, for example if they are bedridden, on oxygen or a ventilator, or may wander because of dementia. A coordinator can help you decide.", status: "provisional" },
+    { question: "Can critical care be set up at home?", answer: "Home ICU setup assistance is part of our critical care at home, with ICU-trained nurses. Whether it suits your patient depends on their condition, so ask the treating doctor as well as a coordinator.", status: "provisional" },
     { question: "Which areas of Hyderabad do you cover?", answer: "We come to your home. Our four branches are in Kukatpally, Pragathi Nagar, Madhapur and Manikonda. Call to check that we cover your area.", status: "provisional" },
-    { question: "Do you provide physiotherapy for stroke and post-fracture recovery?", answer: "Yes. Physiotherapy at home includes stroke and neurological rehabilitation and post-fracture rehabilitation.", status: "verified" },
-    { question: "How do I pay?", answer: "Awaiting confirmation from Hemalatha Health Care.", status: "sample" },
+    { question: "What does home care cost?", answer: "It depends on the service, the length of each visit or shift and the patient's needs, so there is no single price. Call 86390 74341 or send a request for a quote.", status: "provisional" },
+    { question: "Can home care replace an ambulance or hospital in an emergency?", answer: "No. Home care does not replace emergency services. In an emergency call your local emergency number or go to the nearest hospital.", status: "provisional" },
   ] as { question: string; answer: string; status: VerificationStatus }[],
+
+  clientQuestions: [
+    "How quickly can a nurse or caregiver start after a call?",
+    "How are nurses and caregivers verified and trained?",
+    "Can a family ask for a different caregiver, and what happens if the regular caregiver is absent?",
+    "Are 12-hour and 24-hour live-in shifts available for each service?",
+    "Is there a minimum booking period?",
+    "What are the prices, and how do customers pay?",
+    "Which equipment does Hemalatha supply for a home ICU, and what does the family arrange?",
+    "Is the company registered, and under what details?",
+  ],
 
   about: {
     eyebrow: "About Hemalatha",
-    title: "Care that feels like family.",
-    lead: "Hemalatha Health Care brings nursing, caregiving and physiotherapy to your home in Hyderabad. Description to be supplied by the client.",
+    title: "A home healthcare team based in Kukatpally.",
+    lead: "Hemalatha Health Care Pvt. Ltd. sends nurses, caregivers and physiotherapists to patients' homes across Hyderabad, from branches in Kukatpally, Pragathi Nagar, Madhapur and Manikonda.",
     mainPhoto: homePhotos.caregiverBedside as PhotoSlot,
     insetPhoto: homePhotos.holdingHands as PhotoSlot,
     badge: "We Care Like Family",
     checks: [
-      { icon: "house", title: "Care at home", detail: "We come to you" },
-      { icon: "clock", title: "Available 24/7", detail: "Day and night" },
-      { icon: "phone-call", title: "One coordinator per family", detail: "One person to call" },
-      { icon: "stethoscope", title: "Nurses and physiotherapists", detail: "Who visit your home" },
+      { icon: "building-2", title: "Hemalatha Health Care Pvt. Ltd.", detail: "Home healthcare provider" },
+      { icon: "map-pin", title: "Main office in KPHB Colony", detail: "Kukatpally, Hyderabad" },
+      { icon: "baby", title: "Hemalatha Baby Care", detail: "Our sister service for newborns" },
+      { icon: "messages-square", title: "Call, WhatsApp or email", detail: "Choose how to reach us" },
     ],
     ctaLabel: "See our services",
     ctaHref: "#services",
@@ -654,6 +785,13 @@ export const hospital = {
   },
 
   serviceBlocks: {
+    visitEyebrow: "What to expect",
+    visitTitle: "What a visit usually looks like.",
+    visitLead: "A general picture, so you know what to expect. The exact routine follows the patient's doctor and needs.",
+    prepareTitle: "Before we start",
+    prepareLead: "Having these ready makes the first visit smoother.",
+    callDoctorTitle: "When to call the doctor",
+    callDoctorLead: "General guidance only, not medical advice. If you are worried, call the doctor or your local emergency number.",
     includedEyebrow: "What's included",
     includedTitle: "What this service covers.",
     whoForEyebrow: "Who it's for",
@@ -690,6 +828,28 @@ export const hospital = {
     photo: homePhotos.whyHomeCare as PhotoSlot,
   },
 
+  homeCareFit: {
+    eyebrow: "Is home care right for us?",
+    title: "When care at home works, and when it does not.",
+    lead: "Home care suits many families, but not every situation. This is general guidance. The treating doctor has the final say.",
+    photo: homePhotos.serviceElderWho as PhotoSlot,
+    fitsTitle: "Home care usually fits when",
+    fits: [
+      "The patient is medically stable and the doctor agrees they can be cared for at home",
+      "They need regular nursing, help with daily tasks or exercises rather than constant hospital tests",
+      "Travelling to a clinic is painful, tiring or risky",
+      "Family members can set up a safe room and be reachable by phone",
+    ],
+    hospitalTitle: "Go to hospital or call emergency services when",
+    hospital: [
+      "Chest pain, trouble breathing, sudden weakness, slurred speech or a seizure",
+      "The patient becomes hard to wake, or is suddenly very confused",
+      "Heavy bleeding, or a wound that is opening, swollen and hot",
+      "The doctor asks for tests, procedures or monitoring that cannot be done at home",
+    ],
+    note: "Home care does not replace emergency services. Call your local emergency number in an emergency.",
+  },
+
   careTeamSection: {
     eyebrow: "Care team",
     title: "Meet the people who visit.",
@@ -715,9 +875,10 @@ export const hospital = {
     items: [
       { label: "Services", href: "#services" },
       { label: "How it works", href: "#how-it-works" },
+      { label: "Reviews", href: "#reviews" },
       { label: "Care team", href: "#care-team" },
       { label: "Branches", href: "#branches" },
-      { label: "Reviews", href: "#reviews" },
+      { label: "Guides", href: "#guides" },
       { label: "FAQ", href: "#faq" },
     ],
     bookLabel: "Request care",
@@ -738,6 +899,7 @@ export const hospital = {
       { label: "About", href: "#about" },
       { label: "How it works", href: "#how-it-works" },
       { label: "Care team", href: "#care-team" },
+      { label: "Guides", href: "/guides" },
       { label: "FAQ", href: "#faq" },
       { label: "Request care", href: "#enquiry" },
     ],
@@ -805,6 +967,20 @@ export const hospital = {
     phoneLabel: "Phone",
     emailLabel: "Email",
     mainOfficeTag: "Main office",
+  },
+
+  guidesSection: {
+    eyebrow: "Guides for families",
+    title: "Plain answers before you arrange care.",
+    lead: "Checklists and comparisons written for families in Hyderabad.",
+    readLabel: "Read the guide",
+    allLabel: "All guides",
+    allHref: "/guides",
+    indexTitle: "Home care guides for families in Hyderabad",
+    indexLead: "Practical checklists and comparisons for families arranging nursing, elder care or physiotherapy at home.",
+    byline: "Written by the Hemalatha Health Care team. General information, not medical advice.",
+    relatedLabel: "Related service",
+    ctaTitle: "Talk to a coordinator about your situation.",
   },
 
   faqSection: {

@@ -20,7 +20,7 @@ export function Hero() {
             {hero.headline.value}
           </h1>
           <p className="max-w-[54ch] text-body-lg text-slate-on-dark">{hero.lead.value}</p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 max-[480px]:w-full max-[480px]:flex-col max-[480px]:items-stretch">
             <RequestButton />
             <CallButton onDark />
           </div>
@@ -34,7 +34,7 @@ export function Hero() {
 
         <dl className="mt-10 grid grid-cols-4 max-md:mt-7 max-md:grid-cols-2 max-md:gap-y-4">
           {facts.map((fact) => (
-            <div key={fact.label} className="grid gap-0.5 border-l border-navy-line px-6 py-1 text-center first:border-l-0 max-md:px-3.5 max-md:py-0.5 max-md:odd:border-l-0">
+            <div key={fact.label} className="grid content-start gap-0.5 border-l border-navy-line px-6 py-1 text-center first:border-l-0 max-md:px-0 max-md:py-0.5 max-md:text-left max-md:odd:border-l-0 max-md:even:pl-5">
               <dt className="text-[15px] font-semibold">{fact.label}</dt>
               <dd className="text-[13.5px] text-slate-on-dark">{fact.detail}</dd>
             </div>
