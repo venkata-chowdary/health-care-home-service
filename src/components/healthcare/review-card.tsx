@@ -1,5 +1,4 @@
 import { StarRating } from "@/components/ui/star-rating";
-import { cn } from "@/lib/cn";
 
 type ReviewCardProps = {
   author: string;
@@ -7,19 +6,19 @@ type ReviewCardProps = {
   text: string;
   rating: number;
   sourceLabel: string;
-  empty?: boolean;
+  sampleLabel?: string;
 };
 
-export function ReviewCard({ author, initials, text, rating, sourceLabel, empty = false }: ReviewCardProps) {
+export function ReviewCard({ author, initials, text, rating, sourceLabel, sampleLabel }: ReviewCardProps) {
   return (
-    <article aria-hidden={empty || undefined} className="grid content-start gap-3.5 rounded-card border border-border bg-background p-[26px]">
-      <StarRating value={rating} decorative={empty} />
-      <blockquote className={cn("text-base leading-[1.6]", empty ? "text-slate-400" : "text-foreground")}>{empty ? text : `"${text}"`}</blockquote>
-      <footer className="mt-1 flex items-center gap-2.5 border-t border-border pt-3.5">
+    <article className="grid h-full content-start gap-3.5 rounded-card border border-border bg-background p-[26px]">
+      <StarRating value={rating} />
+      <blockquote className="text-base leading-[1.6] text-foreground">&quot;{text}&quot;</blockquote>
+      <footer className="mt-auto flex items-center gap-2.5 border-t border-border pt-3.5">
         <span className="grid size-9 flex-none place-items-center rounded-full bg-accent text-caption font-semibold text-link">{initials}</span>
         <div className="grid text-caption leading-[1.35] text-muted-foreground">
           <b className="text-body-sm font-semibold text-foreground">{author}</b>
-          {sourceLabel}
+          {sampleLabel ?? sourceLabel}
         </div>
       </footer>
     </article>

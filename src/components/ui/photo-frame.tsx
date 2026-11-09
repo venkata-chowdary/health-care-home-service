@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ComponentProps } from "react";
 
+import { blurDataUrls } from "@/data/image-blur-data";
 import { cn } from "@/lib/cn";
 
 import { Icon, type IconName } from "./icon";
@@ -11,6 +12,7 @@ type PhotoFrameProps = Omit<ComponentProps<"div">, "children"> & {
   focus?: string;
   sizes?: string;
   preload?: boolean;
+  blurDataURL?: string;
   label?: string;
   labelIcon?: IconName | null;
   labelClassName?: string;
@@ -21,13 +23,43 @@ type PhotoFrameProps = Omit<ComponentProps<"div">, "children"> & {
   tone?: "light" | "dark";
 };
 
-export function PhotoFrame({ alt, src, focus, sizes = "100vw", preload, label, labelIcon = "camera", labelSide = "left", labelClassName, icon = "user-round", radius = "lg", floating = false, tone = "light", className, ...props }: PhotoFrameProps) {
+export function PhotoFrame({
+  alt,
+  src,
+  focus,
+  sizes = "100vw",
+  preload,
+  blurDataURL,
+  label,
+  labelIcon = "camera",
+  labelSide = "left",
+  labelClassName,
+  icon = "user-round",
+  radius = "lg",
+  floating = false,
+  tone = "light",
+  className,
+  ...props
+}: PhotoFrameProps) {
   const radiusClass = { none: "rounded-none", lg: "rounded-lg", xl: "rounded-xl" }[radius];
 
   if (src) {
+    const filename = src.split("/").pop()?.replace(/\.(webp|jpg|jpeg|png)$/, "") || "";
+    const effectiveBlur = blurDataURL || (filename ? blurDataUrls[filename] : undefined);
+
     return (
       <div className={cn(floating ? "absolute" : "relative", "max-w-full overflow-hidden", radiusClass, className)} {...props}>
-        <Image src={src} alt={alt} fill sizes={sizes} preload={preload} style={focus ? { objectPosition: focus } : undefined} className="object-cover" />
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={sizes}
+          preload={preload}
+          placeholder={effectiveBlur ? "blur" : "empty"}
+          blurDataURL={effectiveBlur}
+          style={focus ? { objectPosition: focus } : undefined}
+          className="object-cover"
+        />
       </div>
     );
   }

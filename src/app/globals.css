@@ -147,6 +147,28 @@
     outline-offset: 3px;
   }
 
+  .review-marquee {
+    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .review-marquee-track {
+      animation: review-marquee 60s linear infinite;
+    }
+
+    .review-marquee:hover .review-marquee-track,
+    .review-marquee:focus-within .review-marquee-track,
+    .review-marquee:focus .review-marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes review-marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

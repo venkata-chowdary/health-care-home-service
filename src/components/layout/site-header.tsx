@@ -106,10 +106,10 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
           </nav>
 
           <div className="col-start-3 flex items-center gap-2">
-            <Button href={phone.href} variant="outline" size="sm" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-10 max-[560px]:px-0">
+            <Button href={phone.href} variant="outline" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-10 max-[560px]:px-0">
               <span className="max-[560px]:hidden">{phone.display}</span>
             </Button>
-            <Button href={bookHref} size="sm" iconBefore="calendar-check" className="max-[560px]:hidden">
+            <Button href={bookHref} iconBefore="calendar-check" className="max-[560px]:hidden">
               {bookLabel}
             </Button>
             <Button

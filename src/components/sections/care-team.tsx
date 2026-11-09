@@ -17,7 +17,7 @@ export function CareTeam() {
       <RevealGroup lenisPrevent className="grid grid-cols-3 gap-4 max-[640px]:auto-cols-[72%] max-[640px]:grid-flow-col max-[640px]:grid-cols-none max-[640px]:snap-x max-[640px]:snap-mandatory max-[640px]:overflow-x-auto max-[640px]:[scrollbar-width:none]">
         {careTeam.map((member, index) => (
           <RevealItem key={index} index={index} lift className="max-[640px]:snap-start">
-            <CareTeamCard name={member.name} role={member.role} photo={member.photo} photoLabel={careTeamSection.photoLabel} requestLabel={careTeamSection.requestLabel} href={careTeamSection.linkHref} />
+            <CareTeamCard name={member.name} role={member.role} photo={member.photo} photoLabel={careTeamSection.photoLabel} />
           </RevealItem>
         ))}
       </RevealGroup>

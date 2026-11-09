@@ -50,7 +50,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <ServiceHero name={service.name} eyebrow={page.eyebrow} title={page.title} lead={page.lead} facts={page.facts} photo={heroPhoto} />
         <ServiceIncluded items={page.included} surface />
         <ServiceWhoFor items={page.whoFor} photo={page.whoForPhoto} surface={false} />
-        <Faq items={page.faqs} eyebrow={serviceBlocks.faqEyebrow} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} surface />
+        <Faq items={page.faqs} eyebrow={serviceBlocks.faqEyebrow} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} surface showCallPrompt={false} />
         <Enquiry title={`${serviceBlocks.requestTitlePrefix} ${service.name.toLowerCase()}`} defaultService={service.name} surface={false} />
       </main>
 

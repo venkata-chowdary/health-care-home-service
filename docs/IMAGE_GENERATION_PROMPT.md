@@ -53,11 +53,12 @@ Review every image at full size before keeping it. Regenerate any image with wro
 
 STEP 3: EXPORT LIGHT
 - Put final files in public/images/generated/. Keep the full-quality generation outputs out of the repo (for example in a local _source folder listed in .gitignore). Do not commit the originals.
-- Use sharp (already installed) to export WebP at quality 72–78:
-  - Hero deck and 16:10 images: 1600px wide, target under 160 KB.
-  - Section photos (about, why-us, critical care, service pages): 1200px on the long edge, target under 120 KB.
-  - Inset, service card, team portraits: 800px on the long edge, target under 70 KB.
-- In next.config.ts set images.formats to ["image/avif", "image/webp"] and keep the default device sizes, so next/image serves AVIF or WebP at the right width.
+- Use sharp (already installed) to export high-quality WebP masters at quality 85, resized so no file is bigger than it will ever be shown (next/image does the final compression, so the masters should not be compressed twice):
+  - Hero deck and 16:10 images: 1920px wide.
+  - Section photos (about, why-us, critical care, service pages): 1400px on the long edge.
+  - Inset, service card, team portraits: 900px on the long edge.
+- In next.config.ts set images.formats to ["image/avif", "image/webp"] and images.qualities to [70, 75], keep the default device sizes, so next/image serves AVIF (WebP as fallback) at the exact width each device needs.
+- Measure what browsers actually download, not the master files: on the production build, the front hero photo should arrive under about 120 KB on desktop and 60 KB on mobile, and other photos well under 100 KB.
 - Import images statically where practical (import heroNursing from "@/../public/...") or generate blurDataURL values, so every photo gets placeholder="blur" and the layout never shifts.
 
 STEP 4: WIRE THEM IN

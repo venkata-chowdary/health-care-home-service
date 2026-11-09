@@ -35,9 +35,8 @@ Every business-sensitive field lives in `src/data/hospital-content.ts` with a `s
 | Physiotherapy treatment areas | verified names, list to confirm | The plan expects ten areas; the flyer facts give eight plus three therapies. Confirm the full list |
 | Service page reviews | provisional | Reviews are matched to a service by keyword; only real Google reviews are shown, and the section hides when none match |
 | Flyer marketing claims (celebrities, 1000+ families, Hyderabad's best, VIP, background checks, hospital quality) | left out | Supply proof before any is used |
-| Doctor portraits and building exterior (stock) | sample | Stock models and a generic building, not Hemalatha's staff or premises. Replace before launch. |
-| Photography | sample | Client's own photos of nurses, caregivers and physiotherapists at work, the Branch 1 office, and mother and baby care |
-| Home-care stock photos (12 files in `public/images/stock/`) | sample | Pexels stand-ins showing home-care scenes, mostly non-Indian people. None show Hemalatha staff, patients or premises. Replace with the client's own photography (with consent) before launch. Credits in `docs/IMAGE_CREDITS.md`. |
+| Care team portraits (demo profiles) | sample | AI-generated portraits of 3 recurring staff members (nurse, physiotherapist, caregiver). Must be replaced with real staff photos and written consent before launch. |
+| AI-generated home-care images (`public/images/generated/`) | sample | Illustrative stand-ins showing Telugu home-care scenes. Must be replaced or approved by the client before launch; real photography of their own staff and visits (with consent) is preferred. |
 | White logo for dark backgrounds | generated | `public/images/brand/logo-white.png` was derived from the PNG; replace with the designer's file if available |
 
 Never present `sample` content as fact, and never add accreditations, bed counts, success rates, insurer names or ratings that the client has not supplied.

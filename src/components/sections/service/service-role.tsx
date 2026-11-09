@@ -23,7 +23,7 @@ export function ServiceRole({ role, surface }: ServiceRoleProps) {
       <RevealGroup className="grid grid-cols-2 gap-4 max-[520px]:grid-cols-1">
         {matchingMembers.map((member, index) => (
           <RevealItem key={member.role} index={index} lift>
-            <CareTeamCard name={member.name} role={member.role} photo={member.photo} photoLabel={careTeamSection.photoLabel} requestLabel={careTeamSection.requestLabel} href={careTeamSection.linkHref} />
+            <CareTeamCard name={member.name} role={member.role} photo={member.photo} photoLabel={careTeamSection.photoLabel} />
           </RevealItem>
         ))}
       </RevealGroup>

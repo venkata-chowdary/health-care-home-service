@@ -206,7 +206,7 @@ export function EnquiryForm({ copy, serviceNames, areaNames, defaultService }: E
       </label>
 
       <div className="col-span-full flex flex-wrap items-center gap-3.5">
-        <Button type="submit" loading={isSending} iconAfter="arrow-right">
+        <Button type="submit" loading={isSending} iconBefore="calendar-check">
           {isSending ? copy.sendingLabel : copy.submitLabel}
         </Button>
         <span className="text-caption text-muted-foreground">{copy.hint}</span>

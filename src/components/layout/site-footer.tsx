@@ -97,10 +97,11 @@ export function SiteFooter({ homePath = "" }) {
             </nav>
           </div>
 
-          <div className="flex flex-wrap justify-between gap-4 border-t border-navy-line pt-5 text-caption">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-navy-line pt-5 text-caption">
             <span>
               © {new Date().getFullYear()} {legalName.value}
             </span>
+            <span className="text-slate-on-dark/80">Photos are illustrative.</span>
           </div>
         </div>
       </Container>

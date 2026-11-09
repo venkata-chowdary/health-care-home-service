@@ -34,7 +34,7 @@ export function Hero() {
 
         <dl className="mt-10 grid grid-cols-4 max-md:mt-7 max-md:grid-cols-2 max-md:gap-y-4">
           {facts.map((fact) => (
-            <div key={fact.label} className="grid gap-0.5 border-l border-navy-line px-6 py-1 first:border-l-0 first:pl-0 max-md:px-3.5 max-md:py-0.5 max-md:odd:border-l-0 max-md:odd:pl-0">
+            <div key={fact.label} className="grid gap-0.5 border-l border-navy-line px-6 py-1 text-center first:border-l-0 max-md:px-3.5 max-md:py-0.5 max-md:odd:border-l-0">
               <dt className="text-[15px] font-semibold">{fact.label}</dt>
               <dd className="text-[13.5px] text-slate-on-dark">{fact.detail}</dd>
             </div>

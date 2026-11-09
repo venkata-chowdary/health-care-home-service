@@ -41,10 +41,17 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
   }, [reducedMotion, paused, count, current]);
 
   return (
-    <div role="group" aria-roledescription="carousel" aria-label={label} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onKeyDown={(event) => {
-      if (event.key === "ArrowLeft") showPhoto(current - 1);
-      if (event.key === "ArrowRight") showPhoto(current + 1);
-    }}>
+    <div
+      role="group"
+      aria-roledescription="carousel"
+      aria-label={label}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onKeyDown={(event) => {
+        if (event.key === "ArrowLeft") showPhoto(current - 1);
+        if (event.key === "ArrowRight") showPhoto(current + 1);
+      }}
+    >
       <div className="relative h-[clamp(280px,40vw,540px)] [--deck-step:17%] max-md:h-[clamp(190px,52vw,340px)] max-md:[--deck-step:11%]">
         {photos.map((photo, index) => {
           const offset = offsetFor(index, current);
@@ -85,7 +92,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
                 icon={isIconName(photo.icon) ? photo.icon : "camera"}
                 label={photo.label}
                 labelClassName={cn("transition-opacity duration-300", !isCurrent && "opacity-0")}
-                sizes="(min-width: 1280px) 780px, 78vw"
+                sizes={isCurrent ? "(min-width: 1280px) 780px, (min-width: 768px) 68vw, 78vw" : "(min-width: 1280px) 600px, (min-width: 768px) 55vw, 65vw"}
                 className="size-full"
               />
             </m.button>

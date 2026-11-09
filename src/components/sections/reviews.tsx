@@ -1,14 +1,12 @@
-import { ReviewCard } from "@/components/healthcare/review-card";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
-import { RevealGroup, RevealItem } from "@/components/ui/reveal";
+import { ReviewsMarquee } from "@/components/sections/reviews-marquee";
 import { StarRating } from "@/components/ui/star-rating";
 import { hospital } from "@/data/hospital-content";
-import { reviews, reviewsSource } from "@/data/reviews";
+import { reviewsSource } from "@/data/reviews";
 
 export function Reviews() {
   const { reviewsSection, googleRating } = hospital;
-  const reviewSlots = Array.from({ length: reviewsSection.slotCount }, (_, index) => reviews[index]);
 
   return (
     <Section id="reviews" aria-labelledby="reviews-heading" flushTop containerClassName="grid gap-12 max-md:gap-8">
@@ -30,28 +28,7 @@ export function Reviews() {
         </a>
       </div>
 
-      <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-1">
-        {reviewSlots.map((review, index) => (
-          <RevealItem key={review ? review.author : `empty-${index}`} index={index}>
-            {review ? (
-              <ReviewCard
-                author={review.author}
-                initials={review.author
-                  .split(" ")
-                  .map((word) => word[0])
-                  .slice(0, 2)
-                  .join("")
-                  .toUpperCase()}
-                text={review.text}
-                rating={review.rating}
-                sourceLabel={reviewsSection.sourceLabel}
-              />
-            ) : (
-              <ReviewCard empty author={reviewsSection.emptyAuthor} initials={reviewsSection.emptyAuthorInitials} text={reviewsSection.emptySlotTexts[index]} rating={0} sourceLabel={reviewsSection.sourceLabel} />
-            )}
-          </RevealItem>
-        ))}
-      </RevealGroup>
+      <ReviewsMarquee />
     </Section>
   );
 }

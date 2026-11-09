@@ -1,7 +1,6 @@
 import { StepCard } from "@/components/healthcare/step-card";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
-import { RequestButton } from "@/components/ui/request-button";
 import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
 
@@ -18,9 +17,6 @@ export function HowItWorks({ surface = true }) {
           </RevealItem>
         ))}
       </RevealGroup>
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        <RequestButton />
-      </div>
     </Section>
   );
 }

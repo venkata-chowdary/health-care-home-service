@@ -9,9 +9,10 @@ type FaqProps = {
   title?: string;
   eyebrow?: string;
   surface?: boolean;
+  showCallPrompt?: boolean;
 };
 
-export function Faq({ items, title, eyebrow, surface = true }: FaqProps) {
+export function Faq({ items, title, eyebrow, surface = true, showCallPrompt = true }: FaqProps) {
   const { faqs, faqSection } = hospital;
   const faqItems = items ?? faqs;
 
@@ -24,10 +25,12 @@ export function Faq({ items, title, eyebrow, surface = true }: FaqProps) {
             <FaqItem key={faq.question} question={faq.question} answer={faq.answer} defaultOpen={index === 0} />
           ))}
         </div>
-        <p className="flex flex-wrap items-center justify-center gap-3 text-[14.5px] text-muted-foreground">
-          {faqSection.footPrompt}
-          <CallButton size="sm" />
-        </p>
+        {showCallPrompt && (
+          <p className="flex flex-wrap items-center justify-center gap-3 text-[14.5px] text-muted-foreground">
+            {faqSection.footPrompt}
+            <CallButton size="sm" />
+          </p>
+        )}
       </div>
     </Section>
   );

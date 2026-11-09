@@ -22,22 +22,140 @@ export type PhotoSlot = {
   source: string;
 };
 
-const pexels = (photographer: string, id: number) => `${photographer} via Pexels, https://www.pexels.com/photo/${id}/`;
+const aiGen = "AI-generated illustrative image";
 
 const homePhotos = {
-  nursingBp: { src: "/images/stock/home-nursing-bp.jpg", alt: "A carer in a yellow top checking an older man's blood pressure in a living room", focus: "50% 30%", status: "sample", source: pexels("Antoni Shkraba", 7345476) },
-  physio: { src: "/images/stock/home-physio.jpg", alt: "A young man helping a smiling older man stretch his arm at home", focus: "50% 40%", status: "sample", source: pexels("Kampus Production", 7551635) },
-  criticalCare: { src: "/images/stock/home-critical-care.jpg", alt: "A nurse in a mask helping an older patient with an oxygen mask at the bedside", focus: "50% 35%", status: "sample", source: pexels("Jeff Yen", 5318119) },
-  elderCare: { src: "/images/stock/home-elder-care.jpg", alt: "A woman helping an older woman who uses crutches in a kitchen", focus: "50% 35%", status: "sample", source: pexels("Jsme MILA", 29372734) },
-  motherBaby: { src: "/images/stock/home-mother-baby.jpg", alt: "A mother holding her newborn baby", focus: "40% 40%", status: "sample", source: pexels("Sarah Chai", 7282395) },
-  caregiverBedside: { src: "/images/stock/about-caregiver-bedside.jpg", alt: "A smiling woman in a yellow cardigan standing beside an older man resting in bed", focus: "40% 50%", status: "sample", source: pexels("Kampus Production", 7551681) },
-  holdingHands: { src: "/images/stock/about-holding-hands.jpg", alt: "A younger hand holding an older person's hand on a bed", status: "sample", source: pexels("Kampus Production", 7551677) },
-  serviceNursing: { src: "/images/stock/service-home-nursing.jpg", alt: "A carer feeling the forehead of an older man resting in bed", focus: "80% 50%", status: "sample", source: pexels("Yaroslav Shuraev", 8088600) },
-  whyHomeCare: { src: "/images/stock/why-home-care.jpg", alt: "A woman gently holding an older woman's face in a kitchen", focus: "50% 28%", status: "sample", source: pexels("Jsme MILA", 29372693) },
-  criticalBedside: { src: "/images/stock/critical-care-bedside.jpg", alt: "A nurse in scrubs holding a tablet beside a patient on a drip", focus: "50% 55%", status: "sample", source: pexels("Tima Miroshnichenko", 6011662) },
-  criticalBed: { src: "/images/stock/critical-care-bed.jpg", alt: "Two carers settling an older man into bed in a bedroom", focus: "55% 50%", status: "sample", source: pexels("Kampus Production", 7551683) },
-  ctaVisit: { src: "/images/stock/cta-caregiver-visit.jpg", alt: "A man with a lanyard talking with an older woman on a sofa", focus: "50% 35%", status: "sample", source: pexels("Antoni Shkraba", 7345450) },
-  branchExterior: { src: "/images/stock/visit-exterior.jpg", alt: "A multi-storey building at dusk with lit windows and a green cross sign", status: "sample", source: "Mathias Reding via Pexels, https://www.pexels.com/photo/building-with-a-lot-of-windows-9741487/" },
+  nursingBp: {
+    src: "/images/generated/home-nursing.webp",
+    alt: "A nurse in navy scrubs checking blood pressure of an elderly Telugu man on a wooden sofa at home with his daughter nearby",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  physio: {
+    src: "/images/generated/home-physio.webp",
+    alt: "A physiotherapist in a navy polo guiding an elderly man through a seated knee-extension exercise at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  criticalCare: {
+    src: "/images/generated/home-critical-care.webp",
+    alt: "A nurse adjusting the nasal cannula of an elderly woman resting on an adjustable bed set up in a home bedroom",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  elderCare: {
+    src: "/images/generated/home-elder-care.webp",
+    alt: "A caregiver walking attentively beside an elderly woman in a cotton saree using a walker at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  motherBaby: {
+    src: "/images/generated/home-mother-baby.webp",
+    alt: "A mother holding and caring for her newborn baby at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  caregiverBedside: {
+    src: "/images/generated/about-caregiver-bedside.webp",
+    alt: "A nurse in navy scrubs sitting on a chair beside an elderly man resting in bed talking with him in morning light",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  holdingHands: {
+    src: "/images/generated/about-holding-hands.webp",
+    alt: "Close-up of a nurse holding an elderly patient's hand resting on a cotton bedsheet",
+    status: "sample",
+    source: aiGen,
+  },
+  serviceNursing: {
+    src: "/images/generated/service-home-nursing.webp",
+    alt: "A nurse preparing equipment and caring for an elderly patient at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  whyHomeCare: {
+    src: "/images/generated/why-home-care.webp",
+    alt: "A caregiver and an elderly woman sharing a warm reassuring moment at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  criticalBedside: {
+    src: "/images/generated/critical-care-bedside.webp",
+    alt: "An ICU nurse checking medical monitors beside an elderly patient on an adjustable home bed",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  criticalBed: {
+    src: "/images/generated/critical-care-bed.webp",
+    alt: "A patient resting on an adjustable profile bed equipped for home critical care",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  ctaVisit: {
+    src: "/images/generated/cta-care-coordinator.webp",
+    alt: "A care coordinator discussing home care options on a call at an office desk",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  branchExterior: {
+    src: "/images/generated/branch-office.webp",
+    alt: "A clean, welcoming healthcare coordination office reception for visiting families",
+    status: "sample",
+    source: aiGen,
+  },
+  servicePostOpHero: {
+    src: "/images/generated/service-post-op.webp",
+    alt: "A nurse carefully changing a clean knee bandage for a recovering elderly man at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  servicePostOpWho: {
+    src: "/images/generated/service-post-op-who.webp",
+    alt: "A dedicated nurse in navy scrubs sitting beside an elderly patient recovering in bed at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  serviceCriticalWho: {
+    src: "/images/generated/service-critical-who.webp",
+    alt: "A nurse explaining home ICU monitor readings and care procedures beside the patient bed",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  serviceElderWho: {
+    src: "/images/generated/service-elder-who.webp",
+    alt: "A caregiver providing dedicated daily mobility and living support to an older family member at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  servicePhysioWho: {
+    src: "/images/generated/service-physio-who.webp",
+    alt: "A physiotherapist guiding an elderly patient through guided mobility exercises at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
+  serviceNursingWho: {
+    src: "/images/generated/service-nursing-who.webp",
+    alt: "A nurse performing regular vital checks and clinical care for an elderly patient at home",
+    focus: "50% 50%",
+    status: "sample",
+    source: aiGen,
+  },
 } satisfies Record<string, PhotoSlot>;
 
 export type CareOptionKey = "single" | "twelveHour" | "liveIn";
@@ -84,7 +202,7 @@ const servicePages: Record<string, ServicePage> = {
       { icon: "pill", name: "Medication administration", detail: "Medicines given on schedule." },
     ],
     whoFor: ["Patients back home after a hospital discharge", "People with long-term conditions who need regular procedures", "Patients who can't travel to a clinic", "People with diabetes who need regular monitoring"],
-    whoForPhoto: homePhotos.serviceNursing,
+    whoForPhoto: homePhotos.serviceNursingWho,
     careOptions: {
       single: { applies: "yes", note: "A nurse visits for one procedure or check." },
       twelveHour: { applies: "yes", note: "A nurse stays for a 12-hour shift." },
@@ -122,7 +240,7 @@ const servicePages: Record<string, ServicePage> = {
       { icon: "siren", name: "Emergency coordination", detail: "A plan for who to call if the patient's condition changes." },
     ],
     whoFor: ["Patients discharged from the ICU", "Long-term ventilator or tracheostomy patients", "Post-stroke and cardiac patients", "Palliative care at home"],
-    whoForPhoto: homePhotos.criticalBedside,
+    whoForPhoto: homePhotos.serviceCriticalWho,
     careOptions: {
       single: { applies: "no", note: "Single visits are not offered for critical care." },
       twelveHour: { applies: "yes", note: "An ICU-trained nurse for a 12-hour shift." },
@@ -169,7 +287,7 @@ const servicePages: Record<string, ServicePage> = {
       { icon: "utensils", name: "Nutrition and meals", detail: "Help with eating and mealtimes." },
     ],
     whoFor: ["Parents living alone", "Families working long hours", "Seniors recovering from illness", "People living with dementia or Alzheimer's"],
-    whoForPhoto: homePhotos.whyHomeCare,
+    whoForPhoto: homePhotos.serviceElderWho,
     careOptions: {
       single: { applies: "confirm", note: "Single visits are to be confirmed." },
       twelveHour: { applies: "yes", note: "12-hour day care." },
@@ -208,7 +326,7 @@ const servicePages: Record<string, ServicePage> = {
       { icon: "activity", name: "Coordination with physiotherapy", detail: "Care that fits with recovery exercises." },
     ],
     whoFor: ["After orthopaedic, cardiac or abdominal surgery", "After a long hospital stay", "Patients with chronic illness", "Bedridden patients"],
-    whoForPhoto: homePhotos.caregiverBedside,
+    whoForPhoto: homePhotos.servicePostOpWho,
     careOptions: {
       single: { applies: "yes", note: "Single visits for dressings or checks." },
       twelveHour: { applies: "yes", note: "12-hour shifts." },
@@ -246,7 +364,7 @@ const servicePages: Record<string, ServicePage> = {
       { icon: "zap", name: "Laser therapy", detail: "Used for pain relief where suitable." },
     ],
     whoFor: ["Elderly patients", "People after surgery or a fracture", "Stroke recovery", "People with chronic pain, or who can't travel"],
-    whoForPhoto: homePhotos.holdingHands,
+    whoForPhoto: homePhotos.servicePhysioWho,
     careOptions: {
       single: { applies: "yes", note: "Single sessions and session packages. Wording to be confirmed." },
       twelveHour: { applies: "no", note: "Physiotherapy is visit-based, not shift-based." },
@@ -409,7 +527,7 @@ export const hospital = {
       name: "Post-operative and patient care",
       slug: "post-operative-care",
       page: servicePages["post-operative-care"],
-      heroPhoto: homePhotos.criticalBed,
+      heroPhoto: homePhotos.servicePostOpHero,
       icon: "bed-double",
       summary: "Help with recovery after surgery or a hospital stay, at home.",
       subServices: ["Post-surgery recovery", "Chronic illness care", "Bedridden patients", "Patient attendants"],
@@ -467,9 +585,9 @@ export const hospital = {
   valuePointsStatus: "sample" as VerificationStatus,
 
   careTeam: [
-    { name: "Team member name", role: "Nurse", photo: { src: "/images/stock/doctor-1.jpg", alt: "Stock portrait of a healthcare professional", status: "sample", source: "Usman Yousaf via Pexels, https://www.pexels.com/photo/a-man-in-white-coat-shirt-wearing-black-framed-eyeglasses-6762866/" } },
-    { name: "Team member name", role: "Physiotherapist", photo: { src: "/images/stock/doctor-2.jpg", alt: "Stock portrait of a healthcare professional", status: "sample", source: "Daniil Kondrashin via Pexels, https://www.pexels.com/photo/confident-female-doctor-with-stethoscope-indoors-32160036/" } },
-    { name: "Team member name", role: "Caregiver", photo: { src: "/images/stock/doctor-3.jpg", alt: "Stock portrait of a healthcare professional", status: "sample", source: "Oys Photography via Pexels, https://www.pexels.com/photo/doctor-19438560/" } },
+    { name: "Lakshmi Devi", role: "Nurse", photo: { src: "/images/generated/team-nurse.webp", alt: "Demo portrait of a registered nurse in navy scrubs", status: "sample", source: aiGen } },
+    { name: "Ravi Kumar", role: "Physiotherapist", photo: { src: "/images/generated/team-physiotherapist.webp", alt: "Demo portrait of a physiotherapist in a navy polo", status: "sample", source: aiGen } },
+    { name: "Sunitha Rao", role: "Caregiver", photo: { src: "/images/generated/team-caregiver.webp", alt: "Demo portrait of a caregiver in navy scrubs", status: "sample", source: aiGen } },
   ] as { name: string; role: string; photo: PhotoSlot }[],
   careTeamStatus: "sample" as VerificationStatus,
 
@@ -634,10 +752,8 @@ export const hospital = {
     ratingLinkLabel: "Google rating",
     reviewCountSuffix: "reviews",
     sourceLabel: "Google review",
-    emptyAuthorInitials: "··",
-    emptyAuthor: "Reviewer name",
-    slotCount: 3,
-    emptySlotTexts: ["First real Google review, quoted in full.", "Second real Google review, quoted in full.", "Third real Google review, quoted in full."],
+    sampleLabel: "Sample review",
+    stripLabel: "Family reviews, scrolling automatically. Hover or focus to pause.",
   },
 
   enquiry: {
