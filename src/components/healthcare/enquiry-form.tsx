@@ -35,6 +35,7 @@ type EnquiryFormProps = {
     messagePlaceholder: string;
     optionalLabel: string;
     consentLabel: string;
+    privacyLinkLabel: string;
     submitLabel: string;
     sendingLabel: string;
     hint: string;
@@ -123,12 +124,13 @@ export function EnquiryForm({ copy, serviceNames, areaNames, defaultService }: E
     const foundErrors = validateEnquiry({
       name: String(formData.get("name") ?? ""),
       phone: String(formData.get("phone") ?? ""),
+      consent: formData.get("consent") === "on",
     });
 
     setStatus("idle");
     setErrors(foundErrors);
 
-    const firstInvalidField = foundErrors.name ? "name" : foundErrors.phone ? "phone" : null;
+    const firstInvalidField = foundErrors.name ? "name" : foundErrors.phone ? "phone" : foundErrors.consent ? "consent" : null;
     if (firstInvalidField) {
       (form.elements.namedItem(firstInvalidField) as HTMLInputElement).focus();
       return;
@@ -139,11 +141,11 @@ export function EnquiryForm({ copy, serviceNames, areaNames, defaultService }: E
         const result = await submitEnquiry(formData);
         if (!result.ok) {
           setErrors(result.errors);
-          if (!result.errors.name && !result.errors.phone) {
+          if (!result.errors.name && !result.errors.phone && !result.errors.consent) {
             setStatus("failed");
             return;
           }
-          const serverInvalidField = result.errors.name ? "name" : "phone";
+          const serverInvalidField = result.errors.name ? "name" : result.errors.phone ? "phone" : "consent";
           (form.elements.namedItem(serverInvalidField) as HTMLInputElement).focus();
           return;
         }
@@ -200,10 +202,37 @@ export function EnquiryForm({ copy, serviceNames, areaNames, defaultService }: E
         <textarea id="enquiry-message" name="message" placeholder={copy.messagePlaceholder} className={cn(controlClasses, "h-[104px] resize-y py-3.5")} />
       </Field>
 
-      <label htmlFor="enquiry-consent" className="col-span-full flex cursor-pointer items-start gap-3 text-body-sm text-muted-foreground">
-        <input id="enquiry-consent" name="consent" type="checkbox" className="mt-px size-5 flex-none accent-primary" />
-        {copy.consentLabel}
-      </label>
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="enquiry-website">Leave this field empty</label>
+        <input id="enquiry-website" name="website" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      <div className="col-span-full grid gap-1.5">
+        <div className="flex min-h-tap items-start gap-3 py-3 text-body-sm text-muted-foreground">
+          <input
+            id="enquiry-consent"
+            name="consent"
+            type="checkbox"
+            aria-invalid={errors.consent ? true : undefined}
+            aria-describedby={errors.consent ? "enquiry-consent-error" : undefined}
+            className="mt-px size-5 flex-none cursor-pointer accent-primary"
+          />
+          <span>
+            <label htmlFor="enquiry-consent" className="cursor-pointer">
+              {copy.consentLabel}
+            </label>{" "}
+            <a href="/privacy" className="font-medium text-primary underline underline-offset-2">
+              {copy.privacyLinkLabel}
+            </a>
+          </span>
+        </div>
+        {errors.consent && (
+          <span id="enquiry-consent-error" className="flex items-center gap-1.5 text-caption text-error">
+            <Icon name="circle-alert" size={14} className="flex-none" />
+            {errors.consent}
+          </span>
+        )}
+      </div>
 
       <div className="col-span-full flex flex-wrap items-center gap-3.5">
         <Button type="submit" loading={isSending} iconBefore="calendar-check">

@@ -17,8 +17,8 @@ Every business-sensitive field lives in `src/data/hospital-content.ts` with a `s
 | Website domain | sample | flyer says hemalathahealthcare.com, Google says hemalathahealthcareservices.com. Confirm for canonical URLs and Open Graph |
 | Four branches | provisional | Full addresses for Pragathi Nagar, Madhapur and Manikonda; confirm Manikonda (only on 2 of 12 flyers) |
 | Branch 1 address, Plot No. 22, KPHB Colony 500072 | provisional | Flyer address used. Google says Aditya Nagar 500085; the map pin and directions link still come from Google. Confirm and replace |
-| Services and sub-services (6) | verified (client flyers) | — |
-| Baby and mother care link-out, sister service phone 95812 50425 | verified (client flyers) | Confirm the link and wording |
+| Services and sub-services (5: senior citizen caretaker, VIP baby care, ICU critical care nursing, physiotherapy, IV/fluids/injections/dressing) | verified (client list and flyers) | Post-operative care was merged into nursing and elder care; /services/post-operative-care redirects to home nursing. Confirm the merge |
+| VIP baby care page (/services/vip-baby-care) | sample (proposed copy; sub-services verified) | Sign off the copy. Confirm what "VIP" means, caretaker training, shift options, the Hemalatha Baby Care link and sister service phone 95812 50425 |
 | How it works (4 steps) | sample | Sign off the step wording |
 | Why families choose us | sample | Sign off; "trained nurses and caregivers" is the client's wording |
 | Care team demo cards | sample | Real names, roles, qualifications, photos, written consent |
@@ -38,5 +38,31 @@ Every business-sensitive field lives in `src/data/hospital-content.ts` with a `s
 | Care team portraits (demo profiles) | sample | AI-generated portraits of 3 recurring staff members (nurse, physiotherapist, caregiver). Must be replaced with real staff photos and written consent before launch. |
 | AI-generated home-care images (`public/images/generated/`) | sample | Illustrative stand-ins showing Telugu home-care scenes. Must be replaced or approved by the client before launch; real photography of their own staff and visits (with consent) is preferred. |
 | White logo for dark backgrounds | generated | `public/images/brand/logo-white.png` was derived from the PNG; replace with the designer's file if available |
+
+## Content revamp (Nov 2026)
+
+The page now carries general educational content that makes no claims about Hemalatha. It needs a read-through by someone qualified before launch, and a named reviewer once the client supplies one.
+
+| Item | Status | Needed from client |
+|---|---|---|
+| `/guides` articles (5), `src/data/guides.ts` | provisional | General guidance written without a clinician. Have a doctor or senior nurse review before launch and add a "reviewed by" line only if they agree |
+| "Is home care right for us?" block | provisional | Same medical review |
+| Per-service "what a visit looks like", "before we start", "when to call the doctor" | provisional | Same medical review; confirm the visit routines match how the team actually works |
+| Landing and service FAQs | verified / provisional / sample | The critical care single-visit answer is `sample`. Excluded from FAQPage schema |
+| JSON-LD (MedicalBusiness, FAQPage, Service, Article, BreadcrumbList) | provisional | No `url`, `geo` or `aggregateRating` is emitted until the domain, branch address and Google rating are confirmed |
+| Care team section | sample | Shown with three demo profiles and AI portraits. Replace with real staff, qualifications, photos and written consent before launch |
+
+### Questions for the client (not shown on the site until answered)
+
+These live in `clientQuestions` in `src/data/hospital-content.ts`.
+
+1. How quickly can a nurse or caregiver start after a call?
+2. How are nurses and caregivers verified and trained?
+3. Can a family ask for a different caregiver, and what happens if the regular caregiver is absent?
+4. Are 12-hour and 24-hour live-in shifts available for each service?
+5. Is there a minimum booking period?
+6. What are the prices, and how do customers pay?
+7. Which equipment does Hemalatha supply for a home ICU, and what does the family arrange?
+8. Is the company registered, and under what details?
 
 Never present `sample` content as fact, and never add accreditations, bed counts, success rates, insurer names or ratings that the client has not supplied.

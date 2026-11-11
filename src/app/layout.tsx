@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import Script from "next/script";
 
 import { MotionProvider } from "@/components/layout/motion-provider";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { hospital } from "@/data/hospital-content";
+import { pageMetadata, siteUrl } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -14,17 +16,18 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+const homeTitle = `${hospital.homeSeo.title} | ${hospital.name.value}`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL(hospital.siteUrl.value),
-  title: `${hospital.name.value} | Home healthcare in Hyderabad`,
-  description: "Home nursing, critical care, elder care and physiotherapy at home across Hyderabad. Call or WhatsApp 86390 74341, available 24/7.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "en_IN",
-    siteName: hospital.name.value,
-  },
+  metadataBase: new URL(siteUrl),
+  ...pageMetadata({ title: homeTitle, description: hospital.homeSeo.description, path: "/" }),
+  title: { default: homeTitle, template: `%s | ${hospital.name.value}` },
+  applicationName: hospital.name.value,
+  category: "health",
+  verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION },
 };
+
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_ID;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -35,6 +38,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </noscript>
         <SmoothScroll />
         <MotionProvider>{children}</MotionProvider>
+        {googleAnalyticsId && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} strategy="afterInteractive" />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${googleAnalyticsId}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

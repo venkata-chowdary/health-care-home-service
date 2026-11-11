@@ -15,7 +15,7 @@ export function ServiceReviews({ name, matchingReviews, surface }: ServiceReview
   const { reviewsSection, serviceBlocks } = hospital;
 
   return (
-    <Section id="service-reviews" aria-labelledby="service-reviews-heading" surface={surface} containerClassName="grid gap-12 max-md:gap-8">
+    <Section id="service-reviews" aria-labelledby="service-reviews-heading" surface={surface} containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <SectionHeading headingId="service-reviews-heading" align="center" eyebrow={reviewsSection.eyebrow} eyebrowVariant={surface ? "white" : "default"} title={`${serviceBlocks.reviewsTitlePrefix} ${name.toLowerCase()}`} />
       <RevealGroup className="mx-auto grid w-full max-w-[880px] grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4">
         {matchingReviews.map((review, index) => (

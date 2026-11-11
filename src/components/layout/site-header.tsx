@@ -38,7 +38,7 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
 
     document.body.style.overflow = "hidden";
     smoothScroll.lenis?.stop();
-    const desktopQuery = window.matchMedia("(min-width: 1081px)");
+    const desktopQuery = window.matchMedia("(min-width: 1181px)");
     const closeOnDesktop = () => {
       if (desktopQuery.matches) setMenuOpen(false);
     };
@@ -93,20 +93,20 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
         )}
       >
         <Container className="grid h-[76px] grid-cols-[auto_1fr_auto] items-center gap-6 max-[560px]:h-[68px] max-[560px]:gap-2">
-          <a href="#top" className="flex items-center">
-            <Image src="/images/brand/logo.png" alt={brandName} width={1080} height={238} preload className="h-9 w-auto" />
+          <a href="#top" className="touch-target flex items-center">
+            <Image src="/images/brand/logo.png" alt={brandName} width={1080} height={238} sizes="164px" preload className="h-9 w-auto" />
           </a>
 
-          <nav aria-label="Main" className="flex justify-center gap-1 max-[1080px]:hidden">
+          <nav aria-label="Main" className="flex justify-center gap-0.5 max-[1180px]:hidden">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="rounded-button px-3 py-2 text-[14.5px] text-muted-foreground transition-colors duration-160 hover:bg-surface hover:text-foreground">
+              <a key={item.href} href={item.href} className="touch-target whitespace-nowrap rounded-button px-2.5 py-2 text-[14.5px] text-muted-foreground transition-colors duration-160 hover:bg-surface hover:text-foreground">
                 {item.label}
               </a>
             ))}
           </nav>
 
           <div className="col-start-3 flex items-center gap-2">
-            <Button href={phone.href} variant="outline" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-10 max-[560px]:px-0">
+            <Button href={phone.href} variant="outline" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-11 max-[560px]:px-0">
               <span className="max-[560px]:hidden">{phone.display}</span>
             </Button>
             <Button href={bookHref} iconBefore="calendar-check" className="max-[560px]:hidden">
@@ -121,7 +121,7 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
               aria-expanded={menuOpen}
               aria-controls={menuOpen ? "mobile-drawer" : undefined}
               onClick={() => setMenuOpen(!menuOpen)}
-              className="min-[1081px]:hidden"
+              className="min-[1181px]:hidden"
             />
           </div>
         </Container>
@@ -140,7 +140,7 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
             onClick={(event) => {
               if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
             }}
-            className="fixed inset-x-0 bottom-0 top-[calc(76px+env(safe-area-inset-top,0px))] z-[29] grid content-start gap-1 overflow-y-auto bg-background pt-3 pb-8 pr-[max(1.25rem,env(safe-area-inset-right,0px))] pl-[max(1.25rem,env(safe-area-inset-left,0px))] max-[560px]:top-[calc(68px+env(safe-area-inset-top,0px))] min-[1081px]:hidden"
+            className="fixed inset-x-0 bottom-0 top-[calc(76px+env(safe-area-inset-top,0px))] z-[29] grid content-start gap-1 overflow-y-auto bg-background pt-3 pb-8 pr-[max(1.25rem,env(safe-area-inset-right,0px))] pl-[max(1.25rem,env(safe-area-inset-left,0px))] max-[560px]:top-[calc(68px+env(safe-area-inset-top,0px))] min-[1181px]:hidden"
           >
             {navItems.map((item) => (
               <a key={item.href} href={item.href} className="flex items-center justify-between border-b border-border px-1 py-[18px] text-[20px] font-medium tracking-[-0.02em] text-foreground">

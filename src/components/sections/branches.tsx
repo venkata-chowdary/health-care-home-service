@@ -15,13 +15,13 @@ export function Branches() {
   const officeIcon = branchesSection.officePhoto.icon;
 
   return (
-    <Section id="branches" aria-labelledby="branches-heading" containerClassName="grid gap-12 max-md:gap-8">
+    <Section id="branches" aria-labelledby="branches-heading" surface containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading headingId="branches-heading" eyebrow={branchesSection.eyebrow} title={branchesSection.title} />
+        <SectionHeading headingId="branches-heading" eyebrow={branchesSection.eyebrow} eyebrowVariant="white" title={branchesSection.title} />
         <p className="text-body-sm text-muted-foreground">{branchesSection.aside}</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)]">
         <PhotoFrame
           alt={branchesSection.officePhoto.alt}
           src={branchesSection.officePhoto.src}
@@ -32,7 +32,7 @@ export function Branches() {
           sizes="(min-width: 1280px) 340px, (min-width: 768px) 28vw, 100vw"
           className="aspect-[4/3] md:aspect-auto md:h-[400px] xl:h-[490px]"
         />
-        <div className="relative">
+        <div className="relative max-lg:contents">
           {coordinates && (
             <iframe
               title={branchesSection.mapTitle}
@@ -42,7 +42,7 @@ export function Branches() {
               className="block aspect-[4/3] w-full rounded-xl border-0 md:aspect-auto md:h-[400px] xl:h-[490px]"
             />
           )}
-          <div className="absolute top-6 left-6 grid w-[min(340px,calc(100%-48px))] gap-3.5 rounded-card bg-background p-6 shadow-float max-lg:relative max-lg:top-auto max-lg:left-auto max-lg:mx-3 max-lg:-mt-16 max-lg:w-auto">
+          <div className="absolute top-6 left-6 grid w-[min(340px,calc(100%-48px))] gap-3.5 rounded-card bg-background p-6 shadow-float max-lg:relative max-lg:top-auto max-lg:left-auto max-lg:col-span-full max-lg:mx-3 max-lg:-mt-20 max-lg:w-auto">
             <span className="flex flex-wrap items-center gap-2 text-caption text-muted-foreground">
               {mainBranch.label} · {branchesSection.mainOfficeTag}
             </span>

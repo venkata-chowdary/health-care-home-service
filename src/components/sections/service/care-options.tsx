@@ -16,7 +16,7 @@ export function CareOptions({ options, surface }: CareOptionsProps) {
   const optionKeys = Object.keys(serviceBlocks.careOptionNames) as CareOptionKey[];
 
   return (
-    <Section id="care-options" aria-labelledby="care-options-heading" surface={surface} containerClassName="grid gap-12 max-md:gap-8">
+    <Section id="care-options" aria-labelledby="care-options-heading" surface={surface} containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <SectionHeading headingId="care-options-heading" align="center" eyebrow={serviceBlocks.careOptionsEyebrow} eyebrowVariant={surface ? "white" : "default"} title={serviceBlocks.careOptionsTitle} lead={serviceBlocks.careOptionsLead} />
       <RevealGroup className="grid grid-cols-3 gap-4 max-[800px]:grid-cols-1">
         {optionKeys.map((key, index) => {

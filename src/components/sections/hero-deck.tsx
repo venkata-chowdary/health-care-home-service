@@ -1,7 +1,7 @@
 "use client";
 
 import { m, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { FloatingBadge } from "@/components/ui/floating-badge";
 import { isIconName } from "@/components/ui/icon";
@@ -19,6 +19,8 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
   const [position, setPosition] = useState({ current: Math.floor(photos.length / 2), previous: Math.floor(photos.length / 2) });
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
   const count = photos.length;
 
   const offsetFor = (index: number, front: number) => {
@@ -47,12 +49,34 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
       aria-label={label}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onPointerDown={(event) => {
+        if (event.pointerType === "mouse") return;
+        swipeStart.current = { x: event.clientX, y: event.clientY };
+        swiped.current = false;
+      }}
+      onPointerUp={(event) => {
+        const start = swipeStart.current;
+        swipeStart.current = null;
+        if (!start) return;
+        const moveX = event.clientX - start.x;
+        const moveY = event.clientY - start.y;
+        if (Math.abs(moveX) > 40 && Math.abs(moveX) > Math.abs(moveY) * 1.5) {
+          swiped.current = true;
+          showPhoto(current + (moveX < 0 ? 1 : -1));
+        }
+      }}
+      onClickCapture={(event) => {
+        if (!swiped.current) return;
+        swiped.current = false;
+        event.stopPropagation();
+      }}
+      className="touch-pan-y"
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") showPhoto(current - 1);
         if (event.key === "ArrowRight") showPhoto(current + 1);
       }}
     >
-      <div className="relative h-[clamp(280px,40vw,540px)] [--deck-step:17%] max-md:h-[clamp(190px,52vw,340px)] max-md:[--deck-step:11%]">
+      <div className="relative h-[clamp(280px,40vw,540px)] [--deck-step:17%] min-[481px]:max-md:h-[clamp(190px,52vw,340px)] min-[481px]:max-md:[--deck-step:11%] max-[480px]:h-[clamp(200px,57vw,260px)] max-[480px]:[--deck-step:10%]">
         {photos.map((photo, index) => {
           const offset = offsetFor(index, current);
           const isCurrent = index === current;
@@ -80,7 +104,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
               tabIndex={-1}
               onClick={() => showPhoto(index)}
               className={cn(
-                "absolute top-1/2 left-1/2 aspect-[16/10] w-[min(780px,68%)] overflow-hidden rounded-[20px] border-0 p-0 shadow-deck will-change-transform max-md:w-[78%] max-md:rounded-lg",
+                "absolute top-1/2 left-1/2 aspect-[16/10] w-[min(780px,68%)] overflow-hidden rounded-[20px] border-0 p-0 shadow-deck will-change-transform max-md:rounded-lg min-[481px]:max-md:w-[78%] max-[480px]:w-[90%]",
                 isCurrent ? "cursor-default" : "cursor-pointer",
               )}
             >
@@ -92,7 +116,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
                 icon={isIconName(photo.icon) ? photo.icon : "camera"}
                 label={photo.label}
                 labelClassName={cn("transition-opacity duration-300", !isCurrent && "opacity-0")}
-                sizes={isCurrent ? "(min-width: 1280px) 780px, (min-width: 768px) 68vw, 78vw" : "(min-width: 1280px) 600px, (min-width: 768px) 55vw, 65vw"}
+                sizes={isCurrent ? "(min-width: 1280px) 780px, (min-width: 768px) 68vw, 90vw" : "(min-width: 1280px) 600px, (min-width: 768px) 55vw, 65vw"}
                 className="size-full"
               />
             </m.button>

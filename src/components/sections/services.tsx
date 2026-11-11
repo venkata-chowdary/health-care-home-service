@@ -8,7 +8,7 @@ export function Services() {
   const { services, servicesSection } = hospital;
 
   return (
-    <Section id="services" aria-labelledby="services-heading" containerClassName="grid gap-12 max-md:gap-8">
+    <Section id="services" aria-labelledby="services-heading" containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <SectionHeading headingId="services-heading" align="center" eyebrow={servicesSection.eyebrow} title={servicesSection.title} lead={servicesSection.lead} />
       <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
         {services.map((service, index) => (

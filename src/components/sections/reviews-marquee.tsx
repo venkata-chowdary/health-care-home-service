@@ -28,7 +28,7 @@ export function ReviewsMarquee() {
       role="region"
       aria-label={reviewsSection.stripLabel}
       tabIndex={0}
-      className="review-marquee overflow-x-auto motion-safe:overflow-x-clip"
+      className="review-marquee min-w-0 max-w-full overflow-x-auto motion-safe:overflow-x-clip"
     >
       <div className="review-marquee-track flex w-max">
         <ul className="flex gap-4 pr-4">{cards}</ul>

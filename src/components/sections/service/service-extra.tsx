@@ -11,7 +11,7 @@ type ServiceExtraProps = {
 
 export function ServiceExtra({ extra, surface }: ServiceExtraProps) {
   return (
-    <Section id="extra" aria-labelledby="extra-heading" surface={surface} containerClassName="grid gap-12 max-md:gap-8">
+    <Section id="extra" aria-labelledby="extra-heading" surface={surface} containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <SectionHeading headingId="extra-heading" align="center" eyebrow={extra.eyebrow} eyebrowVariant={surface ? "white" : "default"} title={extra.title} lead={extra.lead} />
       <RevealGroup className="grid grid-cols-4 gap-3 max-[1000px]:grid-cols-3 max-[700px]:grid-cols-2 max-[420px]:grid-cols-1">
         {extra.items.map((item, index) => (

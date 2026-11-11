@@ -62,7 +62,7 @@ export function RevealItem({ children, index, className = "", lift = false }: Re
   };
 
   return (
-    <m.div data-reveal="" className={`grid ${className}`} variants={variants} whileHover={lift ? { y: -distance.lift, transition: { duration: duration.base, ease } } : undefined}>
+    <m.div data-reveal="" className={`grid grid-cols-[minmax(0,1fr)] ${className}`} variants={variants} whileHover={lift ? { y: -distance.lift, transition: { duration: duration.base, ease } } : undefined}>
       {children}
     </m.div>
   );

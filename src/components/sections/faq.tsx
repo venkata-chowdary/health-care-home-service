@@ -17,7 +17,7 @@ export function Faq({ items, title, eyebrow, surface = true, showCallPrompt = tr
   const faqItems = items ?? faqs;
 
   return (
-    <Section id="faq" aria-labelledby="faq-heading" surface={surface} containerClassName="grid gap-12 max-md:gap-8">
+    <Section id="faq" aria-labelledby="faq-heading" surface={surface} containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <SectionHeading headingId="faq-heading" align="center" eyebrow={eyebrow ?? faqSection.eyebrow} eyebrowVariant={surface ? "white" : "default"} title={title ?? faqSection.title} lead={faqSection.lead} />
       <div className="mx-auto grid w-full max-w-[880px] gap-7">
         <div className="rounded-panel border border-border bg-background px-7 py-2 max-[640px]:rounded-card max-[640px]:px-[18px] max-[640px]:py-1">

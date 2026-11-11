@@ -110,7 +110,7 @@ export default function DesignSystemPage() {
       <Section className="pb-section-mobile md:pb-section-tablet lg:pb-section-mobile" containerClassName="grid gap-14">
         <SectionHeading as="h1" eyebrow="Hemalatha Health Care" title="Design system." lead="Every token and shared primitive, in every variant and state. Internal reference, not indexed." className="max-w-[720px]" />
 
-        <div className="grid gap-12">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-12">
           <h2 className="text-h3 font-medium tracking-heading">Colour</h2>
           {colourGroups.map((group) => (
             <div key={group.title} className="grid gap-4">
@@ -132,7 +132,7 @@ export default function DesignSystemPage() {
         </div>
       </Section>
 
-      <Section surface containerClassName="grid gap-12">
+      <Section surface containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12">
         <h2 className="text-h3 font-medium tracking-heading">Type scale</h2>
         <div className="grid">
           {typeScale.map((row) => (
@@ -156,7 +156,7 @@ export default function DesignSystemPage() {
         </div>
       </Section>
 
-      <Section containerClassName="grid gap-12">
+      <Section containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12">
         <div className="grid gap-6">
           <h2 className="text-h3 font-medium tracking-heading">Radii</h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
@@ -194,7 +194,7 @@ export default function DesignSystemPage() {
         <div className="grid gap-4">
           <h3 className="text-h4 font-semibold tracking-title">Variants × states</h3>
           <p className="text-body-sm text-muted-foreground">Hover, active and focus are pinned with a data-state attribute so they can be seen without a pointer. Real hover, press and keyboard focus behave the same way.</p>
-          <div className="overflow-x-auto rounded-xl border border-border bg-background">
+          <div role="region" aria-label="Button variants and states" tabIndex={0} className="max-w-full overflow-x-auto rounded-xl border border-border bg-background">
             <div className="grid min-w-[980px] grid-cols-[130px_repeat(6,minmax(0,1fr))] items-center gap-x-4 gap-y-5 p-6">
               <span />
               {buttonStates.map((state) => (
@@ -346,7 +346,7 @@ export default function DesignSystemPage() {
             <SectionHeading eyebrow="Left aligned" title="Care that feels like family." lead="Eyebrow, title and lead, left aligned." />
           </div>
           <div className="rounded-xl border border-border p-8">
-            <SectionHeading align="center" eyebrow="Centred" title="Care for every stage, at home." lead="Six kinds of care, delivered at home." />
+            <SectionHeading align="center" eyebrow="Centred" title="Care for every stage, at home." lead="Five services, delivered at home." />
           </div>
           <div className="rounded-xl bg-navy-950 p-8 lg:col-span-2">
             <SectionHeading tone="on-dark" eyebrow="On dark" title="Ready to talk to someone who can help?" lead="Call the front desk, send an enquiry, or get directions." />
