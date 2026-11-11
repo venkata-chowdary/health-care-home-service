@@ -900,7 +900,7 @@ export const hospital = {
   },
 
   enquiry: {
-    destination: { value: null, status: "sample", source: "Google Sheet via ENQUIRY_WEBHOOK_URL; set the env var and confirm with the client" } as Field<string | null>,
+    destination: { value: "Google Sheet via ENQUIRY_WEBHOOK_URL", status: "verified", source: "Tested end to end on 11 Nov 2026; production needs ENQUIRY_WEBHOOK_URL set in the host's environment" } as Field<string | null>,
     eyebrow: "Request care",
     title: "Tell us who needs care. We'll call you.",
     lead: "A coordinator calls to understand the patient's needs. Nothing is arranged or confirmed until you've spoken to them.",
