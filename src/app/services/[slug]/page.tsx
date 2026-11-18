@@ -5,8 +5,7 @@ import { JsonLd } from "@/components/layout/json-ld";
 import { MobileCallBar } from "@/components/layout/mobile-call-bar";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { Enquiry } from "@/components/sections/enquiry";
-import { Faq } from "@/components/sections/faq";
+import { ServiceCta } from "@/components/sections/service/service-cta";
 import { ServiceHero } from "@/components/sections/service/service-hero";
 import { ServiceIncluded } from "@/components/sections/service/service-included";
 import { ServicePrepare } from "@/components/sections/service/service-prepare";
@@ -33,7 +32,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   if (!service || !service.page || !service.heroPhoto) notFound();
 
   const { page, heroPhoto } = service;
-  const { navigation, serviceBlocks } = hospital;
+  const { navigation } = hospital;
 
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -46,13 +45,15 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     provider: { "@id": organizationId },
   };
 
-  const confirmedFaqs = page.faqs.filter((faq) => faq.status !== "sample");
+  const hasPrepare = Boolean(page.prepare || page.callDoctor);
 
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: confirmedFaqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
-  };
+  // const confirmedFaqs = page.faqs.filter((faq) => faq.status !== "sample");
+  //
+  // const faqJsonLd = {
+  //   "@context": "https://schema.org",
+  //   "@type": "FAQPage",
+  //   mainEntity: confirmedFaqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
+  // };
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -67,14 +68,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     <>
       <JsonLd data={serviceJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
-      {confirmedFaqs.length > 0 && <JsonLd data={faqJsonLd} />}
+      {/* {confirmedFaqs.length > 0 && <JsonLd data={faqJsonLd} />} */}
       <SiteHeader
         brandName={hospital.name.value}
         navItems={navigation.items.map((item) => ({ label: item.label, href: `/${item.href}` }))}
         phone={{ display: hospital.phone.display.value, href: hospital.phone.href.value }}
         bookLabel={navigation.bookLabel}
         drawerBookLabel={navigation.drawerBookLabel}
-        bookHref={navigation.bookHref}
+        bookHref={`/contact?service=${slug}`}
       />
 
       <main id="top">
@@ -83,8 +84,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <ServiceWhoFor items={page.whoFor} photo={page.whoForPhoto} surface={false} />
         <ServiceVisit steps={page.visit} surface />
         <ServicePrepare prepare={page.prepare} callDoctor={page.callDoctor} surface={false} />
-        <Faq items={page.faqs} eyebrow={serviceBlocks.faqEyebrow} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} surface showCallPrompt={false} />
-        <Enquiry title={`${serviceBlocks.requestTitlePrefix} ${service.name.toLowerCase()}`} defaultService={service.name} surface={false} />
+        {/* <Faq items={page.faqs} eyebrow={serviceBlocks.faqEyebrow} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} surface showCallPrompt={false} /> */}
+        <ServiceCta serviceSlug={slug} surface={hasPrepare} />
       </main>
 
       <SiteFooter homePath="/" />

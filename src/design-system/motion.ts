@@ -18,7 +18,6 @@ export const stagger = {
 export const distance = {
   reveal: 20,
   lift: 3,
-  parallaxMax: 24,
 };
 
 export const delay = {

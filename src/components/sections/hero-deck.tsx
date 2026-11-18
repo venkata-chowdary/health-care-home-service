@@ -76,7 +76,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
         if (event.key === "ArrowRight") showPhoto(current + 1);
       }}
     >
-      <div className="relative h-[clamp(280px,40vw,540px)] [--deck-step:17%] min-[481px]:max-md:h-[clamp(190px,52vw,340px)] min-[481px]:max-md:[--deck-step:11%] max-[480px]:h-[clamp(200px,57vw,260px)] max-[480px]:[--deck-step:10%]">
+      <div className="relative h-(--hero-deck-height) [--deck-step:17%] min-[481px]:max-md:[--deck-step:11%] max-[480px]:[--deck-step:10%]">
         {photos.map((photo, index) => {
           const offset = offsetFor(index, current);
           const isCurrent = index === current;

@@ -16,7 +16,8 @@ Earlier rounds (`design-system-proposal.html`, `section-options.html`) are histo
 ## Design rules
 
 - Use only tokens from `src/app/globals.css` (`bg-primary`, `text-h2`, `rounded-card`, `shadow-float`…). No raw hex values, no arbitrary pixel values when a token exists. Add a token there first if one is missing.
-- Light theme only. DM Sans only. Lucide icons only, stroke 1.75.
+- Light theme only. DM Sans everywhere, except the hero brand lockup ("HEMALATHA / HEALTH CARE PVT. LTD."), which uses Merriweather 700 (`font-brand`) to match the client logo. Lucide icons only, stroke 1.75.
+- Spacing comes only from the 4px scale or the spacing tokens in `globals.css`. Don't tune gaps by eye; if a layout needs a new value, add a token and document it in `docs/DESIGN_SYSTEM.md`.
 - Buttons are pills. Cards are bordered, no shadow at rest. Panels use `rounded-panel`.
 - Motion values come from `src/design-system/motion.ts`. Animate only opacity and transform, reveal once, respect reduced motion, and keep content visible without JavaScript.
 - Smooth scrolling uses Lenis (`lenis` package), not CSS `scroll-behavior: smooth`. Lenis is disabled under reduced motion; anchor links scroll through Lenis with the sticky header offset.

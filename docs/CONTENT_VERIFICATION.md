@@ -24,7 +24,8 @@ Every business-sensitive field lives in `src/data/hospital-content.ts` with a `s
 | Care team demo cards | sample | Real names, roles, qualifications, photos, written consent |
 | Care roles strip | verified (derived from flyer services) | — |
 | Critical care at home list | verified (client flyers) | Confirm which equipment is arranged |
-| Hero copy and facts | sample / verified | Sign off copy |
+| Hero name, legal line and tagline | verified (client logo) | The tagline is set in sentence case ("Complete healthcare at your doorstep."); the logo uses title case. Confirm the client is happy with that |
+| Hero facts | verified / provisional | Confirm the four branches |
 | FAQ answers | sample / provisional / verified | Supply answers; only the physiotherapy answer is verified |
 | Reviews | provisional | Only 1 real Google review is quoted; add more in full (the profile has 96) |
 | Enquiry destination | sample | Email, WhatsApp Business or CRM; the form sends nothing yet |

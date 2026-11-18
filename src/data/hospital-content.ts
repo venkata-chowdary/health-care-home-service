@@ -10,7 +10,6 @@ const clientFlyers = "Client flyers";
 const clientContact = "Client contact, confirmed 8 Nov 2026";
 const googleProfile = "Google Business Profile, captured 8 Nov 2026";
 const clientLogo = "Client-supplied logo";
-const proposedCopy = "Proposed copy";
 
 export type PhotoSlot = {
   src?: string;
@@ -153,8 +152,8 @@ export type ServicePage = {
   seo: { title: string; description: string };
   facts: { label: string; detail: string }[];
   visit: string[];
-  prepare: string[];
-  callDoctor: string[];
+  prepare?: string[];
+  callDoctor?: string[];
   included: { icon: string; name: string; detail: string }[];
   whoFor: string[];
   whoForPhoto: PhotoSlot;
@@ -325,19 +324,19 @@ const servicePages: Record<string, ServicePage> = {
       "Meals, drinks, walking and gentle activity are fitted around the patient's routine.",
       "The caregiver keeps company, notes any change in mood or health, and tells the family.",
     ],
-    prepare: [
-      "A short written routine: wake time, meals, medicines, naps, favourite activities",
-      "The medicines list, the doctor's number and any allergies or dietary limits",
-      "Who the caregiver should call, and in what order, if something goes wrong",
-      "A safe path to the bathroom: clear floor, a light at night, grab rails if possible",
-      "A conversation with your parent beforehand so the caregiver is not a surprise",
-    ],
-    callDoctor: [
-      "Sudden confusion, drowsiness or a change in behaviour that is not usual for them",
-      "A fall, especially with a blow to the head, or new pain when moving",
-      "Refusing food or water for a day, or signs of dehydration",
-      "Chest pain, sudden weakness or trouble speaking. Call your local emergency number",
-    ],
+    // prepare: [
+    //   "A short written routine: wake time, meals, medicines, naps, favourite activities",
+    //   "The medicines list, the doctor's number and any allergies or dietary limits",
+    //   "Who the caregiver should call, and in what order, if something goes wrong",
+    //   "A safe path to the bathroom: clear floor, a light at night, grab rails if possible",
+    //   "A conversation with your parent beforehand so the caregiver is not a surprise",
+    // ],
+    // callDoctor: [
+    //   "Sudden confusion, drowsiness or a change in behaviour that is not usual for them",
+    //   "A fall, especially with a blow to the head, or new pain when moving",
+    //   "Refusing food or water for a day, or signs of dehydration",
+    //   "Chest pain, sudden weakness or trouble speaking. Call your local emergency number",
+    // ],
     included: [
       { icon: "hand-heart", name: "Daily assistance and personal hygiene", detail: "Help with washing, dressing and the daily routine." },
       { icon: "users", name: "Companionship", detail: "Someone to talk with and keep company." },
@@ -388,19 +387,19 @@ const servicePages: Record<string, ServicePage> = {
       "The mother is helped to rest, and her own needs after delivery are looked after.",
       "Feeds, sleep and anything unusual are noted for the family and the doctor.",
     ],
-    prepare: [
-      "The discharge summary for the mother and baby, and the paediatrician's number",
-      "The baby's feeding routine and any advice on feeding or vaccinations",
-      "A clean, warm space for bathing and changing, and somewhere to wash hands",
-      "A short note of what the family wants the caretaker to do, and what not to do",
-      "Who the caretaker should call first if the baby seems unwell",
-    ],
-    callDoctor: [
-      "Fever, or a baby who is unusually sleepy, floppy or hard to wake",
-      "Fast or difficult breathing, or a blue colour around the lips",
-      "Refusing feeds, repeated vomiting, or very few wet nappies",
-      "Yellow skin or eyes that is getting worse. Call your local emergency number in an emergency",
-    ],
+    // prepare: [
+    //   "The discharge summary for the mother and baby, and the paediatrician's number",
+    //   "The baby's feeding routine and any advice on feeding or vaccinations",
+    //   "A clean, warm space for bathing and changing, and somewhere to wash hands",
+    //   "A short note of what the family wants the caretaker to do, and what not to do",
+    //   "Who the caretaker should call first if the baby seems unwell",
+    // ],
+    // callDoctor: [
+    //   "Fever, or a baby who is unusually sleepy, floppy or hard to wake",
+    //   "Fast or difficult breathing, or a blue colour around the lips",
+    //   "Refusing feeds, repeated vomiting, or very few wet nappies",
+    //   "Yellow skin or eyes that is getting worse. Call your local emergency number in an emergency",
+    // ],
     included: [
       { icon: "baby", name: "Newborn care (0–6 months)", detail: "Daily care for babies from birth to six months." },
       { icon: "utensils", name: "Feeding support", detail: "Help with feeding the baby." },
@@ -579,9 +578,9 @@ export const hospital = {
   },
 
   hero: {
-    eyebrow: { value: "Home healthcare in Hyderabad", status: "sample", source: proposedCopy } as Field<string>,
-    headline: { value: "Nursing, elder care and physiotherapy at your home.", status: "sample", source: proposedCopy } as Field<string>,
-    lead: { value: "Nurses, caregivers and physiotherapists who come to you, day or night, and a coordinator you can call.", status: "sample", source: proposedCopy } as Field<string>,
+    brandName: { value: "Hemalatha", status: "verified", source: clientLogo } as Field<string>,
+    brandSuffix: { value: "Health Care Pvt. Ltd.", status: "verified", source: clientLogo } as Field<string>,
+    tagline: { value: "Complete healthcare at your doorstep.", status: "verified", source: `${clientLogo}; set in sentence case` } as Field<string>,
     primaryCtaLabel: "Request care",
     callLabel: "Call",
     photosLabel: "Home care photos",
@@ -712,12 +711,12 @@ export const hospital = {
 
   faqs: [
     { question: "Which services do you offer at home?", answer: "Senior citizen caretaker services, VIP baby care, ICU critical care nursing, physiotherapy at home, and IV fluids, injections and dressing at home. Baby care is offered through our sister service, Hemalatha Baby Care.", status: "verified" },
-    { question: "What is the difference between a nurse, a caregiver and a physiotherapist?", answer: "A nurse does clinical tasks such as injections, dressings and tube care. A caregiver or attendant helps with washing, meals, moving about and company. A physiotherapist treats pain and rebuilds movement with exercises. Many patients need more than one.", status: "provisional" },
-    { question: "Should I choose a 12-hour or a 24-hour shift?", answer: "A 12-hour shift suits a patient who needs help through the day while family is around at night. Round-the-clock cover is usually chosen when the patient needs someone at night too, for example if they are bedridden, on oxygen or a ventilator, or may wander because of dementia. A coordinator can help you decide.", status: "provisional" },
-    { question: "Can critical care be set up at home?", answer: "Home ICU setup assistance is part of our critical care at home, with ICU-trained nurses. Whether it suits your patient depends on their condition, so ask the treating doctor as well as a coordinator.", status: "provisional" },
-    { question: "Which areas of Hyderabad do you cover?", answer: "We come to your home. Our four branches are in Kukatpally, Pragathi Nagar, Madhapur and Manikonda. Call to check that we cover your area.", status: "provisional" },
-    { question: "What does home care cost?", answer: "It depends on the service, the length of each visit or shift and the patient's needs, so there is no single price. Call 86390 74341 or send a request for a quote.", status: "provisional" },
-    { question: "Can home care replace an ambulance or hospital in an emergency?", answer: "No. Home care does not replace emergency services. In an emergency call your local emergency number or go to the nearest hospital.", status: "provisional" },
+    // { question: "What is the difference between a nurse, a caregiver and a physiotherapist?", answer: "A nurse does clinical tasks such as injections, dressings and tube care. A caregiver or attendant helps with washing, meals, moving about and company. A physiotherapist treats pain and rebuilds movement with exercises. Many patients need more than one.", status: "provisional" },
+    // { question: "Should I choose a 12-hour or a 24-hour shift?", answer: "A 12-hour shift suits a patient who needs help through the day while family is around at night. Round-the-clock cover is usually chosen when the patient needs someone at night too, for example if they are bedridden, on oxygen or a ventilator, or may wander because of dementia. A coordinator can help you decide.", status: "provisional" },
+    // { question: "Can critical care be set up at home?", answer: "Home ICU setup assistance is part of our critical care at home, with ICU-trained nurses. Whether it suits your patient depends on their condition, so ask the treating doctor as well as a coordinator.", status: "provisional" },
+    { question: "Which areas of Hyderabad do you cover?", answer: "We come to your home. Our branches are in Kukatpally, Pragathi Nagar, Madhapur and Manikonda. Call us to check your area.", status: "provisional" },
+    { question: "What does home care cost?", answer: "It depends on the service and how long we stay, so there is no single price. Call 86390 74341 or send a request for a quote.", status: "provisional" },
+    { question: "Can home care replace a hospital in an emergency?", answer: "No. In an emergency, call your local emergency number or go to the nearest hospital.", status: "provisional" },
   ] as { question: string; answer: string; status: VerificationStatus }[],
 
   clientQuestions: [
@@ -791,6 +790,9 @@ export const hospital = {
     relatedEyebrow: "Related services",
     relatedTitle: "Other care at home.",
     requestTitlePrefix: "Request",
+    ctaTitle: "Ready to arrange this care at home?",
+    ctaLead: "Send a care request on our contact page, or call us. A coordinator will help you take the next step.",
+    ctaButtonLabel: "Contact us",
     faqEyebrow: "FAQ",
     faqTitlePrefix: "Questions about",
   },
@@ -858,7 +860,7 @@ export const hospital = {
       { label: "Services", href: "#services" },
       { label: "How it works", href: "#how-it-works" },
       { label: "Reviews", href: "#reviews" },
-      { label: "Care team", href: "#care-team" },
+      // { label: "Care team", href: "#care-team" },
       { label: "Branches", href: "#branches" },
       { label: "FAQ", href: "#faq" },
     ],
@@ -879,7 +881,7 @@ export const hospital = {
     company: [
       { label: "About", href: "#about" },
       { label: "How it works", href: "#how-it-works" },
-      { label: "Care team", href: "#care-team" },
+      // { label: "Care team", href: "#care-team" },
       { label: "Guides", href: "/guides" },
       { label: "FAQ", href: "#faq" },
       { label: "Request care", href: "#enquiry" },
@@ -980,6 +982,12 @@ export const hospital = {
     lead: "Answers to what families ask before arranging care at home.",
     footPrompt: "Still have a question?",
     footCallPrefix: "Call",
+  },
+
+  contactPage: {
+    seoTitle: "Contact us",
+    seoDescription: "Request home care in Hyderabad, or call us. A coordinator will get back to you.",
+    title: "Tell us what care you need.",
   },
 
   ctaSection: {

@@ -77,8 +77,12 @@
   --text-button: 0.9375rem;
   --text-button--line-height: 1;
 
+  --text-brand-legal: calc(var(--text-h1) * 0.51);
+  --text-brand-legal--line-height: 1;
+
   --tracking-heading: -0.04em;
   --tracking-title: -0.01em;
+  --tracking-brand-legal: 0.04em;
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -102,6 +106,7 @@
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
 
+  --spacing-brand-emblem: calc(var(--text-h1) * 2.5);
   --spacing-section: 7rem;
   --spacing-section-tablet: 5.5rem;
   --spacing-section-mobile: 4rem;
@@ -124,12 +129,30 @@
   }
 }
 
+@utility hero-split {
+  --hero-deck-gap: 3.5rem;
+  --hero-deck-height: clamp(280px, 40vw, 540px);
+  margin-top: -1px;
+  padding-top: calc(var(--hero-deck-gap) + 1px);
+  background-image: linear-gradient(180deg, var(--color-navy-950) calc(var(--hero-deck-gap) + 1px + var(--hero-deck-height) / 2), var(--color-background) 0);
+
+  @media (width < 48rem) {
+    --hero-deck-gap: 2.25rem;
+    --hero-deck-height: clamp(190px, 52vw, 340px);
+  }
+
+  @media (width < 481px) {
+    --hero-deck-height: clamp(200px, 57vw, 260px);
+  }
+}
+
 @custom-variant hovered (&:hover, &[data-state="hover"]);
 @custom-variant pressed (&:active, &[data-state="active"]);
 @custom-variant focused (&:focus-visible, &[data-state="focus"]);
 
 @theme inline {
   --font-sans: var(--font-dm-sans), "Segoe UI", system-ui, sans-serif;
+  --font-brand: var(--font-merriweather), Georgia, serif;
 }
 
 @layer base {

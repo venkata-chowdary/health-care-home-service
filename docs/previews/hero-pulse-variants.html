@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulse Line Variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy-950: #0B1B45; --navy-900: #13265A; --navy-line: #24376B;
+  --blue-50: #EFF3FF; --blue-200: #C2D4FF; --blue-300: #8FB1FF; --blue-600: #1F6BFF; --blue-800: #1757D6;
+  --slate-50: #F7F9FC; --slate-200: #E3E7EF; --slate-600: #5B6478; --slate-on-dark: #C9D3EE;
+  --hero-navy: radial-gradient(60% 70% at 15% 10%, rgb(58 91 168 / .55) 0%, transparent 60%), radial-gradient(50% 60% at 90% 30%, rgb(31 107 255 / .35) 0%, transparent 65%), linear-gradient(180deg, #13265A 0%, #0B1B45 100%);
+  --shadow-deck: 0 30px 60px -24px rgb(11 27 69 / .35);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: #E9ECF3; color: var(--navy-950); font-family: "DM Sans", system-ui, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+
+.toolbar { position: sticky; top: 0; z-index: 50; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 24px; background: #fff; border-bottom: 1px solid var(--slate-200); }
+.toolbar h1 { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+.toolbar p { font-size: 13px; color: var(--slate-600); }
+.seg { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--slate-50); border: 1px solid var(--slate-200); }
+.seg button { font: inherit; font-size: 13px; font-weight: 500; border: 0; background: none; color: var(--slate-600); padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--navy-950); color: #fff; }
+
+.option { padding: 48px 24px 24px; }
+.option-head { max-width: 1240px; margin: 0 auto 18px; display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; }
+.option-head .num { font-size: 13px; font-weight: 600; color: var(--blue-800); background: var(--blue-50); padding: 4px 10px; border-radius: 999px; }
+.option-head h2 { font-size: 24px; font-weight: 500; letter-spacing: -.03em; }
+.option-head p { flex-basis: 100%; max-width: 78ch; font-size: 14.5px; color: var(--slate-600); }
+.frame { container-type: inline-size; max-width: 1240px; margin: 0 auto; border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 1px 0 var(--slate-200), 0 20px 50px -30px rgb(11 27 69 / .35); transition: max-width .4s var(--ease); }
+body.phone .frame { max-width: 375px; }
+
+.nav { display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 32px; background: #fff; border-bottom: 1px solid var(--slate-200); }
+.nav img { height: 30px; width: auto; }
+.nav .links { display: flex; gap: 26px; font-size: 14px; color: var(--slate-600); }
+.nav .cta { display: flex; gap: 8px; }
+@container (max-width: 760px) { .nav { height: 60px; padding: 0 20px; } .nav .links, .nav .cta .btn-ghost { display: none; } .nav img { height: 24px; } }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 22px; border-radius: 999px; font-size: 15px; font-weight: 500; line-height: 1; text-decoration: none; border: 1px solid transparent; white-space: nowrap; }
+.btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.btn-primary { background: var(--blue-600); color: #fff; }
+.btn-ghost { background: transparent; color: var(--navy-950); border-color: var(--slate-200); }
+.btn-ghost-dark { background: transparent; color: #fff; border-color: rgb(255 255 255 / .4); }
+.btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+.seg-group { display: flex; flex-wrap: wrap; gap: 10px; }
+@container (max-width: 480px) { .actions { flex-direction: column; } .actions .btn { width: 100%; } }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+@container (max-width: 760px) { .wrap { padding: 0 20px; } }
+
+.hero { position: relative; overflow: hidden; padding: 72px 0 88px; background: var(--hero-navy); color: #fff; }
+.center { display: grid; justify-items: center; text-align: center; }
+.emblem { width: 136px; height: 136px; border-radius: 50%; box-shadow: 0 14px 34px -10px rgb(0 0 0 / .45); }
+.lockup { width: 100%; }
+.name { position: relative; z-index: 2; display: inline-grid; justify-items: center; }
+.wordmark { font-size: clamp(44px, 7cqi, 88px); font-weight: 500; letter-spacing: -.045em; line-height: .95; }
+.legal { font-weight: 600; line-height: 1; letter-spacing: .08em; margin-right: -.08em; text-transform: uppercase; white-space: nowrap; color: var(--blue-200); }
+.pulse { display: block; width: 100%; overflow: visible; color: var(--blue-300); }
+.pulse path { stroke: currentColor; }
+.pulse .glow { stroke: var(--blue-600); opacity: .55; filter: blur(4px); }
+.brand:not(.no-spike) .pulse.flat, .brand.no-spike .pulse:not(.flat), .brand.no-tagline .tagline { display: none; }
+.tagline { line-height: 1; white-space: nowrap; color: var(--slate-on-dark); }
+@container (max-width: 760px) { .hero { padding: 44px 0 60px; } .wordmark { font-size: min(19.5cqi, 74px); } }
+
+.deck-area { --deck-gap: 52px; --deck-height: clamp(220px, 36cqi, 470px); }
+@container (max-width: 760px) { .deck-area { --deck-gap: 36px; --deck-height: clamp(200px, 57cqi, 260px); } }
+.deck-area { padding-top: var(--deck-gap); }
+.deck { position: relative; height: var(--deck-height); }
+.deck .card { position: absolute; top: 50%; left: 50%; width: min(700px, 66%); aspect-ratio: 16 / 10; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-deck); }
+.deck .card img { width: 100%; height: 100%; object-fit: cover; }
+.deck .card:nth-child(1) { z-index: 8; transform: translate(-50%, -50%) translateX(-34%) scale(.76); filter: brightness(.88); }
+.deck .card:nth-child(2) { z-index: 9; transform: translate(-50%, -50%) translateX(-17%) scale(.88); filter: brightness(.94); }
+.deck .card:nth-child(3) { z-index: 10; transform: translate(-50%, -50%); }
+.deck .card:nth-child(4) { z-index: 9; transform: translate(-50%, -50%) translateX(17%) scale(.88); filter: brightness(.94); }
+.deck .card:nth-child(5) { z-index: 8; transform: translate(-50%, -50%) translateX(34%) scale(.76); filter: brightness(.88); }
+@container (max-width: 760px) { .deck .card { width: 88%; border-radius: 14px; } .deck .card:nth-child(1), .deck .card:nth-child(5) { display: none; } .deck .card:nth-child(2) { transform: translate(-50%, -50%) translateX(-9%) scale(.88); } .deck .card:nth-child(4) { transform: translate(-50%, -50%) translateX(9%) scale(.88); } }
+
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 40px; }
+.facts div { display: grid; gap: 2px; padding: 4px 24px; text-align: center; border-left: 1px solid var(--navy-line); }
+.facts div:first-child { border-left: 0; }
+.facts dt { font-size: 15px; font-weight: 600; }
+.facts dd { font-size: 13.5px; color: var(--slate-on-dark); }
+@container (max-width: 760px) { .facts { grid-template-columns: 1fr 1fr; row-gap: 16px; margin-top: 28px; } .facts div { text-align: left; padding: 2px 0 2px 18px; } .facts div:nth-child(odd) { border-left: 0; padding-left: 0; } }
+
+.hero.split { padding-bottom: 0; }
+.hero.split .deck-area { padding-bottom: 72px; background: linear-gradient(180deg, transparent 0 calc(var(--deck-gap) + var(--deck-height) / 2), #fff calc(var(--deck-gap) + var(--deck-height) / 2)); }
+.hero.split .facts { color: var(--navy-950); }
+.hero.split .facts div { border-color: var(--slate-200); }
+.hero.split .facts dd { color: var(--slate-600); }
+@container (max-width: 760px) { .hero.split .deck-area { padding-bottom: 48px; } }
+
+.notes { max-width: 1240px; margin: 14px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; font-size: 13.5px; color: var(--slate-600); }
+.notes div { padding: 12px 14px; background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; }
+.notes b { display: block; color: var(--navy-950); font-weight: 600; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div>
+    <h1>Pulse line · three brand-block variants</h1>
+    <p>Sizes follow your logo image. Use the background switch to see each variant on full navy or with the light split through the photos.</p>
+  </div>
+  <div class="seg-group">
+    <div class="seg" role="group" aria-label="Background">
+      <button type="button" aria-pressed="true" data-background="navy">Full navy</button>
+      <button type="button" aria-pressed="false" data-background="split">Light split</button>
+    </div>
+    <div class="seg" role="group" aria-label="Viewport">
+      <button type="button" aria-pressed="true" data-view="desktop">Desktop</button>
+      <button type="button" aria-pressed="false" data-view="phone">Phone 375</button>
+    </div>
+  </div>
+</div>
+
+<template id="nav">
+  <div class="nav">
+    <img src="hero-options-assets/logo.png" alt="Hemalatha Health Care">
+    <div class="links"><span>Services</span><span>How it works</span><span>Reviews</span><span>Branches</span><span>FAQ</span></div>
+    <div class="cta"><a class="btn btn-ghost btn-sm">86390 74341</a><a class="btn btn-primary btn-sm">Request care</a></div>
+  </div>
+</template>
+
+<template id="brand">
+  <div class="center brand">
+    <img class="emblem" src="hero-options-assets/emblem-cut.png" alt="Hemalatha Health Care emblem">
+    <div class="lockup center">
+      <div class="name"><div class="wordmark">Hemalatha</div><div class="legal">Health Care Pvt. Ltd.</div></div>
+      <svg class="pulse" viewBox="0 0 1200 80" preserveAspectRatio="none" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path class="glow" d="M0 46H520l12-7 10 7h20l12-40 16 70 12-44 10 14h22q12-14 24 0H1200"/>
+        <path d="M0 46H520l12-7 10 7h20l12-40 16 70 12-44 10 14h22q12-14 24 0H1200" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <svg class="pulse flat" viewBox="0 0 1200 80" preserveAspectRatio="none" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path class="glow" d="M0 40H1200"/>
+        <path d="M0 40H1200" vector-effect="non-scaling-stroke"/>
+      </svg>
+    </div>
+    <p class="tagline">Complete healthcare at your doorstep.</p>
+    <div class="actions">
+      <a class="btn btn-primary"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Request care</a>
+      <a class="btn btn-ghost-dark"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>86390 74341</a>
+    </div>
+  </div>
+</template>
+
+<template id="deck-area">
+  <div class="deck-area">
+    <div class="wrap">
+      <div class="deck">
+        <div class="card"><img src="hero-options-assets/home-physio.webp" alt=""></div>
+        <div class="card"><img src="hero-options-assets/home-elder-care.webp" alt=""></div>
+        <div class="card"><img src="hero-options-assets/home-nursing.webp" alt=""></div>
+        <div class="card"><img src="hero-options-assets/home-critical-care.webp" alt=""></div>
+        <div class="card"><img src="hero-options-assets/home-mother-baby.webp" alt=""></div>
+      </div>
+      <dl class="facts">
+        <div><dt>Available 24/7</dt><dd>Day and night</dd></div>
+        <div><dt>Five services</dt><dd>Nursing to baby care</dd></div>
+        <div><dt>Nurses and caregivers</dt><dd>Plus physiotherapists</dd></div>
+        <div><dt>4 branches</dt><dd>Across Hyderabad</dd></div>
+      </dl>
+    </div>
+  </div>
+</template>
+
+<section class="option">
+  <div class="option-head">
+    <span class="num">Variant A</span>
+    <h2>Spike with room</h2>
+    <p>The pulse spike gets its full height, with the most space above it (from "Health Care Pvt. Ltd.") and below it (to the tagline). The emblem, name and Pvt. Ltd. line keep the ratios from your logo image.</p>
+  </div>
+  <div class="frame">
+    <div data-slot="nav"></div>
+    <div class="hero">
+      <div data-slot="brand" data-variant="spaced"></div>
+      <div data-slot="deck-area"></div>
+    </div>
+  </div>
+  <div class="notes"><div><b>Spike</b>Full height and clearly a heartbeat.</div><div><b>Trade-off</b>The brand block is taller, so the photos start a little lower.</div></div>
+</section>
+<section class="option">
+  <div class="option-head">
+    <span class="num">Variant B</span>
+    <h2>No tagline</h2>
+    <p>Same as A, with "Complete healthcare at your doorstep." removed. The spike sits directly above the buttons.</p>
+  </div>
+  <div class="frame">
+    <div data-slot="nav"></div>
+    <div class="hero">
+      <div data-slot="brand" data-variant="spaced no-tagline"></div>
+      <div data-slot="deck-area"></div>
+    </div>
+  </div>
+  <div class="notes"><div><b>Spike</b>Full height, and it becomes the last line of the brand block.</div><div><b>Trade-off</b>The hero no longer says what the company does. The photos and fact row have to carry that.</div></div>
+</section>
+<section class="option">
+  <div class="option-head">
+    <span class="num">Variant C</span>
+    <h2>No spike</h2>
+    <p>The spike is removed and a thin flat line stays as a divider, like the line in your logo image. All the gaps follow the image's ratios exactly.</p>
+  </div>
+  <div class="frame">
+    <div data-slot="nav"></div>
+    <div class="hero">
+      <div data-slot="brand" data-variant="no-spike"></div>
+      <div data-slot="deck-area"></div>
+    </div>
+  </div>
+  <div class="notes"><div><b>Spike</b>None. The block is the tightest and closest to your image.</div><div><b>Trade-off</b>Loses the heartbeat signature that made option 2 stand out.</div></div>
+</section>
+
+<script>
+for (const slot of document.querySelectorAll("[data-slot]")) {
+  const filled = document.getElementById(slot.dataset.slot).content.cloneNode(true);
+  if (slot.dataset.variant) filled.firstElementChild.classList.add(...slot.dataset.variant.split(" "));
+  slot.replaceWith(filled);
+}
+const clientImage = { nameWidth: 665, emblem: 247, legalWidth: 616, taglineWidth: 616, emblemToName: 10, nameToLegal: 16, legalToTagline: 30 };
+function fitBrandBlocks() {
+  for (const brand of document.querySelectorAll(".brand")) {
+    const wordmark = brand.querySelector(".wordmark");
+    const emblem = brand.querySelector(".emblem");
+    const lockup = brand.querySelector(".lockup");
+    const legal = brand.querySelector(".legal");
+    const tagline = brand.querySelector(".tagline");
+    const pulse = brand.querySelector(brand.classList.contains("no-spike") ? ".pulse.flat" : ".pulse:not(.flat)");
+    const nameSize = parseFloat(getComputedStyle(wordmark).fontSize);
+    const scale = wordmark.getBoundingClientRect().width / clientImage.nameWidth;
+
+    emblem.style.width = emblem.style.height = `${clientImage.emblem * scale}px`;
+    lockup.style.marginTop = `${clientImage.emblemToName * scale - 0.116 * nameSize}px`;
+
+    legal.style.fontSize = "20px";
+    const legalInkAt20 = legal.getBoundingClientRect().width - 0.08 * 20;
+    const legalSize = 20 * (clientImage.legalWidth * scale) / legalInkAt20;
+    legal.style.fontSize = `${legalSize}px`;
+    legal.style.marginTop = `${clientImage.nameToLegal * scale - 0.134 * nameSize - 0.141 * legalSize}px`;
+
+    tagline.style.fontSize = "20px";
+    const taglineSize = 20 * (clientImage.taglineWidth * scale) / tagline.getBoundingClientRect().width;
+    tagline.style.fontSize = `${taglineSize}px`;
+
+    if (brand.classList.contains("spaced")) {
+      pulse.style.height = `${0.95 * nameSize}px`;
+      pulse.style.marginTop = `${0.3 * nameSize - 0.159 * legalSize}px`;
+      pulse.style.marginBottom = `${0.3 * nameSize - 0.121 * taglineSize}px`;
+    } else {
+      pulse.style.height = `${clientImage.legalToTagline * scale - 0.159 * legalSize - 0.121 * taglineSize}px`;
+    }
+  }
+}
+document.fonts.ready.then(fitBrandBlocks);
+new ResizeObserver(fitBrandBlocks).observe(document.body);
+for (const button of document.querySelectorAll("[data-view]")) {
+  button.addEventListener("click", () => {
+    document.body.classList.toggle("phone", button.dataset.view === "phone");
+    for (const other of document.querySelectorAll("[data-view]")) other.setAttribute("aria-pressed", String(other === button));
+  });
+}
+for (const button of document.querySelectorAll("[data-background]")) {
+  button.addEventListener("click", () => {
+    for (const hero of document.querySelectorAll(".hero")) hero.classList.toggle("split", button.dataset.background === "split");
+    for (const other of document.querySelectorAll("[data-background]")) other.setAttribute("aria-pressed", String(other === button));
+  });
+}
+</script>
+</body>
+</html>

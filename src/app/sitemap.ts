@@ -11,5 +11,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const guidePages = guides.map((guide) => ({ url: `${siteUrl}/guides/${guide.slug}` }));
 
-  return [{ url: siteUrl }, ...servicePages, { url: `${siteUrl}/guides` }, ...guidePages, { url: `${siteUrl}/privacy` }, { url: `${siteUrl}/terms` }];
+  return [{ url: siteUrl }, ...servicePages, { url: `${siteUrl}/contact` }, { url: `${siteUrl}/guides` }, ...guidePages, { url: `${siteUrl}/privacy` }, { url: `${siteUrl}/terms` }];
 }

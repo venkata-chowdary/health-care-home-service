@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import { DM_Sans, Merriweather } from "next/font/google";
 import Script from "next/script";
 
 import { MotionProvider } from "@/components/layout/motion-provider";
@@ -15,6 +15,13 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
   axes: ["opsz"],
+  display: "swap",
+});
+
+const merriweather = Merriweather({
+  variable: "--font-merriweather",
+  subsets: ["latin"],
+  weight: "700",
   display: "swap",
 });
 
@@ -33,7 +40,7 @@ const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_ID;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={dmSans.variable}>
+    <html lang="en-IN" className={`${dmSans.variable} ${merriweather.variable}`}>
       <body>
         <noscript>
           <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>

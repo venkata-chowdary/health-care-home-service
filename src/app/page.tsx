@@ -4,12 +4,12 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { About } from "@/components/sections/about";
 import { Branches } from "@/components/sections/branches";
-import { CareTeam } from "@/components/sections/care-team";
+// import { CareTeam } from "@/components/sections/care-team";
 import { Cta } from "@/components/sections/cta";
 import { CriticalCare } from "@/components/sections/critical-care";
 import { Enquiry } from "@/components/sections/enquiry";
 import { Faq } from "@/components/sections/faq";
-import { Guides } from "@/components/sections/guides";
+// import { Guides } from "@/components/sections/guides";
 import { Hero } from "@/components/sections/hero";
 import { HomeCareFit } from "@/components/sections/home-care-fit";
 import { HowItWorks } from "@/components/sections/how-it-works";
@@ -106,10 +106,10 @@ export default function Home() {
         <HomeCareFit />
         <CriticalCare />
         <Reviews />
-        <CareTeam />
+        {/* <CareTeam /> */}
         <About />
         <Branches />
-        <Guides />
+        {/* <Guides /> */}
         <Faq />
         <Cta />
         <Enquiry />
