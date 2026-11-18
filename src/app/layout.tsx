@@ -5,6 +5,7 @@ import { DM_Sans, Merriweather } from "next/font/google";
 import Script from "next/script";
 
 import { MotionProvider } from "@/components/layout/motion-provider";
+import { PageLoader } from "@/components/layout/page-loader";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { hospital } from "@/data/hospital-content";
 import { pageMetadata, siteUrl } from "@/lib/seo";
@@ -43,8 +44,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en-IN" className={`${dmSans.variable} ${merriweather.variable}`}>
       <body>
         <noscript>
-          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}[data-page-loader]{display:none!important}"}</style>
         </noscript>
+        <PageLoader />
         <SmoothScroll />
         <MotionProvider>{children}</MotionProvider>
         <Analytics />

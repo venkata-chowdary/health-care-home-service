@@ -212,6 +212,23 @@
     }
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .page-loader-line,
+    .page-loader-glow {
+      stroke-dasharray: 28 100;
+      animation: loader-sweep 1.4s var(--ease-in-out-soft) infinite;
+    }
+  }
+
+  @keyframes loader-sweep {
+    from {
+      stroke-dashoffset: 28;
+    }
+    to {
+      stroke-dashoffset: -100;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

@@ -53,7 +53,17 @@ export function SmoothScroll() {
       target.focus({ preventScroll: true });
     };
 
+    history.scrollRestoration = "manual";
     syncWithPreference();
+    const initialHash = decodeURIComponent(location.hash.slice(1));
+    const initialTarget = initialHash ? document.getElementById(initialHash) : null;
+    if (initialTarget) {
+      const headerHeight = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
+      const scrollMarginTop = parseFloat(getComputedStyle(initialTarget).scrollMarginTop) || 0;
+      window.scrollTo(0, initialTarget.getBoundingClientRect().top + window.scrollY - headerHeight + scrollMarginTop);
+    } else {
+      window.scrollTo(0, 0);
+    }
     reducedMotionQuery.addEventListener("change", syncWithPreference);
     document.addEventListener("click", handleAnchorClick);
 

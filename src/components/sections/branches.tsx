@@ -38,6 +38,7 @@ export function Branches() {
               title={branchesSection.mapTitle}
               src={`https://www.google.com/maps?q=${coordinates.latitude},${coordinates.longitude}&z=16&output=embed`}
               loading="lazy"
+              tabIndex={-1}
               referrerPolicy="no-referrer-when-downgrade"
               className="block aspect-[4/3] w-full rounded-xl border-0 md:aspect-auto md:h-[400px] xl:h-[490px]"
             />
