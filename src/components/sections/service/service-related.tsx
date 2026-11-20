@@ -15,7 +15,7 @@ export function ServiceRelated({ slugs, surface }: ServiceRelatedProps) {
 
   return (
     <Section id="related" aria-labelledby="related-heading" surface={surface} containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
-      <SectionHeading headingId="related-heading" align="center" eyebrow={serviceBlocks.relatedEyebrow} eyebrowVariant={surface ? "white" : "default"} title={serviceBlocks.relatedTitle} />
+      <SectionHeading headingId="related-heading" align="center" title={serviceBlocks.relatedTitle} />
       <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
         {relatedServices.map((service, index) => (
           <RevealItem key={service.name} index={index} lift>
@@ -24,7 +24,7 @@ export function ServiceRelated({ slugs, surface }: ServiceRelatedProps) {
               icon={service.icon}
               summary={service.summary}
               subServices={service.subServices.slice(0, 4)}
-              linkLabel={servicesSection.linkLabel}
+              photo={service.heroPhoto}              linkLabel={servicesSection.linkLabel}
               linkHref={`/services/${service.slug}`}
             />
           </RevealItem>

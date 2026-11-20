@@ -9,7 +9,7 @@ export function Services() {
 
   return (
     <Section id="services" aria-labelledby="services-heading" containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
-      <SectionHeading headingId="services-heading" align="center" eyebrow={servicesSection.eyebrow} title={servicesSection.title} lead={servicesSection.lead} />
+      <SectionHeading headingId="services-heading" align="center" title={servicesSection.title} lead={servicesSection.lead} />
       <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
         {services.map((service, index) => (
           <RevealItem key={service.name} index={index} lift>
@@ -22,8 +22,7 @@ export function Services() {
               linkLabel={service.externalLink ? service.externalLink.label : servicesSection.linkLabel}
               linkHref={service.externalLink ? service.externalLink.href : `/services/${service.slug}`}
               external={service.externalLink !== undefined}
-              featured={index === 0}
-              featuredPhoto={index === 0 ? servicesSection.featuredPhoto : undefined}
+              photo={index === 0 ? servicesSection.featuredPhoto : service.heroPhoto}
             />
           </RevealItem>
         ))}

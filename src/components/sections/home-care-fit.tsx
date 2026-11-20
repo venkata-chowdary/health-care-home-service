@@ -12,7 +12,7 @@ export function HomeCareFit() {
     <Section id="home-care-fit" aria-labelledby="home-care-fit-heading" surface containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <div className="grid grid-cols-2 items-center gap-[72px] max-[900px]:grid-cols-1 max-[900px]:gap-9">
         <PhotoFrame alt={homeCareFit.photo.alt} src={homeCareFit.photo.src} focus={homeCareFit.photo.focus} radius="xl" sizes="(min-width: 900px) 540px, 90vw" className="aspect-[4/3.4] max-[900px]:aspect-[4/3]" />
-        <SectionHeading headingId="home-care-fit-heading" eyebrow={homeCareFit.eyebrow} eyebrowVariant="white" title={homeCareFit.title} lead={homeCareFit.lead} className="gap-[18px]!" />
+        <SectionHeading headingId="home-care-fit-heading" title={homeCareFit.title} lead={homeCareFit.lead} className="gap-[18px]!" />
       </div>
 
       <RevealGroup className="grid grid-cols-2 gap-4 max-[800px]:grid-cols-1">

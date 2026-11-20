@@ -14,7 +14,7 @@ export function ServiceIncluded({ items, surface }: ServiceIncludedProps) {
 
   return (
     <Section id="included" aria-labelledby="included-heading" surface={surface} containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
-      <SectionHeading headingId="included-heading" align="center" eyebrow={serviceBlocks.includedEyebrow} eyebrowVariant={surface ? "white" : "default"} title={serviceBlocks.includedTitle} />
+      <SectionHeading headingId="included-heading" align="center" title={serviceBlocks.includedTitle} />
       <RevealGroup className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[800px]:grid-cols-2 max-[520px]:grid-cols-1 min-[801px]:max-[1100px]:[&>*:last-child:nth-child(3n+1)]:col-span-3 min-[521px]:max-[800px]:[&>*:last-child:nth-child(odd)]:col-span-2">
         {items.map((item, index) => (
           <RevealItem key={item.name} index={index}>

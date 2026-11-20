@@ -11,7 +11,7 @@ export function Guides() {
 
   return (
     <Section id="guides" aria-labelledby="guides-heading" containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
-      <SectionHeading headingId="guides-heading" align="center" eyebrow={guidesSection.eyebrow} title={guidesSection.title} lead={guidesSection.lead} />
+      <SectionHeading headingId="guides-heading" align="center" title={guidesSection.title} lead={guidesSection.lead} />
       <RevealGroup className="grid grid-cols-3 gap-4 max-[960px]:grid-cols-2 max-[640px]:grid-cols-1 min-[641px]:max-[960px]:[&>*:last-child:nth-child(odd)]:col-span-2">
         {guides.slice(0, 3).map((guide, index) => (
           <RevealItem key={guide.slug} index={index}>

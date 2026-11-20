@@ -22,7 +22,7 @@ export function WhyUs() {
         className="aspect-[4/4.6] max-[900px]:aspect-[4/3]"
       />
       <div className="grid justify-items-start gap-[18px]">
-        <SectionHeading headingId="why-us-heading" eyebrow={whyUs.eyebrow} eyebrowVariant="white" title={whyUs.title} className="gap-[18px]!" />
+        <SectionHeading headingId="why-us-heading" title={whyUs.title} className="gap-[18px]!" />
         <RevealGroup className="grid w-full">
           {valuePoints.map((point, index) => (
             <RevealItem key={point.title} index={index} className="[&:last-child>*]:border-b-0">

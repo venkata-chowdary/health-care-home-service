@@ -17,7 +17,7 @@ export function Branches() {
   return (
     <Section id="branches" aria-labelledby="branches-heading" surface containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading headingId="branches-heading" eyebrow={branchesSection.eyebrow} eyebrowVariant="white" title={branchesSection.title} />
+        <SectionHeading headingId="branches-heading" title={branchesSection.title} />
         <p className="text-body-sm text-muted-foreground">{branchesSection.aside}</p>
       </div>
 

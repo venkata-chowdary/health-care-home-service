@@ -41,7 +41,7 @@ export default function GuidesIndexPage() {
 
       <main id="top">
         <Section aria-labelledby="guides-index-heading" containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
-          <SectionHeading as="h1" headingId="guides-index-heading" align="center" eyebrow={guidesSection.eyebrow} title={guidesSection.indexTitle} lead={guidesSection.indexLead} />
+          <SectionHeading as="h1" headingId="guides-index-heading" align="center" title={guidesSection.indexTitle} lead={guidesSection.indexLead} />
           <RevealGroup className="grid grid-cols-3 gap-4 max-[960px]:grid-cols-2 max-[640px]:grid-cols-1 min-[641px]:max-[960px]:[&>*:last-child:nth-child(odd)]:col-span-2">
             {guides.map((guide, index) => (
               <RevealItem key={guide.slug} index={index}>

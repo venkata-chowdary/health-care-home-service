@@ -79,12 +79,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       />
 
       <main id="top">
-        <ServiceHero name={service.name} eyebrow={page.eyebrow} title={page.title} lead={page.lead} facts={page.facts} photo={heroPhoto} />
+        <ServiceHero name={service.name} title={page.title} lead={page.lead} facts={page.facts} photo={heroPhoto} />
         <ServiceIncluded items={page.included} surface />
         <ServiceWhoFor items={page.whoFor} photo={page.whoForPhoto} surface={false} />
         <ServiceVisit steps={page.visit} surface />
         <ServicePrepare prepare={page.prepare} callDoctor={page.callDoctor} surface={false} />
-        {/* <Faq items={page.faqs} eyebrow={serviceBlocks.faqEyebrow} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} surface showCallPrompt={false} /> */}
+        {/* <Faq items={page.faqs} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} surface showCallPrompt={false} /> */}
         <ServiceCta serviceSlug={slug} surface={hasPrepare} />
       </main>
 

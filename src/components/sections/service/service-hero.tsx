@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { CallButton } from "@/components/ui/call-button";
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { Icon } from "@/components/ui/icon";
 import { PhotoFrame } from "@/components/ui/photo-frame";
 import { Reveal } from "@/components/ui/reveal";
@@ -12,14 +11,13 @@ import { delay } from "@/design-system/motion";
 
 type ServiceHeroProps = {
   name: string;
-  eyebrow: string;
   title: string;
   lead: string;
   facts: { label: string; detail: string }[];
   photo: { src?: string; alt: string; focus?: string };
 };
 
-export function ServiceHero({ name, eyebrow, title, lead, facts, photo }: ServiceHeroProps) {
+export function ServiceHero({ name, title, lead, facts, photo }: ServiceHeroProps) {
   const { serviceHero } = hospital;
 
   return (
@@ -47,7 +45,6 @@ export function ServiceHero({ name, eyebrow, title, lead, facts, photo }: Servic
 
         <div className="grid grid-cols-2 items-center gap-14 max-[900px]:grid-cols-1 max-[900px]:gap-9">
           <Reveal trigger="load" className="grid min-w-0 justify-items-start gap-5">
-            <Eyebrow>{eyebrow}</Eyebrow>
             <h1 id="service-heading" className="text-h1 font-medium tracking-heading text-balance">
               {title}
             </h1>

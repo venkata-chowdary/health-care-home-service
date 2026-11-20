@@ -29,7 +29,7 @@ export function About() {
       </div>
 
       <div className="grid gap-5">
-        <SectionHeading headingId="about-heading" eyebrow={about.eyebrow} title={about.title} lead={about.lead} className="gap-5!" />
+        <SectionHeading headingId="about-heading" title={about.title} lead={about.lead} className="gap-5!" />
         <RevealGroup className="grid grid-cols-2 gap-x-6 gap-y-[18px] max-[560px]:grid-cols-1">
           {about.checks.map((check, index) => (
             <RevealItem key={check.title} index={index}>

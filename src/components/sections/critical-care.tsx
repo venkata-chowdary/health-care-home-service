@@ -12,7 +12,7 @@ export function CriticalCare() {
     <Section id="critical-care" aria-labelledby="critical-care-heading">
       <div className="grid grid-cols-2 items-center gap-14 rounded-xl bg-accent p-16 max-[960px]:grid-cols-1 max-[960px]:gap-9 max-[960px]:px-[22px] max-[960px]:py-8">
         <div className="grid gap-[22px]">
-          <SectionHeading headingId="critical-care-heading" eyebrow={criticalCareSection.eyebrow} eyebrowVariant="white" title={criticalCareSection.title} className="gap-[22px]!" />
+          <SectionHeading headingId="critical-care-heading" title={criticalCareSection.title} className="gap-[22px]!" />
           <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-6 border-y border-blue-100 py-6 max-[480px]:grid-cols-1">
             <div className="grid rounded-lg bg-background px-[22px] py-[18px]">
               <b className="text-[48px] leading-none font-medium tracking-[-0.05em]">

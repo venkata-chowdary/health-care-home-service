@@ -108,7 +108,7 @@ export default function DesignSystemPage() {
   return (
     <main>
       <Section className="pb-section-mobile md:pb-section-tablet lg:pb-section-mobile" containerClassName="grid gap-14">
-        <SectionHeading as="h1" eyebrow="Hemalatha Health Care" title="Design system." lead="Every token and shared primitive, in every variant and state. Internal reference, not indexed." className="max-w-[720px]" />
+        <SectionHeading as="h1" title="Design system." lead="Every token and shared primitive, in every variant and state. Internal reference, not indexed." className="max-w-[720px]" />
 
         <div className="grid grid-cols-[minmax(0,1fr)] gap-12">
           <h2 className="text-h3 font-medium tracking-heading">Colour</h2>
@@ -343,13 +343,13 @@ export default function DesignSystemPage() {
         <h2 className="text-h3 font-medium tracking-heading">Section heading</h2>
         <div className="grid gap-10 lg:grid-cols-2">
           <div className="rounded-xl border border-border p-8">
-            <SectionHeading eyebrow="Left aligned" title="Care that feels like family." lead="Eyebrow, title and lead, left aligned." />
+            <SectionHeading title="Care that feels like family." lead="Eyebrow, title and lead, left aligned." />
           </div>
           <div className="rounded-xl border border-border p-8">
-            <SectionHeading align="center" eyebrow="Centred" title="Care for every stage, at home." lead="Five services, delivered at home." />
+            <SectionHeading align="center" title="Care for every stage, at home." lead="Five services, delivered at home." />
           </div>
           <div className="rounded-xl bg-navy-950 p-8 lg:col-span-2">
-            <SectionHeading tone="on-dark" eyebrow="On dark" title="Ready to talk to someone who can help?" lead="Call the front desk, send an enquiry, or get directions." />
+            <SectionHeading tone="on-dark" title="Ready to talk to someone who can help?" lead="Call the front desk, send an enquiry, or get directions." />
           </div>
         </div>
       </Section>
