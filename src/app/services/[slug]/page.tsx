@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { ServiceCta } from "@/components/sections/service/service-cta";
 import { ServiceHero } from "@/components/sections/service/service-hero";
 import { ServiceIncluded } from "@/components/sections/service/service-included";
+import { ServiceRelated } from "@/components/sections/service/service-related";
 import { ServicePrepare } from "@/components/sections/service/service-prepare";
 import { ServiceVisit } from "@/components/sections/service/service-visit";
 import { ServiceWhoFor } from "@/components/sections/service/service-who-for";
@@ -77,7 +78,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         infoStrip={navigation.infoStrip}
         bookLabel={navigation.bookLabel}
         drawerBookLabel={navigation.drawerBookLabel}
-        bookHref={`/contact?service=${slug}`}
+        bookHref={`/appointment?service=${slug}`}
       />
 
       <main id="top">
@@ -87,7 +88,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <ServiceVisit steps={page.visit} surface />
         <ServicePrepare prepare={page.prepare} callDoctor={page.callDoctor} surface={false} />
         {/* <Faq items={page.faqs} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} surface showCallPrompt={false} /> */}
-        <ServiceCta serviceSlug={slug} surface={hasPrepare} />
+        <ServiceRelated slugs={page.related} surface={hasPrepare} />
+        <ServiceCta serviceSlug={slug} surface={!hasPrepare} />
       </main>
 
       <SiteFooter homePath="/" />

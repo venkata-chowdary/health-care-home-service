@@ -67,3 +67,7 @@ These live in `clientQuestions` in `src/data/hospital-content.ts`.
 8. Is the company registered, and under what details?
 
 Never present `sample` content as fact, and never add accreditations, bed counts, success rates, insurer names or ratings that the client has not supplied.
+
+## Stats band (home page)
+
+The three counters 412+ families, 138+ nurses and caregivers, and 7+ years are `sample` placeholders in `stats` in `src/data/hospital-content.ts`. Replace them with real client figures before launch. The 24/7 counter is verified from the client flyers.

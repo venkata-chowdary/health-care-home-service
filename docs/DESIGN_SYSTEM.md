@@ -46,7 +46,7 @@ The one exception is the hero brand lockup, which uses the lettering from the cl
 
 ## Spacing and layout
 
-4px base scale (Tailwind default spacing). Section padding 112 / 88 / 64px (desktop / tablet / phone). Container 1200px with 40px gutters (20px on phones). 12 / 8 / 4 column grid. Breakpoints are Tailwind defaults (640, 768, 1024, 1280), tested down to 360px.
+4px base scale (Tailwind default spacing). Section padding 112 / 88 / 64px (desktop / tablet / phone). Compact stat bands (`Section band`) use `--spacing-band` 64px from tablet up and `--spacing-band-mobile` 48px on phones. Container 1200px with 40px gutters (20px on phones). 12 / 8 / 4 column grid. Breakpoints are Tailwind defaults (640, 768, 1024, 1280), tested down to 360px.
 
 Header info strip: `--spacing-info-strip` (36px, `h-info-strip`) sits above the 76px main header row (68px below 561px). It shows phone, email, 24/7 support and Hyderabad, Telangana on a `bg-surface` band with 14px icons. Below 561px it shows only the phone number, "24/7" and "Hyderabad" (email hidden, short labels), which fits at 360px; the row keeps hidden-scrollbar overflow as a safety net. The mobile drawer's top offset adds the strip height.
 

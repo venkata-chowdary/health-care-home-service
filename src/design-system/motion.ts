@@ -3,6 +3,7 @@ export const duration = {
   base: 0.26,
   reveal: 0.56,
   hero: 0.8,
+  count: 1.6,
 };
 
 export const easing = {

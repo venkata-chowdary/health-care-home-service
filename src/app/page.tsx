@@ -15,6 +15,7 @@ import { HomeCareFit } from "@/components/sections/home-care-fit";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { Reviews } from "@/components/sections/reviews";
 import { Services } from "@/components/sections/services";
+import { Stats } from "@/components/sections/stats";
 import { WhyUs } from "@/components/sections/why-us";
 import { hospital } from "@/data/hospital-content";
 import { organizationId, siteUrl } from "@/lib/seo";
@@ -104,6 +105,7 @@ export default function Home() {
         <Hero />
         <Services />
         <WhyUs />
+        <Stats />
         <HowItWorks surface={false} />
         <HomeCareFit />
         <CriticalCare />
@@ -112,9 +114,9 @@ export default function Home() {
         <About />
         <Branches />
         {/* <Guides /> */}
-        <Faq />
+        <Faq surface={false} />
         <Cta />
-        <Enquiry />
+        <Enquiry surface={false} />
       </main>
 
       <SiteFooter />

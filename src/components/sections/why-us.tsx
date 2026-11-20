@@ -10,7 +10,7 @@ export function WhyUs() {
   const { whyUs, valuePoints } = hospital;
 
   return (
-    <Section id="why-us" aria-labelledby="why-us-heading" surface containerClassName="grid grid-cols-2 items-center gap-[72px] max-[900px]:grid-cols-1 max-[900px]:gap-9">
+    <Section id="why-us" aria-labelledby="why-us-heading" containerClassName="grid grid-cols-2 items-center gap-[72px] max-[900px]:grid-cols-1 max-[900px]:gap-9">
       <PhotoFrame
         alt={whyUs.photo.alt}
         src={whyUs.photo.src}
