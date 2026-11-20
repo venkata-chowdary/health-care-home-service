@@ -605,6 +605,7 @@ export const hospital = {
   services: [
     {
       name: "IV, fluids, injections and dressing",
+      footerLabel: "Nursing Care",
       slug: "home-nursing",
       page: servicePages["home-nursing"],
       heroPhoto: homePhotos.nursingBp,
@@ -616,6 +617,7 @@ export const hospital = {
     },
     {
       name: "ICU critical care nursing",
+      footerLabel: "Critical Care & ICU",
       slug: "critical-care-at-home",
       page: servicePages["critical-care-at-home"],
       heroPhoto: homePhotos.criticalCare,
@@ -627,6 +629,7 @@ export const hospital = {
     },
     {
       name: "Senior citizen caretaker services",
+      footerLabel: "Elder Care",
       slug: "elder-care",
       page: servicePages["elder-care"],
       heroPhoto: homePhotos.elderCare,
@@ -638,6 +641,7 @@ export const hospital = {
     },
     {
       name: "Physiotherapy at home",
+      footerLabel: "Physiotherapy",
       slug: "physiotherapy-at-home",
       page: servicePages["physiotherapy-at-home"],
       heroPhoto: homePhotos.physio,
@@ -649,6 +653,7 @@ export const hospital = {
     },
     {
       name: "VIP baby care",
+      footerLabel: "Mother & Baby Care",
       slug: "vip-baby-care",
       page: servicePages["vip-baby-care"],
       heroPhoto: homePhotos.motherBaby,
@@ -660,6 +665,7 @@ export const hospital = {
     },
   ] as {
     name: string;
+    footerLabel: string;
     icon: string;
     summary: string;
     slug?: string;
@@ -864,28 +870,32 @@ export const hospital = {
       { label: "Branches", href: "#branches" },
       { label: "FAQ", href: "#faq" },
     ],
-    bookLabel: "Request care",
-    drawerBookLabel: "Request care",
+    bookLabel: "Request a service",
+    drawerBookLabel: "Request a service",
     bookHref: "#enquiry",
+    infoStrip: { availabilityShort: "24/7", availabilityLabel: "24/7 support", locationShort: "Hyderabad", locationLabel: "Hyderabad, Telangana" },
     whatsappAriaLabel: "Message us on WhatsApp",
     mobileBar: { callLabel: "Call", bookLabel: "Request care" },
   },
 
   footer: {
-    tagline: "Home healthcare across Hyderabad. We care like family.",
-    servicesHeading: "Services",
-    servicesHref: "#services",
     branchesHeading: "Branches",
     branchesHref: "#branches",
-    companyHeading: "Company",
-    company: [
-      { label: "About", href: "#about" },
-      { label: "How it works", href: "#how-it-works" },
-      // { label: "Care team", href: "#care-team" },
-      { label: "Guides", href: "/guides" },
+    quickLinksHeading: "Quick links",
+    quickLinks: [
+      { label: "Privacy policy", href: "/privacy" },
+      { label: "Terms and conditions", href: "/terms" },
+      { label: "Contact us", href: "/contact" },
       { label: "FAQ", href: "#faq" },
-      { label: "Request care", href: "#enquiry" },
     ],
+    socialsHeading: "Follow us",
+    socialStatus: { value: "sample", status: "sample", source: "No client social profile URLs supplied yet; every link is a placeholder until the client sends them" } as Field<string>,
+    socials: [
+      { label: "Facebook", icon: "facebook", href: "#" },
+      { label: "Instagram", icon: "instagram", href: "#" },
+      { label: "YouTube", icon: "youtube", href: "#" },
+    ],
+    availabilityLine: "Open 24 hours, 7 days",
     availabilityDetail: "Care available any time",
     emailDetail: "Email us",
     firstPhoneDetail: "Call us",
@@ -980,8 +990,6 @@ export const hospital = {
     eyebrow: "FAQ",
     title: "Questions families ask us.",
     lead: "Answers to what families ask before arranging care at home.",
-    footPrompt: "Still have a question?",
-    footCallPrefix: "Call",
   },
 
   contactPage: {

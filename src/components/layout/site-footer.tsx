@@ -2,22 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
-import { Icon } from "@/components/ui/icon";
+import { Icon, isIconName } from "@/components/ui/icon";
 import { hospital } from "@/data/hospital-content";
 
-const columnHeading = "mb-3 text-body-sm font-semibold text-white";
+const columnHeading = "mb-5 text-body-sm font-semibold text-white";
 const columnList = "grid text-body-sm";
-const columnLink = "flex min-h-tap items-center text-slate-on-dark transition-colors duration-200 hover:text-white";
+const columnLink = "flex items-center py-0.5 text-slate-on-dark transition-colors duration-200 hover:text-white";
 const contactItem = "flex items-center gap-3 rounded-lg bg-navy-900 px-[18px] py-4 text-body-sm";
 
 export function SiteFooter({ homePath = "" }) {
-  const { phone, email, availability, footer, services, branches, name, legalName } = hospital;
+  const { phone, email, availability, footer, branches, name, legalName } = hospital;
 
   return (
     <footer className="pb-[calc(var(--spacing-call-bar)+env(safe-area-inset-bottom,0px)+1rem)] md:pb-8">
       <Container>
         <div className="grid gap-10 rounded-xl bg-navy-950 p-12 text-slate-on-dark max-[860px]:rounded-lg max-[860px]:px-5 max-[860px]:py-7">
-          <div className="grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[1100px]:[&>*:last-child]:col-span-full max-[560px]:grid-cols-1">
+          {/* <div className="grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[1100px]:[&>*:last-child]:col-span-full max-[560px]:grid-cols-1">
             <a href={phone.href.value} className={`${contactItem} transition-colors duration-200 hover:bg-navy-800`}>
               <Icon name="phone" className="flex-none text-blue-300" />
               <span>
@@ -42,30 +42,49 @@ export function SiteFooter({ homePath = "" }) {
                 {footer.availabilityDetail}
               </span>
             </div>
-          </div>
+          </div> */}
 
-          <div className="grid grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-9 max-[860px]:grid-cols-2 max-[480px]:grid-cols-1 max-[480px]:gap-7">
-            <div className="grid content-start gap-3">
+          <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-9 max-[860px]:grid-cols-2 max-[480px]:grid-cols-1 max-[480px]:gap-7">
+            <div className="grid content-start gap-4">
               <a href="#top" className="touch-target w-fit">
                 <Image src="/images/brand/logo-white.png" alt={name.value} width={1080} height={238} sizes="164px" className="h-9 w-auto" />
               </a>
-              <p className="max-w-[32ch] text-body-sm">{footer.tagline}</p>
+              <ul className="grid text-body-sm">
+                <li>
+                  <a href={phone.href.value} className={`${columnLink} gap-3`}>
+                    <Icon name="phone" size={16} className="flex-none text-blue-300" />
+                    {phone.display.value}
+                  </a>
+                </li>
+                <li>
+                  <a href={email.href.value} className={`${columnLink} gap-3 break-all`}>
+                    <Icon name="mail" size={16} className="flex-none text-blue-300" />
+                    {email.display.value}
+                  </a>
+                </li>
+                <li className="flex items-start gap-3 py-0.5">
+                  <Icon name="map-pin" size={16} className="mt-0.5 flex-none text-blue-300" />
+                  <span>
+                    {branches[0].address.split(", ").slice(0, 2).join(", ")},
+                    <br />
+                    {branches[0].address.split(", ").slice(2).join(", ")}
+                  </span>
+                </li>
+                <li className="flex items-center gap-3 py-0.5">
+                  <Icon name="clock" size={16} className="flex-none text-blue-300" />
+                  {footer.availabilityLine}
+                </li>
+              </ul>
             </div>
 
-            <nav aria-label={footer.servicesHeading}>
-              <h2 className={columnHeading}>{footer.servicesHeading}</h2>
+            <nav aria-label={footer.quickLinksHeading}>
+              <h2 className={columnHeading}>{footer.quickLinksHeading}</h2>
               <ul className={columnList}>
-                {services.map((service) => (
-                  <li key={service.name}>
-                    {service.externalLink ? (
-                      <a href={service.externalLink.href} target="_blank" rel="noopener" className={columnLink}>
-                        {service.name}
-                      </a>
-                    ) : (
-                      <Link href={`/services/${service.slug}`} className={columnLink}>
-                        {service.name}
-                      </Link>
-                    )}
+                {footer.quickLinks.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href.startsWith("#") ? `${homePath}${link.href}` : link.href} className={columnLink}>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -84,33 +103,28 @@ export function SiteFooter({ homePath = "" }) {
               </ul>
             </nav>
 
-            <nav aria-label={footer.companyHeading}>
-              <h2 className={columnHeading}>{footer.companyHeading}</h2>
-              <ul className={columnList}>
-                {footer.company.map((link) => (
-                  <li key={link.label}>
-                    <Link href={link.href.startsWith("#") ? `${homePath}${link.href}` : link.href} className={columnLink}>
-                      {link.label}
-                    </Link>
+            <div>
+              <h2 className={columnHeading}>{footer.socialsHeading}</h2>
+              <ul className="flex flex-wrap items-center gap-3">
+                {footer.socials.map((social) => (
+                  <li key={social.label}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener"
+                      aria-label={social.label}
+                      className="flex size-11 items-center justify-center rounded-full bg-navy-900 text-slate-on-dark transition-colors duration-200 hover:bg-navy-800 hover:text-white"
+                    >
+                      <Icon name={isIconName(social.icon) ? social.icon : "users"} />
+                    </a>
                   </li>
                 ))}
               </ul>
-            </nav>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-navy-line pt-5 text-caption">
-            <span>
-              © {new Date().getFullYear()} {legalName.value}
-            </span>
-            <span className="flex flex-wrap items-center gap-x-5 text-slate-on-dark/80">
-              <Link href="/privacy" className="flex min-h-tap items-center transition-colors duration-200 hover:text-white">
-                Privacy policy
-              </Link>
-              <Link href="/terms" className="flex min-h-tap items-center transition-colors duration-200 hover:text-white">
-                Terms of use
-              </Link>
-              <span>Photos are illustrative.</span>
-            </span>
+          <div className="border-t border-navy-line pt-5 text-center text-caption">
+            © {new Date().getFullYear()} {legalName.value}
           </div>
         </div>
       </Container>

@@ -93,6 +93,8 @@ export default function Home() {
         brandName={hospital.name.value}
         navItems={hospital.navigation.items}
         phone={{ display: hospital.phone.display.value, href: hospital.phone.href.value }}
+        email={{ display: hospital.email.display.value, href: hospital.email.href.value }}
+        infoStrip={hospital.navigation.infoStrip}
         bookLabel={hospital.navigation.bookLabel}
         drawerBookLabel={hospital.navigation.drawerBookLabel}
         bookHref={hospital.navigation.bookHref}

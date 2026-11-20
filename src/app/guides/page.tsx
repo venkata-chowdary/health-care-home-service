@@ -34,6 +34,8 @@ export default function GuidesIndexPage() {
         brandName={hospital.name.value}
         navItems={navigation.items.map((item) => ({ label: item.label, href: `/${item.href}` }))}
         phone={{ display: hospital.phone.display.value, href: hospital.phone.href.value }}
+        email={{ display: hospital.email.display.value, href: hospital.email.href.value }}
+        infoStrip={navigation.infoStrip}
         bookLabel={navigation.bookLabel}
         drawerBookLabel={navigation.drawerBookLabel}
         bookHref={navigation.bookHref}

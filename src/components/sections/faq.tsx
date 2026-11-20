@@ -1,17 +1,15 @@
 import { FaqItem } from "@/components/healthcare/faq-item";
 import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/layout/section-heading";
-import { CallButton } from "@/components/ui/call-button";
 import { hospital } from "@/data/hospital-content";
 
 type FaqProps = {
   items?: { question: string; answer: string }[];
   title?: string;
   surface?: boolean;
-  showCallPrompt?: boolean;
 };
 
-export function Faq({ items, title, surface = true, showCallPrompt = true }: FaqProps) {
+export function Faq({ items, title, surface = true }: FaqProps) {
   const { faqs, faqSection } = hospital;
   const faqItems = items ?? faqs;
 
@@ -24,12 +22,6 @@ export function Faq({ items, title, surface = true, showCallPrompt = true }: Faq
             <FaqItem key={faq.question} question={faq.question} answer={faq.answer} defaultOpen={index === 0} />
           ))}
         </div>
-        {showCallPrompt && (
-          <p className="flex flex-wrap items-center justify-center gap-3 text-[14.5px] text-muted-foreground">
-            {faqSection.footPrompt}
-            <CallButton size="sm" />
-          </p>
-        )}
       </div>
     </Section>
   );

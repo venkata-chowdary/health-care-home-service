@@ -14,12 +14,14 @@ type SiteHeaderProps = {
   brandName: string;
   navItems: { label: string; href: string }[];
   phone: { display: string; href: string };
+  email: { display: string; href: string };
+  infoStrip: { availabilityShort: string; availabilityLabel: string; locationShort: string; locationLabel: string };
   bookLabel: string;
   drawerBookLabel: string;
   bookHref: string;
 };
 
-export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLabel, bookHref }: SiteHeaderProps) {
+export function SiteHeader({ brandName, navItems, phone, email, infoStrip, bookLabel, drawerBookLabel, bookHref }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -89,6 +91,33 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
           scrolled ? "border-border" : "border-transparent",
         )}
       >
+        <div className="border-b border-border bg-surface">
+          <Container className="flex h-info-strip items-center gap-4 overflow-x-auto whitespace-nowrap text-caption text-muted-foreground [scrollbar-width:none] justify-between min-[561px]:overflow-visible [&::-webkit-scrollbar]:hidden">
+            <div className="flex shrink-0 items-center gap-4">
+              <a href={phone.href} className="flex items-center gap-1.5 transition-colors duration-160 hover:text-foreground">
+                <Icon name="phone" size={14} className="text-primary" />
+                {phone.display}
+              </a>
+              <a href={email.href} className="flex items-center gap-1.5 max-[560px]:hidden transition-colors duration-160 hover:text-foreground">
+                <Icon name="mail" size={14} className="text-primary" />
+                {email.display}
+              </a>
+            </div>
+            <div className="flex shrink-0 items-center gap-4">
+              <span className="flex items-center gap-1.5">
+                <Icon name="clock" size={14} className="text-primary" />
+                <span className="min-[561px]:hidden">{infoStrip.availabilityShort}</span>
+                <span className="max-[560px]:hidden">{infoStrip.availabilityLabel}</span>
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Icon name="map-pin" size={14} className="text-primary" />
+                <span className="min-[561px]:hidden">{infoStrip.locationShort}</span>
+                <span className="max-[560px]:hidden">{infoStrip.locationLabel}</span>
+              </span>
+            </div>
+          </Container>
+        </div>
+
         <Container className="grid h-[76px] grid-cols-[auto_1fr_auto] items-center gap-6 max-[560px]:h-[68px] max-[560px]:gap-2">
           <a href="#top" className="touch-target flex items-center">
             <Image src="/images/brand/logo.png" alt={brandName} width={1080} height={238} sizes="164px" preload className="h-9 w-auto" />
@@ -103,7 +132,7 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
           </nav>
 
           <div className="col-start-3 flex items-center gap-2">
-            <Button href={phone.href} variant="outline" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-11 max-[560px]:px-0">
+            <Button href={phone.href} variant="outline" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-11 max-[560px]:px-0 min-[561px]:hidden">
               <span className="max-[560px]:hidden">{phone.display}</span>
             </Button>
             <Button href={bookHref} iconBefore="calendar-check" className="max-[560px]:hidden">
@@ -136,7 +165,7 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
             onClick={(event) => {
               if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
             }}
-            className="fixed inset-x-0 bottom-0 top-[calc(76px+env(safe-area-inset-top,0px))] z-[29] grid content-start gap-1 overflow-y-auto bg-background pt-3 pb-8 pr-[max(1.25rem,env(safe-area-inset-right,0px))] pl-[max(1.25rem,env(safe-area-inset-left,0px))] max-[560px]:top-[calc(68px+env(safe-area-inset-top,0px))] min-[1181px]:hidden"
+            className="fixed inset-x-0 bottom-0 top-[calc(var(--spacing-info-strip)+76px+env(safe-area-inset-top,0px))] z-[29] grid content-start gap-1 overflow-y-auto bg-background pt-3 pb-8 pr-[max(1.25rem,env(safe-area-inset-right,0px))] pl-[max(1.25rem,env(safe-area-inset-left,0px))] max-[560px]:top-[calc(var(--spacing-info-strip)+68px+env(safe-area-inset-top,0px))] min-[1181px]:hidden"
           >
             {navItems.map((item) => (
               <a key={item.href} href={item.href} className="flex items-center justify-between border-b border-border px-1 py-[18px] text-[20px] font-medium tracking-[-0.02em] text-foreground">
@@ -144,10 +173,10 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
                 <Icon name="chevron-right" size={18} className="text-slate-400" />
               </a>
             ))}
-            <Button href={bookHref} iconBefore="calendar-check" className="mt-3 w-full">
+            <Button href={bookHref} iconBefore="calendar-check" className="mt-3 w-full max-[560px]:hidden">
               {drawerBookLabel}
             </Button>
-            <Button href={phone.href} variant="outline" iconBefore="phone" className="mt-3 w-full">
+            <Button href={phone.href} variant="outline" iconBefore="phone" className="mt-3 w-full max-[560px]:hidden">
               {phone.display}
             </Button>
           </m.div>
