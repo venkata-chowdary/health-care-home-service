@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { duration, easing } from "@/design-system/motion";
 import { cn } from "@/lib/cn";
-import { smoothScroll } from "@/lib/smooth-scroll-instance";
 
 type SiteHeaderProps = {
   brandName: string;
@@ -37,7 +36,6 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
     if (!menuOpen) return;
 
     document.body.style.overflow = "hidden";
-    smoothScroll.lenis?.stop();
     const desktopQuery = window.matchMedia("(min-width: 1181px)");
     const closeOnDesktop = () => {
       if (desktopQuery.matches) setMenuOpen(false);
@@ -71,7 +69,6 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "";
-      smoothScroll.lenis?.start();
       desktopQuery.removeEventListener("change", closeOnDesktop);
       document.removeEventListener("keydown", handleKeyDown);
     };
@@ -132,7 +129,6 @@ export function SiteHeader({ brandName, navItems, phone, bookLabel, drawerBookLa
           <m.div
             ref={drawerRef}
             id="mobile-drawer"
-            data-lenis-prevent=""
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}

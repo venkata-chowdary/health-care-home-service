@@ -20,7 +20,7 @@ Earlier rounds (`design-system-proposal.html`, `section-options.html`) are histo
 - Spacing comes only from the 4px scale or the spacing tokens in `globals.css`. Don't tune gaps by eye; if a layout needs a new value, add a token and document it in `docs/DESIGN_SYSTEM.md`.
 - Buttons are pills. Cards are bordered, no shadow at rest. Panels use `rounded-panel`.
 - Motion values come from `src/design-system/motion.ts`. Animate only opacity and transform, reveal once, respect reduced motion, and keep content visible without JavaScript.
-- Smooth scrolling uses Lenis (`lenis` package), not CSS `scroll-behavior: smooth`. Lenis is disabled under reduced motion; anchor links scroll through Lenis with the sticky header offset.
+- No smooth-scroll library and no `scroll-behavior: smooth`. Anchor links use native jumps with `scroll-margin-top` for the sticky header.
 - The Google rating appears only in the reviews section.
 - Mobile is designed, not compressed: drawer menu, sticky call-and-book bar, tested at 360px.
 

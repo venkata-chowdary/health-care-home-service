@@ -36,12 +36,11 @@ export function Reveal({ children, className, trigger = "view", delay = 0 }: Rev
 type RevealGroupProps = {
   children: ReactNode;
   className?: string;
-  lenisPrevent?: boolean;
 };
 
-export function RevealGroup({ children, className, lenisPrevent = false }: RevealGroupProps) {
+export function RevealGroup({ children, className }: RevealGroupProps) {
   return (
-    <m.div className={className} initial="hidden" whileInView="shown" viewport={revealOnce.viewport} data-lenis-prevent={lenisPrevent ? "" : undefined}>
+    <m.div className={className} initial="hidden" whileInView="shown" viewport={revealOnce.viewport}>
       {children}
     </m.div>
   );

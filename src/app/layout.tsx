@@ -6,7 +6,7 @@ import Script from "next/script";
 
 import { MotionProvider } from "@/components/layout/motion-provider";
 import { PageLoader } from "@/components/layout/page-loader";
-import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { ScrollStart } from "@/components/layout/scroll-start";
 import { hospital } from "@/data/hospital-content";
 import { pageMetadata, siteUrl } from "@/lib/seo";
 
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <style>{"[data-reveal]{opacity:1!important;transform:none!important}[data-page-loader]{display:none!important}"}</style>
         </noscript>
         <PageLoader />
-        <SmoothScroll />
+        <ScrollStart />
         <MotionProvider>{children}</MotionProvider>
         <Analytics />
         <SpeedInsights />
