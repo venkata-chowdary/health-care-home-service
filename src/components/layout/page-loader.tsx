@@ -48,8 +48,8 @@ export function PageLoader() {
         <Image src="/images/brand/logo.png" alt={hospital.name.value} width={1080} height={238} sizes="300px" preload className="h-16 w-auto max-sm:h-12" />
         <svg viewBox="360 0 480 80" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-16 w-72 overflow-visible">
           <path d={pulsePath} pathLength={100} vectorEffect="non-scaling-stroke" className="stroke-blue-100" />
-          <path d={pulsePath} pathLength={100} className="page-loader-glow stroke-primary opacity-55 blur-xs" />
-          <path d={pulsePath} pathLength={100} vectorEffect="non-scaling-stroke" className="page-loader-line stroke-primary" />
+          <path d={pulsePath} pathLength={100} className="page-loader-glow stroke-logo-blue opacity-55 blur-xs" />
+          <path d={pulsePath} pathLength={100} vectorEffect="non-scaling-stroke" className="page-loader-line stroke-logo-blue" />
         </svg>
       </div>
     </div>
