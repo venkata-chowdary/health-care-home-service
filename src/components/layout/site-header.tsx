@@ -112,7 +112,7 @@ export function SiteHeader({ brandName, navItems, phone, email, infoStrip, bookL
           </nav>
 
           <div className="col-start-3 flex items-center gap-2">
-            <Button href={phone.href} variant="outline" iconBefore="phone-call" aria-label={`Call ${phone.display}`} className="max-[560px]:size-11 max-[560px]:px-0 min-[561px]:hidden">
+            <Button href={phone.href} variant="outline" iconBefore="phone-call" aria-label={`Call ${phone.display}`} className="max-[560px]:size-10 max-[560px]:px-0 min-[561px]:hidden">
               <span className="max-[560px]:hidden">{phone.display}</span>
             </Button>
             <Button href={bookHref} iconBefore="house" className="max-[560px]:hidden">

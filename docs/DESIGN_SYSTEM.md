@@ -61,7 +61,7 @@ Buttons never carry a shadow or glow, in any variant or size; hover and focus ch
 
 ## Icons
 
-Lucide only. `Icon` draws at stroke 1.75; icons inside buttons are 17px at stroke 2. Action icons are fixed, so the same action always looks the same: request = `house`, call = `phone-call`, WhatsApp or chat = `message-circle`. The plain `phone` glyph is only for informational contact lines (header info strip, footer, contact lists), never on a button. `calendar-check` is no longer used for requesting care, which also keeps the forms from implying a confirmed booking.
+Lucide only. `Icon` draws at stroke 1.75; icons inside buttons scale with the button at stroke 2: 16px (sm), 17px (default, compact), 18px (lg, icon-only). Buttons are visibly smaller on phones (sm 36, default and compact 40, lg 44, icon-only 40) and step up at `md` (sm 40, default 48, compact 44, lg 52, icon-only 44). Every size keeps a 44px tap area through `touch-target`. Action icons are fixed, so the same action always looks the same: request = `house`, call = `phone-call`, WhatsApp or chat = `message-circle`. The plain `phone` glyph is only for informational contact lines (header info strip, footer, contact lists), never on a button. `calendar-check` is no longer used for requesting care, which also keeps the forms from implying a confirmed booking.
 
 ## Components (from the approved preview)
 

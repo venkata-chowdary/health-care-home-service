@@ -17,10 +17,17 @@ const variants = {
 };
 
 const sizes = {
-  default: "h-12 px-6 text-button",
-  lg: "h-13 px-6 text-body font-semibold",
-  sm: "touch-target h-10 px-[18px] text-body-sm",
-  compact: "h-11 px-3 text-button",
+  default: "touch-target h-10 px-5 text-button md:h-12 md:px-6",
+  lg: "touch-target h-11 px-5 text-button font-semibold md:h-13 md:px-6 md:text-body",
+  sm: "touch-target h-9 px-4 text-body-sm md:h-10 md:px-[18px]",
+  compact: "touch-target h-10 px-3 text-button md:h-11",
+};
+
+const iconSizes = {
+  default: 17,
+  lg: 18,
+  sm: 16,
+  compact: 17,
 };
 
 type ButtonOptions = {
@@ -43,13 +50,15 @@ export type ButtonProps = ButtonAsButton | ButtonAsLink;
 export function Button({ variant = "primary", size = "default", iconOnly = false, loading = false, disabled: disabledByProp = false, iconBefore, iconAfter, leadIcon, className, children, ...props }: ButtonProps) {
   const disabled = loading || disabledByProp;
 
+  const iconSize = iconOnly ? 18 : iconSizes[size];
+
   const classes = cn(
     "group/button inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-button border font-medium no-underline",
     "transition-[background-color,border-color,color] duration-180 ease-standard",
     "pressed:scale-[0.98] focused:outline-2 focused:outline-offset-3 focused:outline-focus",
     "aria-disabled:pointer-events-none aria-disabled:cursor-not-allowed aria-disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
     variants[variant],
-    iconOnly ? "size-11 p-0" : sizes[size],
+    iconOnly ? "touch-target size-10 p-0 md:size-11" : sizes[size],
     leadIcon && !iconOnly && "pl-1.5",
     className,
   );
@@ -59,13 +68,13 @@ export function Button({ variant = "primary", size = "default", iconOnly = false
       {loading && <span aria-hidden="true" className="size-4 animate-[spin_700ms_linear_infinite] rounded-full border-2 border-current/35 border-t-current motion-reduce:animate-none" />}
       {!loading && leadIcon && !iconOnly && (
         <span className="grid size-9 place-items-center rounded-full bg-background text-primary">
-          <Icon name={leadIcon} size={17} strokeWidth={2} />
+          <Icon name={leadIcon} size={iconSize} strokeWidth={2} />
         </span>
       )}
-      {!loading && iconBefore && <Icon name={iconBefore} size={17} strokeWidth={2} />}
+      {!loading && iconBefore && <Icon name={iconBefore} size={iconSize} strokeWidth={2} />}
       {children}
       {!loading && iconAfter && (
-        <Icon name={iconAfter} size={17} strokeWidth={2} className={cn(iconAfter === "arrow-right" && "transition-transform duration-200 ease-standard group-hover/button:translate-x-0.75")} />
+        <Icon name={iconAfter} size={iconSize} strokeWidth={2} className={cn(iconAfter === "arrow-right" && "transition-transform duration-200 ease-standard group-hover/button:translate-x-0.75")} />
       )}
     </>
   );
