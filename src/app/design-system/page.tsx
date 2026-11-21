@@ -346,7 +346,7 @@ export default function DesignSystemPage() {
             <SectionHeading title="Care that feels like family." lead="Eyebrow, title and lead, left aligned." />
           </div>
           <div className="rounded-xl border border-border p-8">
-            <SectionHeading align="center" title="Care for every stage, at home." lead="Five services, delivered at home." />
+            <SectionHeading align="center" title="Care for every stage, at home." lead="Seven kinds of care, delivered at home." />
           </div>
           <div className="rounded-xl bg-navy-950 p-8 lg:col-span-2">
             <SectionHeading tone="on-dark" title="Ready to talk to someone who can help?" lead="Call the front desk, send an enquiry, or get directions." />

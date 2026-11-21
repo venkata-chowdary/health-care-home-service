@@ -17,8 +17,9 @@ Every business-sensitive field lives in `src/data/hospital-content.ts` with a `s
 | Website domain | sample | flyer says hemalathahealthcare.com, Google says hemalathahealthcareservices.com. Confirm for canonical URLs and Open Graph |
 | Four branches | provisional | Full addresses for Pragathi Nagar, Madhapur and Manikonda; confirm Manikonda (only on 2 of 12 flyers) |
 | Branch 1 address, Plot No. 22, KPHB Colony 500072 | provisional | Flyer address used. Google says Aditya Nagar 500085; the map pin and directions link still come from Google. Confirm and replace |
-| Services and sub-services (5: senior citizen caretaker, VIP baby care, ICU critical care nursing, physiotherapy, IV/fluids/injections/dressing) | verified (client list and flyers) | Post-operative care was merged into nursing and elder care; /services/post-operative-care redirects to home nursing. Confirm the merge |
-| VIP baby care page (/services/vip-baby-care) | sample (proposed copy; sub-services verified) | Sign off the copy. Confirm what "VIP" means, caretaker training, shift options, the Hemalatha Baby Care link and sister service phone 95812 50425 |
+| Services and sub-services (7: nursing care, patient care and attendants, elder care, physiotherapy, post-operative care, critical care and ICU, mother and baby care) | verified for the original five and post-operative care (client flyers); provisional for patient care and attendants | Renamed to plain-language names with new URLs (e.g. /services/nursing-care-at-home); old URLs 301 to the new ones. Confirm the scope of Patient Care & Attendants and Post-Operative Care |
+| Mother & Baby Care page (/services/mother-baby-care-at-home) | sample (proposed copy; sub-services verified) | Sign off the copy. Confirm what "VIP" meant, caretaker training, shift options, the Hemalatha Baby Care link and sister service phone 95812 50425 |
+| Patient Care & Attendants and Post-Operative Care pages | sample (proposed copy) | New pages. Sign off copy, shift options and who provides what |
 | How it works (4 steps) | sample | Sign off the step wording |
 | Why families choose us | sample | Sign off; "trained nurses and caregivers" is the client's wording |
 | Care team demo cards | sample | Real names, roles, qualifications, photos, written consent |

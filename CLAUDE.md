@@ -36,7 +36,7 @@ Earlier rounds (`design-system-proposal.html`, `section-options.html`) are histo
 
 - Next.js App Router, TypeScript, Tailwind 4, Motion for React (`motion/react`), Lucide React.
 - Server Components by default; `"use client"` only for the header drawer, hero photo deck, FAQ if needed, enquiry form and reveal wrappers.
-- Folders: `src/components/ui`, `layout`, `healthcare`, `sections`. One section component per landing section in `sections/`. Service page blocks live in `sections/service/`; the five pages at `/services/[slug]` are built from the `services` array in the content file (`generateStaticParams`), and unknown slugs return `notFound()`.
+- Folders: `src/components/ui`, `layout`, `healthcare`, `sections`. One section component per landing section in `sections/`. Service page blocks live in `sections/service/`; the seven pages at `/services/[slug]` are built from the `services` array in the content file (`generateStaticParams`), and unknown slugs return `notFound()`.
 - Images through `next/image`. Photos go in `public/images/`; until the client supplies them, render the labelled placeholder frames from the preview.
 
 ## Code style

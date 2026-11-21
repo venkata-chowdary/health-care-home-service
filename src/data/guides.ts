@@ -69,8 +69,8 @@ export const guides: Guide[] = [
         paragraphs: ["Stick one sheet near the bed: the treating doctor, the hospital, the pharmacy, a family member, your local emergency number and the home care coordinator. In a stressful moment nobody wants to search a phone."],
       },
     ],
-    serviceSlug: "home-nursing",
-    serviceName: "IV, injections and dressing at home",
+    serviceSlug: "nursing-care-at-home",
+    serviceName: "Nursing Care",
   },
   {
     slug: "12-hour-vs-24-hour-home-nursing",
@@ -120,8 +120,8 @@ export const guides: Guide[] = [
         ],
       },
     ],
-    serviceSlug: "home-nursing",
-    serviceName: "Home nursing",
+    serviceSlug: "nursing-care-at-home",
+    serviceName: "Nursing Care",
   },
   {
     slug: "how-to-choose-a-home-care-agency",
@@ -166,8 +166,8 @@ export const guides: Guide[] = [
         paragraphs: ["Choosing an agency is the start, not the end. In the first week, visit or call at different times of day, ask the patient how they feel about the person, and look at the records the nurse keeps. A trustworthy team welcomes this."],
       },
     ],
-    serviceSlug: "elder-care",
-    serviceName: "Elder care at home",
+    serviceSlug: "elder-care-at-home",
+    serviceName: "Elder Care",
   },
   {
     slug: "nurse-vs-attendant-vs-caregiver",
@@ -214,8 +214,8 @@ export const guides: Guide[] = [
         paragraphs: ["After a fracture, surgery or stroke, regular physiotherapy often decides how much independence the patient regains. It is a separate role, visits in sessions rather than shifts, and works best when the nurse and attendant know the exercise plan."],
       },
     ],
-    serviceSlug: "home-nursing",
-    serviceName: "Home nursing",
+    serviceSlug: "nursing-care-at-home",
+    serviceName: "Nursing Care",
   },
   {
     slug: "physiotherapy-after-fracture-or-stroke-at-home",
@@ -263,6 +263,6 @@ export const guides: Guide[] = [
       },
     ],
     serviceSlug: "physiotherapy-at-home",
-    serviceName: "Physiotherapy at home",
+    serviceName: "Physiotherapy",
   },
 ];

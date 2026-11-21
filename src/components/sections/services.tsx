@@ -10,7 +10,7 @@ export function Services() {
   return (
     <Section id="services" aria-labelledby="services-heading" surface containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <SectionHeading headingId="services-heading" align="center" title={servicesSection.title} lead={servicesSection.lead} />
-      <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
+      <RevealGroup className="grid grid-cols-3 gap-4 min-[901px]:[&>*:last-child]:col-start-2 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
         {services.map((service, index) => (
           <RevealItem key={service.name} index={index} lift>
             <ServiceCard

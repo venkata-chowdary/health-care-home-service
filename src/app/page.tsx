@@ -43,7 +43,7 @@ export default function Home() {
     url: siteUrl,
     name: hospital.name.value,
     legalName: hospital.legalName.value,
-    description: "Senior citizen care, VIP baby care, ICU critical care nursing, physiotherapy, and IV, injections and dressing at home across Hyderabad.",
+    description: "Nursing care, patient attendants, elder care, physiotherapy, post-operative care, critical care and mother and baby care at home across Hyderabad.",
     logo: { "@type": "ImageObject", url: `${siteUrl}/images/brand/logo.png`, width: 1080, height: 238 },
     telephone,
     email: hospital.email.display.value,
