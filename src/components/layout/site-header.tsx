@@ -70,13 +70,6 @@ export function SiteHeader({ brandName, navItems, phone, email, infoStrip, bookL
 
   return (
     <>
-      <a
-        href="#top"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-button focus:bg-primary focus:px-4 focus:py-2 focus:text-button focus:font-medium focus:text-primary-foreground"
-      >
-        Skip to content
-      </a>
-
       <header className="sticky top-[env(safe-area-inset-top,0px)] z-30 border-b border-border bg-white/94 backdrop-blur-[10px]">
         <div className="border-b border-border bg-surface">
           <Container className="flex h-info-strip items-center gap-4 overflow-x-auto whitespace-nowrap text-caption text-muted-foreground [scrollbar-width:none] justify-between min-[561px]:overflow-visible [&::-webkit-scrollbar]:hidden">

@@ -1129,6 +1129,7 @@ export const hospital = {
   navigation: {
     items: [
       { label: "Services", href: "#services" },
+      { label: "Packages", href: "/packages" },
       { label: "How it works", href: "#how-it-works" },
       { label: "Reviews", href: "#reviews" },
       // { label: "Care team", href: "#care-team" },
