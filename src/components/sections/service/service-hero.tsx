@@ -32,7 +32,7 @@ export function ServiceHero({ name, title, lead, facts, photo }: ServiceHeroProp
             </li>
             <Icon name="chevron-right" size={14} className="text-slate-400" />
             <li>
-              <Link href="/#services" className="touch-target text-link no-underline">
+              <Link href="/services" className="touch-target text-link no-underline">
                 {serviceHero.servicesLabel}
               </Link>
             </li>

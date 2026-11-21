@@ -20,8 +20,8 @@ const colourGroups = [
   {
     title: "Navy",
     swatches: [
-      { token: "navy-950", value: "#0B1B45", use: "Text, navy hero, footer", className: "bg-navy-950" },
-      { token: "navy-900", value: "#13265A", use: "Contact strip, hero gradient", className: "bg-navy-900" },
+      { token: "navy-950", value: "#0B1B45", use: "Text, footer, highlight card", className: "bg-navy-950" },
+      { token: "navy-900", value: "#13265A", use: "Navy surfaces and gradients", className: "bg-navy-900" },
       { token: "navy-800", value: "#1E3270", use: "Navy button hover", className: "bg-navy-800" },
       { token: "navy-line", value: "#24376B", use: "Dividers on navy", className: "bg-navy-line" },
     ],
@@ -60,7 +60,7 @@ const colourGroups = [
       { token: "error", value: "#B91C1C", use: "Validation", className: "bg-error" },
       { token: "error-surface", value: "#FCEDED", use: "Error notice", className: "bg-error-surface" },
       { token: "star", value: "#F5A524", use: "Rating stars", className: "bg-star" },
-      { token: "logo-blue", value: "#109ADB", use: "Logo only, not used in UI", className: "bg-logo-blue" },
+      { token: "logo-blue", value: "#109ADB", use: "Logo, page loader pulse", className: "bg-logo-blue" },
     ],
   },
 ];
@@ -94,7 +94,7 @@ const shadows = [
   { token: "shadow-deck", spec: "Hero photo deck", className: "shadow-deck" },
 ];
 
-const buttonVariants = ["primary", "secondary", "white", "ghost-light", "navy"] as const;
+const buttonVariants = ["primary", "secondary", "outline", "quiet", "white", "ghost-light", "navy"] as const;
 const buttonStates = [
   { label: "Default", props: {} },
   { label: "Hover", props: { "data-state": "hover" } },
@@ -225,11 +225,12 @@ export default function DesignSystemPage() {
           <h3 className="text-h4 font-semibold tracking-title">Sizes</h3>
           <div className="flex flex-wrap items-center gap-3">
             <Button>Default 48px</Button>
+            <Button size="lg">Large 52px</Button>
             <Button size="sm">Small 40px</Button>
             <Button variant="secondary" iconOnly aria-label="Previous photo" iconBefore="arrow-left" />
             <Button variant="secondary" iconOnly aria-label="Next photo" iconBefore="arrow-right" />
             <Button variant="navy" iconOnly aria-label="Open menu" iconBefore="menu" />
-            <Button iconOnly aria-label="Call" iconBefore="phone" />
+            <Button iconOnly aria-label="Call" iconBefore="phone-call" />
           </div>
         </div>
 
@@ -239,13 +240,13 @@ export default function DesignSystemPage() {
             <Button href="#enquiry" iconAfter="arrow-right">
               Book an appointment
             </Button>
-            <Button href="tel:+918639074341" variant="secondary" iconBefore="phone">
+            <Button href="tel:+918639074341" variant="secondary" iconBefore="phone-call">
               Call 086390 74341
             </Button>
             <Button href="#visit" variant="navy" iconAfter="arrow-right">
               Plan your visit
             </Button>
-            <Button href="#enquiry" leadIcon="calendar-check">
+            <Button href="#enquiry" leadIcon="house">
               Book an appointment
             </Button>
             <Button type="submit" iconAfter="arrow-right">
@@ -262,10 +263,10 @@ export default function DesignSystemPage() {
             <Button variant="white" href="#enquiry">
               Book an appointment
             </Button>
-            <Button variant="ghost-light" href="tel:+918639074341" iconBefore="phone">
+            <Button variant="ghost-light" href="tel:+918639074341" iconBefore="phone-call">
               Call now
             </Button>
-            <Button variant="secondary" className="border-white/40 bg-transparent text-white hovered:border-white hovered:bg-white/8" iconBefore="phone">
+            <Button variant="secondary" className="border-white/40 bg-transparent text-white hovered:border-white hovered:bg-white/8" iconBefore="phone-call">
               Secondary on navy
             </Button>
           </div>

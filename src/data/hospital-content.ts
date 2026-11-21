@@ -706,6 +706,7 @@ export const hospital = {
     brandName: { value: "Hemalatha", status: "verified", source: clientLogo } as Field<string>,
     brandSuffix: { value: "Health Care Pvt. Ltd.", status: "verified", source: clientLogo } as Field<string>,
     tagline: { value: "Complete healthcare at your doorstep.", status: "verified", source: `${clientLogo}; set in sentence case` } as Field<string>,
+    taglineHighlight: "at your doorstep.",
     primaryCtaLabel: "Request care",
     callLabel: "Call",
     photosLabel: "Home care photos",
@@ -877,7 +878,7 @@ export const hospital = {
     // { question: "Should I choose a 12-hour or a 24-hour shift?", answer: "A 12-hour shift suits a patient who needs help through the day while family is around at night. Round-the-clock cover is usually chosen when the patient needs someone at night too, for example if they are bedridden, on oxygen or a ventilator, or may wander because of dementia. A coordinator can help you decide.", status: "provisional" },
     // { question: "Can critical care be set up at home?", answer: "Home ICU setup assistance is part of our critical care at home, with ICU-trained nurses. Whether it suits your patient depends on their condition, so ask the treating doctor as well as a coordinator.", status: "provisional" },
     { question: "Which areas of Hyderabad do you cover?", answer: "We come to your home. Our branches are in Kukatpally, Pragathi Nagar, Madhapur and Manikonda. Call us to check your area.", status: "provisional" },
-    { question: "What does home care cost?", answer: "It depends on the service and how long we stay, so there is no single price. Call 86390 74341 or send a request for a quote.", status: "provisional" },
+    { question: "What does home care cost?", answer: "It depends on the service and how long we stay. See our packages page for indicative prices, then call 86390 74341 or send a request to confirm the cost.", status: "provisional" },
     { question: "Can home care replace a hospital in an emergency?", answer: "No. In an emergency, call your local emergency number or go to the nearest hospital.", status: "provisional" },
   ] as { question: string; answer: string; status: VerificationStatus }[],
 
@@ -917,6 +918,113 @@ export const hospital = {
     lead: "Seven kinds of care, delivered where your family is most comfortable.",
     linkLabel: "Learn more",
     linkHref: "#enquiry",
+    allLabel: "View all services",
+    allHref: "/services",
+    indexTitle: "Our home care services",
+    indexLead: "Nursing, critical care, elder care, post-operative care, physiotherapy and more, delivered at home across Hyderabad.",
+    ctaTitle: "Not sure which service you need? Talk to a coordinator.",
+    packagesLabel: "View packages and prices",
+    packagesHref: "/packages",
+  },
+
+  packages: {
+    breadcrumbLabel: "Packages",
+    path: "/packages",
+    title: "Home care packages and prices",
+    lead: "Choose care by the day, by a 12-hour shift or round the clock, or book a single visit. Every price below is a guide, and a coordinator confirms the final amount after talking to you.",
+    seo: {
+      title: "Home care packages and prices in Hyderabad",
+      description: "Indicative day care, 12-hour and 24-hour home care packages, plus per-session physiotherapy, from Hemalatha Health Care in Hyderabad.",
+    },
+    sampleLabel: "Sample price",
+    legendTitle: "How packages work",
+    legend: [
+      { label: "Day care", detail: "A caregiver or nurse for a day visit, billed per day." },
+      { label: "12 hours", detail: "One person on a 12-hour shift, billed per month." },
+      { label: "24 hours", detail: "Round-the-clock live-in care, billed per month." },
+      { label: "Individual", detail: "Single visits and sessions, billed per visit." },
+    ],
+    gridTitle: "Indicative prices by service",
+    gridLead: "Open a service to see what it includes.",
+    contactLabel: "Contact us",
+    assessmentLabel: "Subject to assessment",
+    viewServiceLabel: "View service",
+    serviceTitle: "Packages and prices",
+    serviceLead: "Indicative prices for this service. A coordinator confirms the final amount.",
+    allPackagesLabel: "See all packages",
+    disclaimer: "Prices are indicative. They change with the patient's condition, the caregiver's or nurse's qualification, hours, location and care needs. The final price is agreed after a needs assessment.",
+    registrationTitle: "Registration fee",
+    registrationAmount: "₹1,000",
+    registrationUnit: "one time, for new patients",
+    registrationDetail: "Covers the first assessment, a care discussion, matching a nurse or caregiver, and getting started. It is separate from caregiver, nursing and monthly charges.",
+    proceduresTitle: "Individual nursing procedures",
+    proceduresLead: "Done by qualified nurses when needed. Where a procedure is medically required, a doctor's prescription is needed, and some need an assessment before the first visit.",
+    procedures: ["Injections", "Wound dressing", "Catheter care", "Feeding tube care", "BP and blood sugar checks", "Nebulization", "IV medication and fluids", "Oxygen monitoring"],
+    stepsTitle: "How to get started",
+    steps: [
+      { title: "Call or send a request", detail: "Tell us who needs care and where." },
+      { title: "We understand the need", detail: "A coordinator asks about the patient's condition and routine." },
+      { title: "Agree the package", detail: "We suggest a package and confirm the price with you." },
+      { title: "Care begins", detail: "A matched nurse or caregiver starts at your home." },
+    ],
+    helpTitle: "Need help choosing a package?",
+    helpLead: "Talk to a coordinator. They will suggest what fits the patient and your budget.",
+    ctaTitle: "Not sure which package fits? Talk to a coordinator.",
+    categories: [
+      {
+        serviceSlug: "nursing-care-at-home",
+        rows: [
+          { label: "Day care", price: "₹3,000 to ₹5,000", unit: "/day" },
+          { label: "12 hours", price: "₹35,000 to ₹50,000", unit: "/month" },
+          { label: "24 hours", price: "₹40,000 to ₹70,000", unit: "/month" },
+        ],
+      },
+      {
+        serviceSlug: "patient-care-attendants-at-home",
+        rows: [
+          { label: "Day care", price: "₹1,300 to ₹1,500", unit: "/day" },
+          { label: "12 hours", price: "₹20,000 to ₹27,000", unit: "/month" },
+          { label: "24 hours", price: "₹25,000 to ₹30,000", unit: "/month" },
+        ],
+      },
+      {
+        serviceSlug: "elder-care-at-home",
+        rows: [
+          { label: "Day care", price: "₹1,000 to ₹1,500", unit: "/day" },
+          { label: "12 hours", price: "₹20,000 to ₹25,000", unit: "/month" },
+          { label: "24 hours", price: "₹25,000 to ₹27,000", unit: "/month" },
+        ],
+      },
+      {
+        serviceSlug: "physiotherapy-at-home",
+        rows: [{ label: "Individual", price: "₹700 to ₹1,200", unit: "/session" }],
+      },
+      {
+        serviceSlug: "post-operative-care-at-home",
+        rows: [
+          { label: "Day care", price: null, unit: "" },
+          { label: "12 hours", price: "₹20,000 to ₹25,000", unit: "/month" },
+          { label: "24 hours", price: "₹25,000 to ₹30,000", unit: "/month" },
+        ],
+      },
+      {
+        serviceSlug: "critical-care-icu-at-home",
+        rows: [
+          { label: "12 hours", price: "assessment", unit: "" },
+          { label: "24 hours", price: "assessment", unit: "" },
+        ],
+      },
+      {
+        serviceSlug: "mother-baby-care-at-home",
+        rows: [
+          { label: "Day care", price: "₹1,300 to ₹1,500", unit: "/day" },
+          { label: "12 hours", price: "₹20,000 to ₹25,000", unit: "/month" },
+          { label: "24 hours", price: "₹25,000 to ₹30,000", unit: "/month" },
+        ],
+      },
+    ],
+    status: "sample" as VerificationStatus,
+    source: "Placeholder prices to show the layout. Replace every figure with the client's real rates before launch.",
   },
 
   serviceHero: {
@@ -946,7 +1054,7 @@ export const hospital = {
     availableLabel: "Available",
     notOfferedLabel: "Not offered",
     toConfirmLabel: "To confirm",
-    pricesNote: "Prices are not listed yet. Call or request care and a coordinator will explain the cost.",
+    pricesNote: "Prices are indicative. Call or request care and a coordinator will confirm the cost.",
     roleEyebrow: "Who will care for you",
     reviewsTitlePrefix: "What families say about",
     relatedEyebrow: "Related services",
@@ -1032,7 +1140,7 @@ export const hospital = {
     bookHref: "/appointment",
     infoStrip: { availabilityShort: "24/7", availabilityLabel: "24/7 support", locationShort: "Hyderabad", locationLabel: "Hyderabad, Telangana" },
     whatsappAriaLabel: "Message us on WhatsApp",
-    mobileBar: { callLabel: "Call", bookLabel: "Request care" },
+    mobileBar: { bookLabel: "Book", chatLabel: "Chat", callLabel: "Call" },
   },
 
   footer: {
@@ -1042,6 +1150,7 @@ export const hospital = {
     quickLinks: [
       { label: "Privacy policy", href: "/privacy" },
       { label: "Terms and conditions", href: "/terms" },
+      { label: "Packages", href: "/packages" },
       { label: "Book a service", href: "/appointment" },
       { label: "Contact us", href: "/contact" },
       { label: "FAQ", href: "#faq" },

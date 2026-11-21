@@ -8,8 +8,9 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { ServiceCta } from "@/components/sections/service/service-cta";
 import { ServiceHero } from "@/components/sections/service/service-hero";
 import { ServiceIncluded } from "@/components/sections/service/service-included";
-import { ServiceRelated } from "@/components/sections/service/service-related";
 import { ServicePrepare } from "@/components/sections/service/service-prepare";
+import { ServicePricing } from "@/components/sections/service/service-pricing";
+import { ServiceRelated } from "@/components/sections/service/service-related";
 import { ServiceVisit } from "@/components/sections/service/service-visit";
 import { ServiceWhoFor } from "@/components/sections/service/service-who-for";
 import { hospital } from "@/data/hospital-content";
@@ -47,6 +48,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   };
 
   const hasPrepare = Boolean(page.prepare || page.callDoctor);
+  const pricing = hospital.packages.categories.find((category) => category.serviceSlug === slug);
+  const afterPricingSurface = pricing !== undefined;
 
   // const confirmedFaqs = page.faqs.filter((faq) => faq.status !== "sample");
   //
@@ -86,10 +89,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <ServiceIncluded items={page.included} surface />
         <ServiceWhoFor items={page.whoFor} photo={page.whoForPhoto} surface={false} />
         <ServiceVisit steps={page.visit} surface />
-        <ServicePrepare prepare={page.prepare} callDoctor={page.callDoctor} surface={false} />
-        {/* <Faq items={page.faqs} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} surface showCallPrompt={false} /> */}
-        <ServiceRelated slugs={page.related} surface={hasPrepare} />
-        <ServiceCta serviceSlug={slug} surface={!hasPrepare} />
+        {pricing && <ServicePricing serviceName={service.name} rows={pricing.rows} surface={false} />}
+        <ServicePrepare prepare={page.prepare} callDoctor={page.callDoctor} surface={afterPricingSurface} />
+        {/* <Faq items={page.faqs} title={`${serviceBlocks.faqTitlePrefix} ${service.name.toLowerCase()}`} showCallPrompt={false} /> */}
+        <ServiceRelated slugs={page.related} surface={hasPrepare ? !afterPricingSurface : afterPricingSurface} />
+        <ServiceCta serviceSlug={slug} surface={hasPrepare ? afterPricingSurface : !afterPricingSurface} />
       </main>
 
       <SiteFooter homePath="/" />

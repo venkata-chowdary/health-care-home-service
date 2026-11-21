@@ -249,7 +249,7 @@ export function AppointmentForm({ copy, serviceNames, defaultService }: Appointm
       </div>
 
       <div className="col-span-full">
-        <Button type="submit" loading={isSending} iconBefore="calendar-check">
+        <Button type="submit" loading={isSending} iconBefore="house">
           {isSending ? copy.sendingLabel : copy.submitLabel}
         </Button>
       </div>

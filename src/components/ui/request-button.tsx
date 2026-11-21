@@ -3,7 +3,7 @@ import { hospital } from "@/data/hospital-content";
 
 type RequestButtonProps = {
   onBlue?: boolean;
-  size?: "default" | "sm" | "compact";
+  size?: "default" | "lg" | "sm" | "compact";
   className?: string;
 };
 
@@ -11,7 +11,7 @@ export function RequestButton({ onBlue = false, size = "default", className }: R
   const { bookLabel, bookHref } = hospital.navigation;
 
   return (
-    <Button href={bookHref} variant={onBlue ? "ghost-light" : "primary"} size={size} iconBefore="calendar-check" className={className}>
+    <Button href={bookHref} variant={onBlue ? "ghost-light" : "primary"} size={size} iconBefore="house" className={className}>
       {bookLabel}
     </Button>
   );

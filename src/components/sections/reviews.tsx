@@ -16,7 +16,7 @@ export function Reviews() {
           href={reviewsSource}
           target="_blank"
           rel="noopener"
-          className="inline-flex h-[46px] items-center gap-2.5 rounded-button border border-border bg-background pr-[18px] pl-2 text-body-sm text-muted-foreground no-underline transition-[border-color] duration-180 ease-standard hover:border-blue-200"
+          className="inline-flex h-[46px] items-center gap-2.5 rounded-button border border-border bg-background pr-[18px] pl-2 text-body-sm text-muted-foreground no-underline transition-colors duration-180 ease-standard hover:bg-accent"
         >
           <span aria-hidden="true" className="grid size-[30px] place-items-center rounded-full bg-surface text-body-sm font-semibold text-foreground">
             G

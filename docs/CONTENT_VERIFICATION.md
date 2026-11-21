@@ -32,6 +32,7 @@ Every business-sensitive field lives in `src/data/hospital-content.ts` with a `s
 | Enquiry destination | sample | Email, WhatsApp Business or CRM; the form sends nothing yet |
 | Care type, who needs care, start time options in the form | sample | Confirm 12-hour and 24-hour live-in are offered |
 | Service page copy (5 pages: lead, included lines, who it's for, care options, role, FAQs, related services) | sample | Sign off. Only the sub-service names come from the client flyers |
+| Package prices on `/packages` and each service page (`hospital.packages`), registration fee, procedure list | sample | Placeholder figures that only show the layout. Replace every price, the ₹1,000 registration fee and the procedure list with the client's real rates before launch, then set status to verified. Prices stay out of JSON-LD. |
 | Care options per service (single visit, 12-hour, 24-hour) | sample | Confirm which options each service offers; Elder care single visits and physiotherapy session packages are marked to confirm |
 | Home ICU setup checklist (bed, oxygen, monitor, suction, ventilator) | sample | Confirm what the client supplies |
 | Physiotherapy treatment areas | verified names, list to confirm | The plan expects ten areas; the flyer facts give eight plus three therapies. Confirm the full list |

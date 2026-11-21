@@ -6,8 +6,8 @@ import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
 
 type ServiceRoleProps = {
-  role: { title: string; detail: string; teamRoles: string[] };
   surface: boolean;
+  role: { title: string; detail: string; teamRoles: string[] };
 };
 
 export function ServiceRole({ role, surface }: ServiceRoleProps) {

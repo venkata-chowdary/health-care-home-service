@@ -14,6 +14,7 @@ export const easing = {
 export const stagger = {
   interval: 0.07,
   maxItems: 6,
+  letter: 0.05,
 };
 
 export const distance = {
@@ -23,6 +24,8 @@ export const distance = {
 
 export const delay = {
   heroDeck: 0.2,
+  heroLetters: 0.15,
+  homeHeroDeck: 0.5,
 };
 
 export const revealOnce = {

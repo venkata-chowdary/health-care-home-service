@@ -4,9 +4,9 @@ import { Icon } from "@/components/ui/icon";
 import { hospital } from "@/data/hospital-content";
 
 type ServicePrepareProps = {
+  surface: boolean;
   prepare?: string[];
   callDoctor?: string[];
-  surface: boolean;
 };
 
 export function ServicePrepare({ prepare, callDoctor, surface }: ServicePrepareProps) {

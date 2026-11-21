@@ -22,7 +22,7 @@ const dmSans = DM_Sans({
 const merriweather = Merriweather({
   variable: "--font-merriweather",
   subsets: ["latin"],
-  weight: "700",
+  weight: ["700", "900"],
   display: "swap",
 });
 

@@ -5,8 +5,8 @@ import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
 
 type ServiceIncludedProps = {
-  items: { icon: string; name: string; detail: string }[];
   surface: boolean;
+  items: { icon: string; name: string; detail: string }[];
 };
 
 export function ServiceIncluded({ items, surface }: ServiceIncludedProps) {

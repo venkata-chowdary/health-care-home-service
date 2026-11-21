@@ -33,6 +33,34 @@ export function Reveal({ children, className, trigger = "view", delay = 0 }: Rev
   );
 }
 
+type RevealLettersProps = {
+  text: string;
+  className?: string;
+  delay?: number;
+};
+
+export function RevealLetters({ text, className, delay = 0 }: RevealLettersProps) {
+  return (
+    <span className={className}>
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">
+        {text.split("").map((letter, index) => (
+          <m.span
+            key={`${letter}-${index}`}
+            data-reveal=""
+            className="inline-block"
+            initial={{ opacity: 0, y: "0.5em" }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: duration.hero, ease: easing.standard, delay: delay + index * stagger.letter }}
+          >
+            {letter}
+          </m.span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
 type RevealGroupProps = {
   children: ReactNode;
   className?: string;

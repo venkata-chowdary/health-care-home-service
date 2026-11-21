@@ -7,8 +7,9 @@ import { Icon, type IconName } from "./icon";
 
 const variants = {
   primary: "border-transparent bg-primary text-primary-foreground hovered:bg-primary-hover",
-  secondary: "border-border bg-secondary text-secondary-foreground hovered:border-blue-200 hovered:bg-accent",
+  secondary: "border-border bg-secondary text-secondary-foreground hovered:bg-accent",
   outline: "border-primary bg-transparent text-primary hovered:bg-accent",
+  quiet: "border-border-strong bg-background text-brand-ink hovered:bg-accent",
   white: "border-transparent bg-background text-foreground hovered:bg-accent",
   "ghost-light": "border-white/45 bg-transparent text-white hovered:border-white hovered:bg-white/8",
   glass: "border-white/20 bg-white/8 text-white hovered:border-white/45 hovered:bg-white/12",
@@ -17,6 +18,7 @@ const variants = {
 
 const sizes = {
   default: "h-12 px-6 text-button",
+  lg: "h-13 px-6 text-body font-semibold",
   sm: "touch-target h-10 px-[18px] text-body-sm",
   compact: "h-11 px-3 text-button",
 };

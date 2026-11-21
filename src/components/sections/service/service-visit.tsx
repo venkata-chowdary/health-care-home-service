@@ -5,8 +5,8 @@ import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
 
 type ServiceVisitProps = {
-  steps: string[];
   surface: boolean;
+  steps: string[];
 };
 
 export function ServiceVisit({ steps, surface }: ServiceVisitProps) {

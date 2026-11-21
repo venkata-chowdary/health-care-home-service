@@ -6,8 +6,8 @@ import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
 
 type ServiceRelatedProps = {
-  slugs: string[];
   surface: boolean;
+  slugs: string[];
 };
 
 export function ServiceRelated({ slugs, surface }: ServiceRelatedProps) {
@@ -18,7 +18,7 @@ export function ServiceRelated({ slugs, surface }: ServiceRelatedProps) {
     <Section id="related" aria-labelledby="related-heading" surface={surface} containerClassName="grid grid-cols-[minmax(0,1fr)] gap-12 max-md:gap-8">
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
         <SectionHeading headingId="related-heading" align="left" title={serviceBlocks.relatedTitle} />
-        <ArrowLink href="/#services">{serviceBlocks.relatedLinkLabel}</ArrowLink>
+        <ArrowLink href={servicesSection.allHref}>{serviceBlocks.relatedLinkLabel}</ArrowLink>
       </div>
       <RevealGroup className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
         {relatedServices.map((service, index) => (
@@ -28,7 +28,8 @@ export function ServiceRelated({ slugs, surface }: ServiceRelatedProps) {
               icon={service.icon}
               summary={service.summary}
               subServices={service.subServices.slice(0, 4)}
-              photo={service.heroPhoto}              linkLabel={servicesSection.linkLabel}
+              photo={service.heroPhoto}
+              linkLabel={servicesSection.linkLabel}
               linkHref={`/services/${service.slug}`}
             />
           </RevealItem>

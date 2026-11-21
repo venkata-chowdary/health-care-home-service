@@ -7,8 +7,8 @@ import { hospital } from "@/data/hospital-content";
 import type { CareOptionKey } from "@/data/hospital-content";
 
 type CareOptionsProps = {
-  options: Record<CareOptionKey, { applies: "yes" | "no" | "confirm"; note: string }>;
   surface: boolean;
+  options: Record<CareOptionKey, { applies: "yes" | "no" | "confirm"; note: string }>;
 };
 
 export function CareOptions({ options, surface }: CareOptionsProps) {

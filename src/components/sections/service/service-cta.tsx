@@ -5,8 +5,8 @@ import { PhotoFrame } from "@/components/ui/photo-frame";
 import { hospital } from "@/data/hospital-content";
 
 type ServiceCtaProps = {
-  serviceSlug: string;
   surface: boolean;
+  serviceSlug: string;
 };
 
 export function ServiceCta({ serviceSlug, surface }: ServiceCtaProps) {
@@ -21,7 +21,7 @@ export function ServiceCta({ serviceSlug, surface }: ServiceCtaProps) {
           </h2>
           <p className="max-w-[44ch] text-body-lg text-white">{serviceBlocks.ctaLead}</p>
           <div className="flex flex-wrap gap-3 max-[480px]:w-full max-[480px]:flex-col">
-            <Button href={`/appointment?service=${serviceSlug}`} variant="ghost-light" iconBefore="calendar-check">
+            <Button href={`/appointment?service=${serviceSlug}`} variant="ghost-light" iconBefore="house">
               {serviceBlocks.ctaButtonLabel}
             </Button>
             <CallButton onDark />

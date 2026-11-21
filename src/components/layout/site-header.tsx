@@ -2,13 +2,13 @@
 
 import { AnimatePresence, m } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { duration, easing } from "@/design-system/motion";
-import { cn } from "@/lib/cn";
 
 type SiteHeaderProps = {
   brandName: string;
@@ -22,17 +22,9 @@ type SiteHeaderProps = {
 };
 
 export function SiteHeader({ brandName, navItems, phone, email, infoStrip, bookLabel, drawerBookLabel, bookHref }: SiteHeaderProps) {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const updateScrolled = () => setScrolled(window.scrollY > 60);
-    updateScrolled();
-    window.addEventListener("scroll", updateScrolled, { passive: true });
-    return () => window.removeEventListener("scroll", updateScrolled);
-  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -85,12 +77,7 @@ export function SiteHeader({ brandName, navItems, phone, email, infoStrip, bookL
         Skip to content
       </a>
 
-      <header
-        className={cn(
-          "sticky top-[env(safe-area-inset-top,0px)] z-30 border-b bg-white/94 backdrop-blur-[10px] transition-colors duration-200",
-          scrolled ? "border-border" : "border-transparent",
-        )}
-      >
+      <header className="sticky top-[env(safe-area-inset-top,0px)] z-30 border-b border-border bg-white/94 backdrop-blur-[10px]">
         <div className="border-b border-border bg-surface">
           <Container className="flex h-info-strip items-center gap-4 overflow-x-auto whitespace-nowrap text-caption text-muted-foreground [scrollbar-width:none] justify-between min-[561px]:overflow-visible [&::-webkit-scrollbar]:hidden">
             <div className="flex shrink-0 items-center gap-4">
@@ -119,9 +106,9 @@ export function SiteHeader({ brandName, navItems, phone, email, infoStrip, bookL
         </div>
 
         <Container className="grid h-[76px] grid-cols-[auto_1fr_auto] items-center gap-6 max-[560px]:h-[68px] max-[560px]:gap-2">
-          <a href="#top" className="touch-target flex items-center">
+          <Link href="/" aria-label={`${brandName} home`} className="touch-target flex items-center">
             <Image src="/images/brand/logo.png" alt={brandName} width={1080} height={238} sizes="164px" preload className="h-9 w-auto" />
-          </a>
+          </Link>
 
           <nav aria-label="Main" className="flex justify-center gap-0.5 max-[1180px]:hidden">
             {navItems.map((item) => (
@@ -132,10 +119,10 @@ export function SiteHeader({ brandName, navItems, phone, email, infoStrip, bookL
           </nav>
 
           <div className="col-start-3 flex items-center gap-2">
-            <Button href={phone.href} variant="outline" iconBefore="phone" aria-label={`Call ${phone.display}`} className="max-[560px]:size-11 max-[560px]:px-0 min-[561px]:hidden">
+            <Button href={phone.href} variant="outline" iconBefore="phone-call" aria-label={`Call ${phone.display}`} className="max-[560px]:size-11 max-[560px]:px-0 min-[561px]:hidden">
               <span className="max-[560px]:hidden">{phone.display}</span>
             </Button>
-            <Button href={bookHref} iconBefore="calendar-check" className="max-[560px]:hidden">
+            <Button href={bookHref} iconBefore="house" className="max-[560px]:hidden">
               {bookLabel}
             </Button>
             <Button
@@ -173,10 +160,10 @@ export function SiteHeader({ brandName, navItems, phone, email, infoStrip, bookL
                 <Icon name="chevron-right" size={18} className="text-slate-400" />
               </a>
             ))}
-            <Button href={bookHref} iconBefore="calendar-check" className="mt-3 w-full max-[560px]:hidden">
+            <Button href={bookHref} iconBefore="house" className="mt-3 w-full max-[560px]:hidden">
               {drawerBookLabel}
             </Button>
-            <Button href={phone.href} variant="outline" iconBefore="phone" className="mt-3 w-full max-[560px]:hidden">
+            <Button href={phone.href} variant="outline" iconBefore="phone-call" className="mt-3 w-full max-[560px]:hidden">
               {phone.display}
             </Button>
           </m.div>

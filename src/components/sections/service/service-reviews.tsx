@@ -6,9 +6,9 @@ import { hospital } from "@/data/hospital-content";
 import type { GoogleReview } from "@/data/reviews";
 
 type ServiceReviewsProps = {
+  surface: boolean;
   name: string;
   matchingReviews: GoogleReview[];
-  surface: boolean;
 };
 
 export function ServiceReviews({ name, matchingReviews, surface }: ServiceReviewsProps) {

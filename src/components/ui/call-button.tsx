@@ -3,7 +3,7 @@ import { hospital } from "@/data/hospital-content";
 
 type CallButtonProps = {
   onDark?: boolean;
-  size?: "default" | "sm" | "compact";
+  size?: "default" | "lg" | "sm" | "compact";
   className?: string;
 };
 
@@ -11,7 +11,7 @@ export function CallButton({ onDark = false, size = "default", className }: Call
   const { phone } = hospital;
 
   return (
-    <Button href={phone.href.value} variant={onDark ? "white" : "outline"} size={size} iconBefore="phone" aria-label={`Call ${phone.display.value}`} className={className}>
+    <Button href={phone.href.value} variant={onDark ? "white" : "outline"} size={size} iconBefore="phone-call" aria-label={`Call ${phone.display.value}`} className={className}>
       {phone.display.value}
     </Button>
   );

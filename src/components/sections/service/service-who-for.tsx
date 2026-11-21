@@ -6,9 +6,9 @@ import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
 
 type ServiceWhoForProps = {
+  surface: boolean;
   items: string[];
   photo: { src?: string; alt: string; focus?: string };
-  surface: boolean;
 };
 
 export function ServiceWhoFor({ items, photo, surface }: ServiceWhoForProps) {

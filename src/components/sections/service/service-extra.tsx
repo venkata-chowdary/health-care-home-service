@@ -5,8 +5,8 @@ import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Tag } from "@/components/ui/tag";
 
 type ServiceExtraProps = {
-  extra: { eyebrow: string; title: string; lead: string; items: { icon?: string; label: string }[]; note: string; tag: string };
   surface: boolean;
+  extra: { eyebrow: string; title: string; lead: string; items: { icon?: string; label: string }[]; note: string; tag: string };
 };
 
 export function ServiceExtra({ extra, surface }: ServiceExtraProps) {
