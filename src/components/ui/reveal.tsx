@@ -3,7 +3,7 @@
 import { m } from "motion/react";
 import type { ReactNode } from "react";
 
-import { distance, duration, easing, revealOnce, stagger } from "@/design-system/motion";
+import { distance, duration, easing, revealGroupViewport, revealOnce, stagger } from "@/design-system/motion";
 
 const hidden = { opacity: 0, y: distance.reveal };
 const shown = { opacity: 1, y: 0 };
@@ -68,7 +68,7 @@ type RevealGroupProps = {
 
 export function RevealGroup({ children, className }: RevealGroupProps) {
   return (
-    <m.div className={className} initial="hidden" whileInView="shown" viewport={revealOnce.viewport}>
+    <m.div className={className} initial="hidden" whileInView="shown" viewport={revealGroupViewport}>
       {children}
     </m.div>
   );

@@ -28,6 +28,8 @@ export const delay = {
   homeHeroDeck: 0.5,
 };
 
+export const revealGroupViewport = { once: true, amount: "some" as const };
+
 export const revealOnce = {
   initial: { opacity: 0, y: distance.reveal },
   whileInView: { opacity: 1, y: 0 },
