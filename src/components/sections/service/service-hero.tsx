@@ -51,7 +51,7 @@ export function ServiceHero({ name, title, lead, facts, photo }: ServiceHeroProp
             <p className="max-w-[46ch] text-body-lg text-muted-foreground">{lead}</p>
             <div className="flex flex-wrap items-center gap-3 max-[480px]:w-full max-[480px]:flex-col max-[480px]:items-stretch">
               <RequestButton />
-              <CallButton />
+              <CallButton className="max-md:hidden" />
             </div>
           </Reveal>
           <Reveal trigger="load" delay={delay.heroDeck}>
