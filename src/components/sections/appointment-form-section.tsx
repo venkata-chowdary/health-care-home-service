@@ -6,11 +6,7 @@ import { Icon } from "@/components/ui/icon";
 import { Reveal } from "@/components/ui/reveal";
 import { hospital } from "@/data/hospital-content";
 
-type AppointmentFormSectionProps = {
-  defaultService?: string;
-};
-
-export function AppointmentFormSection({ defaultService }: AppointmentFormSectionProps) {
+export function AppointmentFormSection() {
   const { appointmentPage, serviceHero, services, phone, whatsapp, email } = hospital;
 
   const contactCards = [
@@ -50,7 +46,7 @@ export function AppointmentFormSection({ defaultService }: AppointmentFormSectio
               <p className="text-body-sm text-muted-foreground">{appointmentPage.formNote}</p>
             </div>
             <div className="grid content-start gap-4">
-              <AppointmentForm copy={appointmentPage} serviceNames={services.map((service) => service.name)} defaultService={defaultService} />
+              <AppointmentForm copy={appointmentPage} serviceNames={services.map((service) => service.name)} serviceSlugs={services.map((service) => service.slug ?? "")} />
               <p className="text-caption text-muted-foreground">{appointmentPage.privacyNote}</p>
             </div>
           </div>

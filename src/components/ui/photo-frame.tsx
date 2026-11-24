@@ -12,6 +12,7 @@ type PhotoFrameProps = Omit<ComponentProps<"div">, "children"> & {
   focus?: string;
   sizes?: string;
   preload?: boolean;
+  eager?: boolean;
   blurDataURL?: string;
   label?: string;
   labelIcon?: IconName | null;
@@ -29,6 +30,7 @@ export function PhotoFrame({
   focus,
   sizes = "100vw",
   preload,
+  eager,
   blurDataURL,
   label,
   labelIcon = "camera",
@@ -55,6 +57,7 @@ export function PhotoFrame({
           fill
           sizes={sizes}
           preload={preload}
+          loading={eager ? "eager" : undefined}
           placeholder={effectiveBlur ? "blur" : "empty"}
           blurDataURL={effectiveBlur}
           style={focus ? { objectPosition: focus } : undefined}

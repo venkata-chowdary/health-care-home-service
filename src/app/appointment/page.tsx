@@ -10,9 +10,7 @@ import { pageMetadata, siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({ title: hospital.appointmentPage.seoTitle, description: hospital.appointmentPage.seoDescription, path: hospital.appointmentPage.path });
 
-export default async function AppointmentPage({ searchParams }: { searchParams: Promise<{ service?: string }> }) {
-  const { service: requestedServiceSlug } = await searchParams;
-  const requestedService = hospital.services.find((existing) => existing.slug === requestedServiceSlug);
+export default function AppointmentPage() {
   const { navigation, appointmentPage } = hospital;
 
   const breadcrumbJsonLd = {
@@ -39,7 +37,7 @@ export default async function AppointmentPage({ searchParams }: { searchParams: 
       />
 
       <main id="top">
-        <AppointmentFormSection defaultService={requestedService?.name} />
+        <AppointmentFormSection />
       </main>
 
       <SiteFooter homePath="/" />

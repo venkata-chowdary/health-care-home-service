@@ -46,14 +46,23 @@ type EnquiryFormProps = {
   };
   serviceNames: string[];
   areaNames: string[];
-  defaultService?: string;
+  serviceSlugs: string[];
 };
 
-export function EnquiryForm({ copy, serviceNames, areaNames, defaultService }: EnquiryFormProps) {
+export function EnquiryForm({ copy, serviceNames, serviceSlugs, areaNames }: EnquiryFormProps) {
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [status, setStatus] = useState<"idle" | "success" | "failed">("idle");
   const [isSending, startSending] = useTransition();
   const statusRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const requestedSlug = new URLSearchParams(window.location.search).get("service");
+    const requestedIndex = serviceSlugs.indexOf(requestedSlug ?? "");
+    const serviceSelect = document.getElementById("enquiry-service");
+    if (requestedIndex !== -1 && serviceSelect instanceof HTMLSelectElement) {
+      serviceSelect.value = serviceNames[requestedIndex];
+    }
+  }, [serviceNames, serviceSlugs]);
 
   useEffect(() => {
     if (status !== "idle") {
@@ -137,7 +146,7 @@ export function EnquiryForm({ copy, serviceNames, areaNames, defaultService }: E
       </Field>
 
       <SelectField id="enquiry-who" name="whoNeedsCare" label={copy.whoLabel} defaultLabel={copy.whoDefault} options={copy.whoOptions} />
-      <SelectField id="enquiry-service" name="service" label={copy.serviceLabel} defaultLabel={copy.serviceDefault} options={serviceNames} defaultValue={defaultService} />
+      <SelectField id="enquiry-service" name="service" label={copy.serviceLabel} defaultLabel={copy.serviceDefault} options={serviceNames} />
       <SelectField id="enquiry-area" name="area" label={copy.areaLabel} defaultLabel={copy.areaDefault} options={[...areaNames, copy.areaOther]} />
       <SelectField id="enquiry-start" name="startTime" label={copy.startLabel} defaultLabel={copy.startDefault} options={copy.startOptions} />
       <SelectField id="enquiry-care-type" name="careType" label={copy.careTypeLabel} defaultLabel={copy.careTypeDefault} options={copy.careTypeOptions} />

@@ -20,7 +20,7 @@ export function Hero() {
             <div className="relative">
               <span aria-hidden="true" className="hero-beat absolute inset-0 rounded-full border-2 border-primary/40" />
               <span aria-hidden="true" className="hero-beat absolute inset-0 rounded-full border-2 border-primary/40" />
-              <Image src="/images/brand/emblem-mark.png" alt="" width={400} height={400} priority className="relative size-brand-emblem rounded-full bg-background shadow-emblem" />
+              <Image src="/images/brand/emblem-mark.png" alt="" width={400} height={400} sizes="160px" preload className="relative size-brand-emblem rounded-full bg-background shadow-emblem" />
             </div>
 
             <h1 id="hero-heading" className="mt-4 grid justify-items-center font-brand max-md:justify-items-start">

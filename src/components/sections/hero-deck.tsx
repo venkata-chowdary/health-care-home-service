@@ -113,6 +113,7 @@ export function HeroDeck({ photos, badges, label }: HeroDeckProps) {
                 src={photo.src}
                 focus={photo.focus}
                 preload={index === Math.floor(count / 2)}
+                eager={Math.abs(index - Math.floor(count / 2)) <= 1}
                 icon={isIconName(photo.icon) ? photo.icon : "camera"}
                 label={photo.label}
                 labelClassName={cn("transition-opacity duration-300", !isCurrent && "opacity-0")}

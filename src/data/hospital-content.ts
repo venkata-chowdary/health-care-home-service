@@ -1323,7 +1323,7 @@ export const hospital = {
     drawerBookLabel: "Request a service",
     bookHref: "/appointment",
     infoStrip: { availabilityShort: "24/7", availabilityLabel: "24/7 support", locationShort: "Hyderabad", locationLabel: "Hyderabad, Telangana" },
-    whatsappAriaLabel: "Message us on WhatsApp",
+    whatsappAriaLabel: "Chat with us on WhatsApp",
     mobileBar: { bookLabel: "Book", chatLabel: "Chat", callLabel: "Call" },
   },
 

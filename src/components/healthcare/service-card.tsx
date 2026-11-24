@@ -51,6 +51,7 @@ export function ServiceCard({ name, icon, summary, subServices, note, linkLabel,
         {note && <p className="text-caption text-muted-foreground">{note}</p>}
         <ArrowLink href={linkHref} className="mt-auto self-start pt-2" {...(external ? { target: "_blank", rel: "noopener" } : {})}>
           {linkLabel}
+          <span className="sr-only"> about {name}</span>
         </ArrowLink>
       </div>
     </article>

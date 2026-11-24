@@ -41,14 +41,23 @@ type AppointmentFormProps = {
     failureMessage: string;
   };
   serviceNames: string[];
-  defaultService?: string;
+  serviceSlugs: string[];
 };
 
-export function AppointmentForm({ copy, serviceNames, defaultService }: AppointmentFormProps) {
+export function AppointmentForm({ copy, serviceNames, serviceSlugs }: AppointmentFormProps) {
   const [errors, setErrors] = useState<AppointmentErrors>({});
   const [status, setStatus] = useState<"idle" | "success" | "failed">("idle");
   const [isSending, startSending] = useTransition();
   const statusRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const requestedSlug = new URLSearchParams(window.location.search).get("service");
+    const requestedIndex = serviceSlugs.indexOf(requestedSlug ?? "");
+    const serviceSelect = document.getElementById("appointment-service");
+    if (requestedIndex !== -1 && serviceSelect instanceof HTMLSelectElement) {
+      serviceSelect.value = serviceNames[requestedIndex];
+    }
+  }, [serviceNames, serviceSlugs]);
 
   useEffect(() => {
     if (status !== "idle") {
@@ -190,7 +199,6 @@ export function AppointmentForm({ copy, serviceNames, defaultService }: Appointm
         label={copy.serviceLabel}
         defaultLabel={copy.serviceDefault}
         options={[...serviceNames, copy.serviceOther]}
-        defaultValue={defaultService}
         error={errors.service}
       />
 

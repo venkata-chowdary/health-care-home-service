@@ -9,9 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({ title: hospital.contactPage.seoTitle, description: hospital.contactPage.seoDescription, path: "/contact" });
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string }> }) {
-  const { service: requestedServiceSlug } = await searchParams;
-  const requestedService = hospital.services.find((existing) => existing.slug === requestedServiceSlug);
+export default function ContactPage() {
   const { navigation } = hospital;
 
   return (
@@ -28,7 +26,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
       />
 
       <main id="top">
-        <Enquiry title={hospital.contactPage.title} defaultService={requestedService?.name} surface={false} />
+        <Enquiry title={hospital.contactPage.title} surface={false} />
       </main>
 
       <SiteFooter homePath="/" />

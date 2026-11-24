@@ -6,11 +6,10 @@ import { hospital } from "@/data/hospital-content";
 
 type EnquiryProps = {
   title?: string;
-  defaultService?: string;
   surface?: boolean;
 };
 
-export function Enquiry({ title, defaultService, surface = true }: EnquiryProps) {
+export function Enquiry({ title, surface = true }: EnquiryProps) {
   const { enquiry, services, branches } = hospital;
 
   return (
@@ -19,7 +18,7 @@ export function Enquiry({ title, defaultService, surface = true }: EnquiryProps)
         <SectionHeading headingId="enquiry-heading" title={title ?? enquiry.title} lead={enquiry.lead} className="gap-[18px]!" />
         <CallButton />
       </div>
-      <EnquiryForm copy={enquiry} defaultService={defaultService} serviceNames={services.map((service) => service.name)} areaNames={branches.map((branch) => branch.name)} />
+      <EnquiryForm copy={enquiry} serviceNames={services.map((service) => service.name)} serviceSlugs={services.map((service) => service.slug ?? "")} areaNames={branches.map((branch) => branch.name)} />
     </Section>
   );
 }
